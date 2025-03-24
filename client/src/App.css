@@ -1,0 +1,45 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.page-container {
+  display: grid;
+  grid-template-rows: 50% 50%; /* Divide the page into two halves */
+  height: 100vh; /* Full viewport height */
+  width: 100vw; /* Full viewport width */
+}
+
+.upper-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%; /* Full width */
+}
+
+.lower-section {
+  display: grid;
+  grid-template-columns: 30% 30% 40%; /* Define the widths of the three sections */
+  gap: 0; /* No space between sections */
+  width: 100%; /* Full width */
+  border-top: 2px solid #ccc; /* Lighter line to separate upper and lower sections */
+}
+
+.left-section,
+.middle-section,
+.right-section {
+  border-left: 2px solid #ccc; /* Lighter lines to separate sections */
+}
+
+.middle-section,
+.right-section {
+  border-left: 2px solid #ccc; /* Lighter lines to separate middle and right sections */
+}
+
+.left-section {
+  border-left: none; /* Remove the left border from the left section */
+}

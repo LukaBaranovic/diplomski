@@ -1,0 +1,34 @@
+.cart-container {
+  margin: 20px;
+}
+
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.cart-table th,
+.cart-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.cart-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.cart-table tr {
+  background-color: white; /* Set all rows to white */
+}
+
+.cart-table tr:hover {
+  background-color: #d0e8f2; /* Light blue color when hovering */
+  cursor: pointer; /* Pointer cursor when hovering */
+}
+
+.cart-container .selected {
+  background-color: #add8e6; /* Light blue color for selected item */
+  border: 1px solid #ccc;
+}
