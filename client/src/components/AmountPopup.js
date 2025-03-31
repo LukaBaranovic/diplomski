@@ -40,7 +40,7 @@ const AmountPopup = ({ onClose, onSave, currentAmount }) => {
   return (
     <div className="amount-popup">
       <div className="amount-popup-content">
-        <h3>Enter New Amount</h3>
+        <h3>Unesi Količinu</h3>
         <input type="number" value={amount} onChange={handleChange} min="1" />
         <div className="amount-popup-buttons">
           <button onClick={decrementAmount}>-</button>
@@ -48,8 +48,8 @@ const AmountPopup = ({ onClose, onSave, currentAmount }) => {
         </div>
         {errorMessage && <p className="error-message">{errorMessage}</p>}
         <div className="amount-popup-buttons">
-          <button onClick={handleSave}>Save</button>
-          <button onClick={onClose}>Cancel</button>
+          <button onClick={handleSave}>Spremi</button>
+          <button onClick={onClose}>Otkaži</button>
         </div>
       </div>
     </div>

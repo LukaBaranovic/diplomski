@@ -1,0 +1,72 @@
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  width: 50%; /* Adjust the width if necessary */
+}
+
+.table-number-display {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.table-input {
+  width: 80%;
+  padding: 10px;
+  font-size: 24px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.popup-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between; /* Spread buttons evenly */
+}
+
+.clear-button,
+.save-button,
+.close-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  margin: 5px;
+}
+
+.clear-button,
+.save-button {
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.clear-button:hover,
+.save-button:hover {
+  background-color: #0056b3;
+}
+
+.close-button {
+  background-color: #dc3545;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  background-color: #c82333;
+}

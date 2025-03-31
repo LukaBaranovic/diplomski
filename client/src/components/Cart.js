@@ -36,7 +36,7 @@ const Cart = ({ items, saveReceipt, selectedItemId, setSelectedItemId }) => {
             </tbody>
           </table>
           <button className="save-receipt-button" onClick={saveReceipt}>
-            Save Receipt
+            Cash
           </button>
         </>
       )}
