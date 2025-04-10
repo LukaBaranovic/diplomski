@@ -44,8 +44,8 @@ app.post("/api/add-temporary-receipt", async (req, res) => {
       return connection.query(
         `INSERT INTO temporary_receipts (table_id, item_id, item_name, quantity, price, total_price) VALUES (?, ?, ?, ?, ?, ?)
         ON DUPLICATE KEY UPDATE 
-        quantity = VALUES(quantity),
-        total_price = VALUES(price) * VALUES(quantity)`,
+        quantity = quantity + VALUES(quantity),
+        total_price = price * (quantity + VALUES(quantity))`,
         [
           item.table_id,
           item.item_id,
@@ -187,14 +187,22 @@ app.post("/api/save-to-existing-table", async (req, res) => {
       );
 
       if (existingItem.length > 0) {
+        const newQuantity = existingItem[0].quantity + item.quantity;
+        const newTotalPrice = item.price * item.quantity;
+        console.log(
+          `Updating item: ${item.item_id}, existing quantity: ${existingItem[0].quantity}, item quantity: ${item.quantity}, new quantity: ${newQuantity}`
+        );
         await connection.query(
           `UPDATE temporary_receipts SET 
-            quantity = quantity + ?,
-            total_price = price * (quantity + ?)
+            quantity = ?,
+            total_price = ?
           WHERE table_id = ? AND item_id = ?`,
-          [item.quantity, item.quantity, table_id, item.item_id]
+          [item.quantity, newTotalPrice, table_id, item.item_id]
         );
       } else {
+        console.log(
+          `Inserting new item: ${item.item_id}, quantity: ${item.quantity}`
+        );
         await connection.query(
           `INSERT INTO temporary_receipts (table_id, item_id, item_name, quantity, price, total_price) VALUES (?, ?, ?, ?, ?, ?)`,
           [
