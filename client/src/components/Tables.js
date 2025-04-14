@@ -1,11 +1,15 @@
 import React from "react";
 import "./Tables.css";
 
-const Tables = ({ tables }) => {
+const Tables = ({ tables, onTableClick, deleteTable }) => {
   return (
     <div className="tables-container">
       {tables.map((table) => (
-        <div key={table.id} className="table">
+        <div
+          key={table.id}
+          className="table"
+          onClick={() => onTableClick(table.id)} // Trigger the popup on click
+        >
           <p>Table {table.id}</p>
           <table>
             <thead>

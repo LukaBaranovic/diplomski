@@ -1,4 +1,4 @@
-.popup {
+.popup-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -8,49 +8,51 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
 }
 
-.popup-inner {
+.popup-container {
   background: white;
   padding: 20px;
-  border-radius: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 50%;
+  max-height: 80%;
+  overflow-y: auto;
+}
+
+.popup-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.popup-table th,
+.popup-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
   text-align: center;
-  width: 50%; /* Set the popup width to 50% of the page */
 }
 
-.table-numbers {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 20px;
+.popup-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
 }
 
-.table-numbers button {
-  margin: 10px; /* Increased margin for better spacing */
-  padding: 15px; /* Increased padding for larger buttons */
-  font-size: 18px; /* Increased font size for larger numbers */
-  border: none;
-  background-color: #007bff;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
+.popup-total {
+  font-size: 18px;
+  text-align: right;
+  margin-top: 10px;
 }
 
-.table-numbers button:hover {
-  background-color: #0056b3;
-}
-
-.close-btn {
-  margin-top: 20px;
+.popup-close-button {
   padding: 10px 20px;
-  border: none;
-  background-color: #dc3545;
+  background-color: #f44336;
   color: white;
+  border: none;
   border-radius: 5px;
   cursor: pointer;
 }
 
-.close-btn:hover {
-  background-color: #c82333;
+.popup-close-button:hover {
+  background-color: #d32f2f;
 }

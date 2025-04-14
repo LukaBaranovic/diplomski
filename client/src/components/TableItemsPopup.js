@@ -2,19 +2,23 @@ import React from "react";
 import "./TableItemsPopup.css";
 
 const TableItemsPopup = ({ table, onClose }) => {
-  if (!table) return null;
+  // Calculate total price
+  const totalPrice = table.items.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
 
   return (
     <div className="popup-overlay">
-      <div className="popup-content">
+      <div className="popup-container">
         <h2>Table {table.id} Items</h2>
-        <table className="table-items">
+        <table className="popup-table">
           <thead>
             <tr>
               <th>Item Name</th>
               <th>Quantity</th>
               <th>Price</th>
-              <th>Total</th>
+              <th>Subtotal</th>
             </tr>
           </thead>
           <tbody>
@@ -22,13 +26,16 @@ const TableItemsPopup = ({ table, onClose }) => {
               <tr key={item.item_id}>
                 <td>{item.item_name}</td>
                 <td>{item.quantity}</td>
-                <td>{item.price}</td>
-                <td>{item.total_price}</td>
+                <td>{item.price.toFixed(2)} $</td>
+                <td>{(item.price * item.quantity).toFixed(2)} $</td>
               </tr>
             ))}
           </tbody>
         </table>
-        <button className="close-button" onClick={onClose}>
+        <div className="popup-total">
+          <strong>Total Price: {totalPrice.toFixed(2)} $</strong>
+        </div>
+        <button className="popup-close-button" onClick={onClose}>
           Close
         </button>
       </div>
