@@ -15,7 +15,6 @@ function App() {
   const [showAmountPopup, setShowAmountPopup] = useState(false); // Add state for showing amount popup
   const [showTableNumberPopup, setShowTableNumberPopup] = useState(false); // Add state for showing table number popup
   const [showTableSelectPopup, setShowTableSelectPopup] = useState(false); // Add state for showing table select popup
-  const [selectedTableId, setSelectedTableId] = useState(null); // Add state for selected table
 
   useEffect(() => {
     fetch("/api/categories")
@@ -300,50 +299,28 @@ function App() {
     return selectedItem ? selectedItem.quantity : 1;
   };
 
-  useEffect(() => {
-    if (selectedTableId !== null) {
-      const selectedTable = tables.find(
-        (table) => table.id === selectedTableId
-      );
-      if (selectedTable) {
-        setCartItems(selectedTable.items);
-      }
-    }
-  }, [selectedTableId, tables]);
-
   return (
     <div className="page-container">
       <div className="upper-section">
-        <CategoryList categories={categories} addItemToCart={addItemToCart} />{" "}
-        {/* Pass categories and addItemToCart to the new component */}
+        <CategoryList categories={categories} addItemToCart={addItemToCart} />
       </div>
       <div className="lower-section">
         <div className="left-section">
-          <Tables
-            tables={tables}
-            selectedTableId={selectedTableId}
-            setSelectedTableId={setSelectedTableId}
-            deleteTable={deleteTable}
-            deleteButtonText="Izbriši" // Update delete button text in lower left section
-          />
+          <Tables tables={tables} deleteTable={deleteTable} />
         </div>
         <div className="middle-section">
-          {/* Delete button */}
           <button onClick={deleteItemFromCart} disabled={!selectedItemId}>
             Izbriši
           </button>
-          {/* Amount button */}
           <button onClick={openAmountPopup} disabled={!selectedItemId}>
             Količina
           </button>
-          {/* Create New Table button */}
           <button
             onClick={openTableNumberPopup}
             disabled={cartItems.length === 0}
           >
             Novi stol
           </button>
-          {/* Save to Table button */}
           <button
             onClick={openTableSelectPopup}
             disabled={cartItems.length === 0}
@@ -357,9 +334,8 @@ function App() {
             saveReceipt={saveReceipt}
             selectedItemId={selectedItemId}
             setSelectedItemId={setSelectedItemId}
-            saveReceiptButtonText="Cash" // Update save receipt button text in lower right section
-          />{" "}
-          {/* Pass cartItems, saveReceipt, selectedItemId, and setSelectedItemId to the Cart component */}
+            saveReceiptButtonText="Cash"
+          />
         </div>
       </div>
       {showAmountPopup && (

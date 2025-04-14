@@ -1,20 +1,11 @@
 import React from "react";
 import "./Tables.css";
 
-const Tables = ({
-  tables,
-  selectedTableId,
-  setSelectedTableId,
-  deleteTable,
-}) => {
+const Tables = ({ tables }) => {
   return (
     <div className="tables-container">
       {tables.map((table) => (
-        <div
-          key={table.id}
-          className={`table ${selectedTableId === table.id ? "selected" : ""}`}
-          onClick={() => setSelectedTableId(table.id)}
-        >
+        <div key={table.id} className="table">
           <p>Table {table.id}</p>
           <table>
             <thead>
@@ -32,21 +23,13 @@ const Tables = ({
                   <td>
                     {typeof item.price === "number"
                       ? item.price.toFixed(2)
-                      : item.price}{" "}
-                    $
+                      : "N/A"}{" "}
+                    $ {/* Fallback to "N/A" if price is not a number */}
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              deleteTable(table.id);
-            }}
-          >
-            Izbriši
-          </button>
         </div>
       ))}
     </div>
