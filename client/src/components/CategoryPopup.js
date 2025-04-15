@@ -27,7 +27,9 @@ const CategoryPopup = ({
               <li key={item.item_id} className="item-container">
                 <p className="item-name">{item.item_name}</p>
                 <p className="item-price">€{item.item_price}</p>
-                <button onClick={() => addItemToCart(item)}>Dodaj</button>{" "}
+                <button onClick={() => addItemToCart(item)}>
+                  Add to Cart
+                </button>{" "}
                 {/* Add button to add items to cart */}
               </li>
             ))}
@@ -35,7 +37,7 @@ const CategoryPopup = ({
         ) : (
           <p>No items found for this category.</p>
         )}
-        <button onClick={onClose}>Zatvori</button>
+        <button onClick={onClose}>Close</button>
       </div>
     </div>
   );
