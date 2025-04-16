@@ -1,5 +1,12 @@
 const db = require("./dbConfig"); // Import the database configuration
 
+// Helper function to check if a table exists in the database
+const checkTableExists = async (tableNumber) => {
+  const checkTableSql = `SELECT COUNT(*) AS count FROM table_cart WHERE table_number = ?`;
+  const [rows] = await db.execute(checkTableSql, [tableNumber]);
+  return rows[0].count > 0; // Returns true if table exists
+};
+
 /**
  * Controller to handle creating a table and inserting cart items into the database.
  * Checks if the table exists before inserting items.
@@ -9,24 +16,20 @@ const createTable = async (req, res) => {
 
   // Validate the input
   if (!tableNumber || !items || items.length === 0) {
-    return res.status(400).json({ error: "Invalid table number or items" });
+    return res
+      .status(400)
+      .json({ error: "Table number or items are missing or invalid." });
   }
 
   try {
-    // Check if the table number already exists in the database
-    const checkTableSql = `SELECT COUNT(*) AS count FROM table_cart WHERE table_number = ?`;
-    const [rows] = await db.execute(checkTableSql, [tableNumber]);
-
-    const tableExists = rows[0].count > 0;
-
+    const tableExists = await checkTableExists(tableNumber);
     if (tableExists) {
-      // If the table already exists, return a warning and exit
       return res
         .status(409)
         .json({ error: `Table ${tableNumber} is already taken.` });
     }
 
-    // If table doesn't exist, insert the items into the table_cart
+    // Insert items into the table_cart
     const insertSql = `
       INSERT INTO table_cart (table_number, item_id, item_name, quantity, item_price)
       VALUES (?, ?, ?, ?, ?)
@@ -43,18 +46,16 @@ const createTable = async (req, res) => {
     );
 
     await Promise.all(promises);
-
-    // After inserting all items, send a success response
     res.status(200).json({ message: "Table created successfully" });
   } catch (err) {
-    // Handle any database errors
     console.error(err);
     res.status(500).json({ error: "Failed to create table" });
   }
 };
 
-module.exports = { createTable };
-
+/**
+ * Controller to fetch all available (open) tables.
+ */
 const getAvailableTables = async (req, res) => {
   const sql = `SELECT DISTINCT table_number FROM table_cart`;
 
@@ -63,7 +64,9 @@ const getAvailableTables = async (req, res) => {
     res.status(200).json(rows.map((row) => row.table_number)); // Send table numbers as an array
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Failed to fetch available tables." });
+    res
+      .status(500)
+      .json({ error: "Unable to fetch available tables at this time." });
   }
 };
 
@@ -76,15 +79,13 @@ const addToTable = async (req, res) => {
 
   // Validate the input
   if (!tableNumber || !items || items.length === 0) {
-    return res.status(400).json({ error: "Invalid table number or items." });
+    return res
+      .status(400)
+      .json({ error: "Table number or items are missing or invalid." });
   }
 
   try {
-    // Check if the table exists in the database
-    const checkTableSql = `SELECT COUNT(*) AS count FROM table_cart WHERE table_number = ?`;
-    const [rows] = await db.execute(checkTableSql, [tableNumber]);
-
-    const tableExists = rows[0].count > 0;
+    const tableExists = await checkTableExists(tableNumber);
     if (!tableExists) {
       return res
         .status(404)
@@ -93,7 +94,6 @@ const addToTable = async (req, res) => {
 
     // Merge or insert each item into the table
     const mergeOrInsertPromises = items.map(async (item) => {
-      // Check if the item already exists in the table
       const checkItemSql = `
         SELECT quantity FROM table_cart
         WHERE table_number = ? AND item_id = ?
@@ -104,7 +104,6 @@ const addToTable = async (req, res) => {
       ]);
 
       if (itemRows.length > 0) {
-        // Item exists, merge quantities
         const newQuantity = itemRows[0].quantity + item.quantity;
         const updateItemSql = `
           UPDATE table_cart
@@ -117,7 +116,6 @@ const addToTable = async (req, res) => {
           item.item_id,
         ]);
       } else {
-        // Item does not exist, insert a new row
         const insertItemSql = `
           INSERT INTO table_cart (table_number, item_id, item_name, quantity, item_price)
           VALUES (?, ?, ?, ?, ?)
@@ -133,7 +131,6 @@ const addToTable = async (req, res) => {
     });
 
     await Promise.all(mergeOrInsertPromises);
-
     res.status(200).json({ message: "Items added to table successfully." });
   } catch (err) {
     console.error(err);
