@@ -5,6 +5,7 @@ html {
   height: 100%;
   width: 100%;
   box-sizing: border-box;
+  overflow: hidden; /* Prevent the entire page from scrolling */
 }
 
 .page-container {
@@ -27,12 +28,14 @@ html {
   gap: 0; /* No space between sections */
   width: 100%; /* Full width */
   border-top: 2px solid #ccc; /* Lighter line to separate upper and lower sections */
+  height: 100%; /* Ensure the lower section takes up its allocated space */
 }
 
 .left-section,
 .middle-section,
 .right-section {
   border-left: 2px solid #ccc; /* Lighter lines to separate sections */
+  overflow: hidden; /* Prevent sections from overflowing unnecessarily */
 }
 
 .middle-section,
@@ -42,4 +45,8 @@ html {
 
 .left-section {
   border-left: none; /* Remove the left border from the left section */
+  overflow-y: auto; /* Enable vertical scrolling for the left section */
+  max-height: 100%; /* Ensure it respects the height of the parent container */
+  padding: 10px;
+  background-color: #f9f9f9; /* Optional: Add a background color for clarity */
 }

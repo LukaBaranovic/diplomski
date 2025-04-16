@@ -4,6 +4,7 @@ import Cart from "./components/Cart";
 import AmountPopup from "./components/AmountPopup";
 import CreateTable from "./components/CreateTable"; // Import CreateTable component
 import AddToTable from "./components/AddToTable"; // Import AddToTable component
+import TablesDisplay from "./components/TablesDisplay"; // Import TablesDisplay component
 import "./App.css";
 
 function App() {
@@ -140,7 +141,10 @@ function App() {
         <CategoryList categories={categories} addItemToCart={addItemToCart} />
       </div>
       <div className="lower-section">
-        <div className="left-section">{/* Content for the left section */}</div>
+        <div className="left-section">
+          {/* Add the TablesDisplay component in the left section */}
+          <TablesDisplay />
+        </div>
         <div className="middle-section">
           {/* Delete button */}
           <button onClick={deleteItemFromCart} disabled={!selectedItemId}>

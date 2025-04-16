@@ -35,13 +35,27 @@ const TablesDisplay = () => {
         tables.map((table) => (
           <div key={table.table_number} className="table-container">
             <h4>Table {table.table_number}</h4>
-            <ul>
-              {table.items.map((item) => (
-                <li key={item.item_id}>
-                  {item.item_name} - Quantity: {item.quantity}
-                </li>
-              ))}
-            </ul>
+            <table className="items-table">
+              <tbody>
+                {table.items.map((item, index) => (
+                  <React.Fragment key={item.item_id}>
+                    <tr>
+                      <td className="item-name">{item.item_name}</td>
+                      <td className="item-quantity">
+                        Quantity: {item.quantity}
+                      </td>
+                    </tr>
+                    {index < table.items.length - 1 && (
+                      <tr>
+                        <td colSpan="2">
+                          <hr className="item-divider" />
+                        </td>
+                      </tr>
+                    )}
+                  </React.Fragment>
+                ))}
+              </tbody>
+            </table>
           </div>
         ))
       )}

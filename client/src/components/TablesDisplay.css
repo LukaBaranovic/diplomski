@@ -1,0 +1,57 @@
+.tables-display-container {
+  padding: 5px; /* Reduce padding inside the main container */
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.tables-display-container h3 {
+  margin-bottom: 5px; /* Reduce spacing below the title */
+  font-size: 18px;
+}
+
+.table-container {
+  margin-bottom: 10px; /* Reduce spacing between tables */
+  padding: 5px; /* Reduce padding inside each table container */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  transition: background-color 0.2s ease; /* Smooth hover animation */
+}
+
+.table-container:hover {
+  background-color: #f0f0f0; /* Lighten background color on hover */
+  cursor: pointer; /* Make the cursor a pointer */
+}
+
+.table-container h4 {
+  margin-bottom: 5px; /* Reduce space below each table title */
+  font-size: 16px;
+}
+
+.items-table {
+  width: 100%;
+  border-collapse: collapse; /* Remove extra spacing between table rows */
+}
+
+.items-table tbody tr {
+  vertical-align: top;
+}
+
+.item-name {
+  font-weight: bold;
+  padding: 5px; /* Reduce padding in table cells */
+  width: 70%;
+}
+
+.item-quantity {
+  padding: 5px; /* Reduce padding in table cells */
+  text-align: right;
+  width: 30%;
+}
+
+.item-divider {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 5px 0; /* Reduce spacing around the divider */
+}
