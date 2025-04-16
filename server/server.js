@@ -1,7 +1,11 @@
 const express = require("express");
 const { getCategories, getItemsByCategory } = require("./categoryController");
 const receiptController = require("./receiptController");
-const { createTable } = require("./tableController"); // Import the tableController
+const {
+  createTable,
+  getAvailableTables,
+  addToTable,
+} = require("./tableController"); // Import the new functions
 const db = require("./dbConfig");
 const bodyParser = require("body-parser");
 
@@ -23,5 +27,8 @@ db.getConnection((err, connection) => {
 app.get("/api/categories", getCategories);
 app.get("/api/items/:categoryId", getItemsByCategory);
 app.post("/api/createTable", createTable); // Link the createTable route
+app.get("/api/getAvailableTables", getAvailableTables); // Add route for getting available tables
+app.post("/api/addToTable", addToTable); // Add route for adding items to an existing table
 
+// Start the server
 app.listen(4500, () => console.log("Server running on port 4500"));

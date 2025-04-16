@@ -54,3 +54,91 @@ const createTable = async (req, res) => {
 };
 
 module.exports = { createTable };
+
+const getAvailableTables = async (req, res) => {
+  const sql = `SELECT DISTINCT table_number FROM table_cart`;
+
+  try {
+    const [rows] = await db.execute(sql); // Fetch distinct table numbers
+    res.status(200).json(rows.map((row) => row.table_number)); // Send table numbers as an array
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch available tables." });
+  }
+};
+
+/**
+ * Controller to handle adding items to an existing table.
+ * Merges quantities if the item already exists in the table.
+ */
+const addToTable = async (req, res) => {
+  const { tableNumber, items } = req.body;
+
+  // Validate the input
+  if (!tableNumber || !items || items.length === 0) {
+    return res.status(400).json({ error: "Invalid table number or items." });
+  }
+
+  try {
+    // Check if the table exists in the database
+    const checkTableSql = `SELECT COUNT(*) AS count FROM table_cart WHERE table_number = ?`;
+    const [rows] = await db.execute(checkTableSql, [tableNumber]);
+
+    const tableExists = rows[0].count > 0;
+    if (!tableExists) {
+      return res
+        .status(404)
+        .json({ error: `Table ${tableNumber} does not exist.` });
+    }
+
+    // Merge or insert each item into the table
+    const mergeOrInsertPromises = items.map(async (item) => {
+      // Check if the item already exists in the table
+      const checkItemSql = `
+        SELECT quantity FROM table_cart
+        WHERE table_number = ? AND item_id = ?
+      `;
+      const [itemRows] = await db.execute(checkItemSql, [
+        tableNumber,
+        item.item_id,
+      ]);
+
+      if (itemRows.length > 0) {
+        // Item exists, merge quantities
+        const newQuantity = itemRows[0].quantity + item.quantity;
+        const updateItemSql = `
+          UPDATE table_cart
+          SET quantity = ?
+          WHERE table_number = ? AND item_id = ?
+        `;
+        return db.execute(updateItemSql, [
+          newQuantity,
+          tableNumber,
+          item.item_id,
+        ]);
+      } else {
+        // Item does not exist, insert a new row
+        const insertItemSql = `
+          INSERT INTO table_cart (table_number, item_id, item_name, quantity, item_price)
+          VALUES (?, ?, ?, ?, ?)
+        `;
+        return db.execute(insertItemSql, [
+          tableNumber,
+          item.item_id,
+          item.item_name,
+          item.quantity,
+          item.item_price,
+        ]);
+      }
+    });
+
+    await Promise.all(mergeOrInsertPromises);
+
+    res.status(200).json({ message: "Items added to table successfully." });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to add items to the table." });
+  }
+};
+
+module.exports = { createTable, getAvailableTables, addToTable };

@@ -3,6 +3,7 @@ import CategoryList from "./components/CategoryList";
 import Cart from "./components/Cart";
 import AmountPopup from "./components/AmountPopup";
 import CreateTable from "./components/CreateTable"; // Import CreateTable component
+import AddToTable from "./components/AddToTable"; // Import AddToTable component
 import "./App.css";
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
   const [selectedItemId, setSelectedItemId] = useState(null);
   const [showAmountPopup, setShowAmountPopup] = useState(false);
   const [showCreateTablePopup, setShowCreateTablePopup] = useState(false); // State for CreateTable popup
+  const [showAddToTablePopup, setShowAddToTablePopup] = useState(false); // State for AddToTable popup
 
   useEffect(() => {
     // Fetch categories from the server
@@ -102,6 +104,35 @@ function App() {
       });
   };
 
+  // Function to handle adding items to an existing table
+  const handleAddToTable = (tableNumber) => {
+    // Send a POST request to the backend to add cart items to an existing table
+    fetch("/api/addToTable", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        tableNumber,
+        items: cartItems,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error) {
+          alert(data.error); // Display the error message
+        } else {
+          alert(data.message); // Success message
+          setShowAddToTablePopup(false); // Close the popup
+          setCartItems([]); // Clear the cart
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        alert("An error occurred while adding items to the table.");
+      });
+  };
+
   return (
     <div className="page-container">
       <div className="upper-section">
@@ -126,6 +157,13 @@ function App() {
           >
             Create Table
           </button>
+          {/* Add to Table button */}
+          <button
+            onClick={() => setShowAddToTablePopup(true)}
+            disabled={cartItems.length === 0}
+          >
+            Add to Table
+          </button>
         </div>
         <div className="right-section">
           {/* Pass cartItems, selectedItemId, and setSelectedItemId to the Cart component */}
@@ -147,6 +185,12 @@ function App() {
         <CreateTable
           onClose={() => setShowCreateTablePopup(false)}
           onSave={handleSaveTable}
+        />
+      )}
+      {showAddToTablePopup && (
+        <AddToTable
+          onClose={() => setShowAddToTablePopup(false)}
+          onSave={handleAddToTable}
         />
       )}
     </div>
