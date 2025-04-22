@@ -7,7 +7,7 @@ const TablesDisplay = () => {
   const [error, setError] = useState("");
   const [selectedTable, setSelectedTable] = useState(null); // State for popup
 
-  // Fetch tables and their items from the backend
+  // Fetch tables for display
   const fetchTables = () => {
     fetch("/api/getTablesWithItems")
       .then((res) => {
@@ -20,15 +20,14 @@ const TablesDisplay = () => {
       .catch((err) => setError("Failed to load table data."));
   };
 
-  // Fetch table details for the popup
+  // Fetch only the table_id for the popup
   const fetchTableDetails = (tableNumber) => {
     fetch(`/api/getTablePopupDetails/${tableNumber}`)
       .then((res) => res.json())
       .then((data) => {
         setSelectedTable({
           tableNumber,
-          items: data.items,
-          totalPrice: data.totalPrice,
+          tableId: data.table_id, // Store only the table_id
         });
       })
       .catch((err) => console.error("Failed to fetch table details:", err));
@@ -85,8 +84,7 @@ const TablesDisplay = () => {
       {selectedTable && (
         <TablePopup
           tableNumber={selectedTable.tableNumber}
-          items={selectedTable.items}
-          totalPrice={selectedTable.totalPrice}
+          tableId={selectedTable.tableId} // Pass only the table_id
           onClose={closePopup}
         />
       )}

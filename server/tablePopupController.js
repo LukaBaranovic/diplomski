@@ -1,26 +1,25 @@
 const db = require("./dbConfig");
 
+// Fetch only the table_id for the popup
 const getTablePopupDetails = async (req, res) => {
   const { tableNumber } = req.params;
 
   try {
     const query = `
-      SELECT item_id, item_name, quantity, price, (quantity * price) AS total_price
+      SELECT table_id
       FROM temporary_receipts
-      WHERE table_id = ?
+      WHERE table_id = ? LIMIT 1
     `;
     const [rows] = await db.execute(query, [tableNumber]);
 
     if (rows.length === 0) {
-      return res.status(404).json({ error: "No items found for this table." });
+      return res.status(404).json({ error: "Table not found." });
     }
 
-    const totalPrice = rows.reduce((sum, item) => sum + item.total_price, 0);
-
-    res.json({ items: rows, totalPrice });
+    res.json({ table_id: rows[0].table_id });
   } catch (error) {
-    console.error("Error fetching table popup details:", error);
-    res.status(500).json({ error: "Failed to fetch table popup details." });
+    console.error("Error fetching table ID:", error);
+    res.status(500).json({ error: "Failed to fetch table ID." });
   }
 };
 
