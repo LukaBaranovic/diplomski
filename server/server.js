@@ -7,6 +7,7 @@ const {
   addToTable,
 } = require("./tableController"); // Import functions from tableController
 const { getTablesWithItems } = require("./tableDisplayController"); // Import functions from tableDisplayController
+const { getTablePopupDetails } = require("./tablePopupController"); // Import the new function for table popup details
 const db = require("./dbConfig");
 const bodyParser = require("body-parser");
 
@@ -30,7 +31,8 @@ app.get("/api/items/:categoryId", getItemsByCategory); // Route to get items by 
 app.post("/api/createTable", createTable); // Route to create a table
 app.get("/api/getAvailableTables", getAvailableTables); // Route to get available tables
 app.post("/api/addToTable", addToTable); // Route to add items to an existing table
-app.get("/api/getTablesWithItems", getTablesWithItems); // Updated route to fetch tables and their items for display
+app.get("/api/getTablesWithItems", getTablesWithItems); // Route to fetch tables and their items for display
+app.get("/api/getTablePopupDetails/:tableNumber", getTablePopupDetails); // New route to fetch table popup details
 
 // Start the server
 app.listen(4500, () => console.log("Server running on port 4500"));

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./TablesDisplay.css";
+import TablePopup from "./TablePopup";
 
 const TablesDisplay = () => {
   const [tables, setTables] = useState([]);
   const [error, setError] = useState("");
+  const [selectedTable, setSelectedTable] = useState(null); // State for popup
 
   // Fetch tables and their items from the backend
   const fetchTables = () => {
@@ -17,6 +19,23 @@ const TablesDisplay = () => {
       .then((data) => setTables(data))
       .catch((err) => setError("Failed to load table data."));
   };
+
+  // Fetch table details for the popup
+  const fetchTableDetails = (tableNumber) => {
+    fetch(`/api/getTablePopupDetails/${tableNumber}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setSelectedTable({
+          tableNumber,
+          items: data.items,
+          totalPrice: data.totalPrice,
+        });
+      })
+      .catch((err) => console.error("Failed to fetch table details:", err));
+  };
+
+  // Close popup
+  const closePopup = () => setSelectedTable(null);
 
   // Fetch data on component mount and periodically refresh every 10 seconds
   useEffect(() => {
@@ -33,7 +52,11 @@ const TablesDisplay = () => {
         <p>No tables available.</p>
       ) : (
         tables.map((table) => (
-          <div key={table.table_number} className="table-container">
+          <div
+            key={table.table_number}
+            className="table-container"
+            onClick={() => fetchTableDetails(table.table_number)}
+          >
             <h4>Table {table.table_number}</h4>
             <table className="items-table">
               <tbody>
@@ -58,6 +81,14 @@ const TablesDisplay = () => {
             </table>
           </div>
         ))
+      )}
+      {selectedTable && (
+        <TablePopup
+          tableNumber={selectedTable.tableNumber}
+          items={selectedTable.items}
+          totalPrice={selectedTable.totalPrice}
+          onClose={closePopup}
+        />
       )}
     </div>
   );
