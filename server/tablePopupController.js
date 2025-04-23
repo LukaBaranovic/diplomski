@@ -1,15 +1,15 @@
 const db = require("./dbConfig");
 
-// Fetch all rows for a given table_id
+// Fetch all rows for a given table_number from table_cart
 const getTablePopupDetails = async (req, res) => {
-  const { tableNumber } = req.params; // tableNumber is the table_id
+  const { tableNumber } = req.params; // tableNumber corresponds to table_number in table_cart
 
   try {
-    // Query to fetch all rows for the given table_id
+    // Query to fetch rows from table_cart for the given table_number
     const query = `
-      SELECT item_name, quantity, price, total_price
-      FROM temporary_receipts
-      WHERE table_id = ?
+      SELECT item_name, quantity, item_price, (quantity * item_price) AS total_price
+      FROM table_cart
+      WHERE table_number = ?
     `;
     const [rows] = await db.execute(query, [tableNumber]);
 
@@ -17,7 +17,7 @@ const getTablePopupDetails = async (req, res) => {
       return res.status(404).json({ error: "No items found for this table." });
     }
 
-    // Calculate the full price (sum of total_price for all rows)
+    // Calculate the total price for the table
     const fullPrice = rows.reduce((sum, item) => sum + item.total_price, 0);
 
     res.json({ items: rows, fullPrice });

@@ -20,14 +20,15 @@ const TablesDisplay = () => {
       .catch((err) => setError("Failed to load table data."));
   };
 
-  // Fetch only the table_id for the popup
+  // Fetch table details for the popup
   const fetchTableDetails = (tableNumber) => {
     fetch(`/api/getTablePopupDetails/${tableNumber}`)
       .then((res) => res.json())
       .then((data) => {
         setSelectedTable({
           tableNumber,
-          tableId: data.table_id, // Store only the table_id
+          tableId: tableNumber, // Use tableNumber as tableId
+          items: data.items || [], // Pass rows from table_cart
         });
       })
       .catch((err) => console.error("Failed to fetch table details:", err));
@@ -84,7 +85,8 @@ const TablesDisplay = () => {
       {selectedTable && (
         <TablePopup
           tableNumber={selectedTable.tableNumber}
-          tableId={selectedTable.tableId} // Pass only the table_id
+          tableId={selectedTable.tableId} // Pass table_id
+          items={selectedTable.items} // Pass items
           onClose={closePopup}
         />
       )}
