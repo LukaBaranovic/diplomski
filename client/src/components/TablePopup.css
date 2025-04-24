@@ -117,3 +117,18 @@
 .confirm-btn:hover {
   background-color: #1e7e34;
 }
+
+/* Delete Table Button styling */
+.delete-table-button {
+  background-color: #ff4d4d; /* Same as delete item button */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.delete-table-button:hover {
+  background-color: #cc0000;
+}

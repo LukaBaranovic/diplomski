@@ -115,4 +115,41 @@ const updateItemQuantity = async (req, res) => {
   }
 };
 
-module.exports = { getTableItemsByNumber, deleteTableItem, updateItemQuantity };
+const deleteTable = async (req, res) => {
+  const { table_number } = req.body;
+
+  if (!table_number) {
+    return res.status(400).json({ error: "Missing table_number." });
+  }
+
+  const deleteItemsQuery = `
+    DELETE FROM table_cart_items
+    WHERE table_id = (SELECT table_id FROM tables WHERE table_number = ?);
+  `;
+
+  const deleteTableQuery = `
+    DELETE FROM tables WHERE table_number = ?;
+  `;
+
+  try {
+    // Start by deleting all table items
+    await db.execute(deleteItemsQuery, [table_number]);
+
+    // Then delete the table itself
+    await db.execute(deleteTableQuery, [table_number]);
+
+    res
+      .status(200)
+      .json({ message: "Table and its items deleted successfully." });
+  } catch (err) {
+    console.error("Error deleting table:", err.message);
+    res.status(500).json({ error: "Failed to delete the table." });
+  }
+};
+
+module.exports = {
+  getTableItemsByNumber,
+  deleteTableItem,
+  updateItemQuantity,
+  deleteTable,
+};

@@ -91,6 +91,34 @@ const TablePopup = ({ tableNumber, onClose }) => {
       .catch(() => setError(`Failed to update quantity for "${itemName}".`));
   };
 
+  // Handle deleting the entire table
+  const handleDeleteTable = () => {
+    const confirmDelete = window.confirm(
+      `Are you sure you want to delete this table? This action cannot be undone.`
+    );
+    if (!confirmDelete) return;
+
+    // Send a delete request to the backend
+    fetch(`/api/deleteTable`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        table_number: tableNumber,
+      }),
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Failed to delete the table.");
+        }
+        return res.json();
+      })
+      .then(() => {
+        onClose(); // Close the popup after successful deletion
+        setError(""); // Clear any previous errors
+      })
+      .catch(() => setError("Failed to delete the table."));
+  };
+
   if (error) {
     return (
       <div className="popup-overlay">
@@ -138,21 +166,6 @@ const TablePopup = ({ tableNumber, onClose }) => {
             {tableItems.map((item, index) => (
               <tr key={index}>
                 <td>{item.item_name}</td>
-                <td>{updatedQuantities[item.item_name]}</td>
-                <td>
-                  $
-                  {(
-                    updatedQuantities[item.item_name] * item.item_price
-                  ).toFixed(2)}
-                </td>
-                <td>
-                  <button
-                    className="delete-button"
-                    onClick={() => handleDelete(item.item_name)}
-                  >
-                    Delete
-                  </button>
-                </td>
                 <td>
                   <div className="quantity-controller">
                     <button
@@ -176,10 +189,28 @@ const TablePopup = ({ tableNumber, onClose }) => {
                     </button>
                   </div>
                 </td>
+                <td>
+                  $
+                  {(
+                    updatedQuantities[item.item_name] * item.item_price
+                  ).toFixed(2)}
+                </td>
+                <td>
+                  <button
+                    className="delete-button"
+                    onClick={() => handleDelete(item.item_name)}
+                  >
+                    Delete
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
+        {/* Add Delete Table Button */}
+        <button className="delete-table-button" onClick={handleDeleteTable}>
+          Delete Table
+        </button>
       </div>
     </div>
   );
