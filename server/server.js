@@ -5,9 +5,8 @@ const {
   createTable,
   getAvailableTables,
   addToTable,
-} = require("./tableController"); // Import functions from tableController
-const { getTablesWithItems } = require("./tableDisplayController"); // Import functions from tableDisplayController
-const { getTablePopupDetails } = require("./tablePopupController"); // Import the new function for table popup details
+} = require("./tableController"); // Import the functions from tableController
+const { getTableData } = require("./tableDisplayController"); // Import the function from tableDisplayController
 const db = require("./dbConfig");
 const bodyParser = require("body-parser");
 
@@ -26,13 +25,12 @@ db.getConnection((err, connection) => {
 });
 
 // Define routes
-app.get("/api/categories", getCategories); // Route to get categories
-app.get("/api/items/:categoryId", getItemsByCategory); // Route to get items by category
-app.post("/api/createTable", createTable); // Route to create a table
-app.get("/api/getAvailableTables", getAvailableTables); // Route to get available tables
-app.post("/api/addToTable", addToTable); // Route to add items to an existing table
-app.get("/api/getTablesWithItems", getTablesWithItems); // Route to fetch tables and their items for display
-app.get("/api/getTablePopupDetails/:tableNumber", getTablePopupDetails); // New route to fetch table popup details
+app.get("/api/categories", getCategories);
+app.get("/api/items/:categoryId", getItemsByCategory);
+app.post("/api/createTable", createTable); // Link the createTable route
+app.get("/api/getAvailableTables", getAvailableTables); // Add route for getting available tables
+app.post("/api/addToTable", addToTable); // Add route for adding items to an existing table
+app.get("/api/getTableData", getTableData); // Add route for fetching table data
 
 // Start the server
 app.listen(4500, () => console.log("Server running on port 4500"));

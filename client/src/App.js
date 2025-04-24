@@ -4,7 +4,7 @@ import Cart from "./components/Cart";
 import AmountPopup from "./components/AmountPopup";
 import CreateTable from "./components/CreateTable"; // Import CreateTable component
 import AddToTable from "./components/AddToTable"; // Import AddToTable component
-import TablesDisplay from "./components/TablesDisplay"; // Import TablesDisplay component
+import TableDisplay from "./components/TableDisplay"; // Import TableDisplay component
 import "./App.css";
 
 function App() {
@@ -142,8 +142,8 @@ function App() {
       </div>
       <div className="lower-section">
         <div className="left-section">
-          {/* Add the TablesDisplay component in the left section */}
-          <TablesDisplay />
+          {/* Display temporary tables using the TableDisplay component */}
+          <TableDisplay />
         </div>
         <div className="middle-section">
           {/* Delete button */}

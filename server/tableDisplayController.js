@@ -1,31 +1,27 @@
-const db = require("./dbConfig"); // Import the database configuration
+const db = require("./dbConfig"); // Import database configuration
 
 /**
- * Controller to fetch all tables and their items from the database.
- * Groups items by table_number and returns their item names and quantities.
+ * Controller to fetch table data and associated items.
  */
-const getTablesWithItems = async (req, res) => {
-  const sql = `
-    SELECT 
-      table_number, 
-      item_id, 
-      item_name, 
-      quantity 
-    FROM 
-      table_cart
-    ORDER BY 
-      table_number, item_name
+const getTableData = async (req, res) => {
+  const query = `
+    SELECT t.table_number, c.item_id, c.item_name, c.quantity
+    FROM tables t
+    LEFT JOIN table_cart_items c ON t.table_id = c.table_id
+    ORDER BY t.table_number, c.item_name;
   `;
 
   try {
-    const [rows] = await db.execute(sql);
-    console.log("Query Result:", rows); // Log the result for debugging
+    const [rows] = await db.execute(query);
 
-    // Group items by table_number
-    const tables = rows.reduce((acc, row) => {
-      const table = acc.find((t) => t.table_number === row.table_number);
-      if (table) {
-        table.items.push({
+    // Transform the data into the desired format
+    const tableData = rows.reduce((acc, row) => {
+      const existingTable = acc.find(
+        (table) => table.table_number === row.table_number
+      );
+
+      if (existingTable) {
+        existingTable.items.push({
           item_id: row.item_id,
           item_name: row.item_name,
           quantity: row.quantity,
@@ -33,23 +29,26 @@ const getTablesWithItems = async (req, res) => {
       } else {
         acc.push({
           table_number: row.table_number,
-          items: [
-            {
-              item_id: row.item_id,
-              item_name: row.item_name,
-              quantity: row.quantity,
-            },
-          ],
+          items: row.item_id
+            ? [
+                {
+                  item_id: row.item_id,
+                  item_name: row.item_name,
+                  quantity: row.quantity,
+                },
+              ]
+            : [],
         });
       }
+
       return acc;
     }, []);
 
-    res.status(200).json(tables);
+    res.status(200).json(tableData);
   } catch (err) {
-    console.error("Database Query Error:", err); // Log any database errors
-    res.status(500).json({ error: "Failed to fetch tables and their items." });
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch table data." });
   }
 };
 
-module.exports = { getTablesWithItems };
+module.exports = { getTableData };
