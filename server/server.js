@@ -1,4 +1,6 @@
 const express = require("express");
+const bodyParser = require("body-parser");
+const db = require("./dbConfig"); // Import database configuration
 const { getCategories, getItemsByCategory } = require("./categoryController");
 const receiptController = require("./receiptController");
 const {
@@ -6,10 +8,11 @@ const {
   getAvailableTables,
   addToTable,
 } = require("./tableController"); // Import the functions from tableController
+const {
+  getTableItemsByNumber,
+  deleteTableItem,
+} = require("./tablePopupController"); // Import tablePopupController functions
 const { getTableData } = require("./tableDisplayController"); // Import the function from tableDisplayController
-const { getTableItemsByNumber } = require("./tablePopupController"); // Import the function for fetching table-specific items
-const db = require("./dbConfig");
-const bodyParser = require("body-parser");
 
 const app = express();
 
@@ -33,6 +36,7 @@ app.get("/api/getAvailableTables", getAvailableTables); // Add route for getting
 app.post("/api/addToTable", addToTable); // Add route for adding items to an existing table
 app.get("/api/getTableData", getTableData); // Add route for fetching table data
 app.get("/api/getTableItemsByNumber/:tableNumber", getTableItemsByNumber); // Add route for fetching items for a specific table
+app.delete("/api/deleteTableItem", deleteTableItem); // Add route for deleting a specific item from a table
 
 // Start the server
 app.listen(4500, () => console.log("Server running on port 4500"));

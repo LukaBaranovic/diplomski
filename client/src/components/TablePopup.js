@@ -15,8 +15,36 @@ const TablePopup = ({ tableNumber, onClose }) => {
         return res.json();
       })
       .then((data) => setTableItems(data))
-      .catch(() => setError("No items available for this table."));
+      .catch(() => setError("Failed to load table items."));
   }, [tableNumber]);
+
+  // Handler for deleting an item
+  const handleDelete = (itemName) => {
+    const confirmDelete = window.confirm(
+      `Are you sure you want to delete the item "${itemName}"?`
+    );
+    if (!confirmDelete) return;
+
+    // Send a delete request to the backend
+    fetch(`/api/deleteTableItem`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        table_number: tableNumber,
+        item_name: itemName,
+      }),
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Failed to delete the item.");
+        }
+        return res.json();
+      })
+      .then((updatedItems) => {
+        setTableItems(updatedItems); // Update the table with the new list
+      })
+      .catch(() => setError("Failed to delete the item. Please try again."));
+  };
 
   if (error) {
     return (
@@ -57,6 +85,7 @@ const TablePopup = ({ tableNumber, onClose }) => {
               <th>Item Name</th>
               <th>Quantity</th>
               <th>Total Price</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -65,6 +94,14 @@ const TablePopup = ({ tableNumber, onClose }) => {
                 <td>{item.item_name}</td>
                 <td>{item.quantity}</td>
                 <td>${Number(item.total_price).toFixed(2)}</td>
+                <td>
+                  <button
+                    className="delete-button"
+                    onClick={() => handleDelete(item.item_name)}
+                  >
+                    Delete
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>

@@ -33,12 +33,12 @@
   border: none;
   font-size: 24px;
   font-weight: bold;
-  color: #333; /* Ensure the button is visible at all times */
+  color: #333;
   cursor: pointer;
 }
 
 .close-button:hover {
-  color: red; /* Change color on hover for emphasis */
+  color: red;
 }
 
 /* Error message styling */
@@ -51,17 +51,16 @@
 .item-table {
   width: 100%;
   border-collapse: collapse; /* Remove spacing between table cells */
-  margin-top: 20px; /* Add spacing between heading and table */
+  margin-top: 20px;
 }
 
 .item-table th,
 .item-table td {
   padding: 12px 10px; /* Even padding for cells */
-  text-align: left; /* Align text to the left */
+  text-align: left;
   border-bottom: 1px solid #ddd; /* Add white line between rows */
 }
 
-/* Table header */
 .item-table th {
   background-color: #f4f4f4; /* Light grey background for header */
   font-weight: bold;
@@ -70,4 +69,18 @@
 /* Hover effect for rows */
 .item-table tr:hover {
   background-color: #f9f9f9; /* Light grey background on hover */
+}
+
+/* Delete button styling */
+.delete-button {
+  background-color: #ff4d4d; /* Red background */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  background-color: #cc0000; /* Darker red on hover */
 }
