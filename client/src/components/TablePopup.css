@@ -51,13 +51,13 @@
 .item-table {
   width: 100%;
   border-collapse: collapse; /* Remove spacing between table cells */
-  margin-top: 20px;
+  margin-top: 20px; /* Add spacing between heading and table */
 }
 
 .item-table th,
 .item-table td {
   padding: 12px 10px; /* Even padding for cells */
-  text-align: left;
+  text-align: left; /* Align text to the left */
   border-bottom: 1px solid #ddd; /* Add white line between rows */
 }
 
@@ -83,4 +83,37 @@
 
 .delete-button:hover {
   background-color: #cc0000; /* Darker red on hover */
+}
+
+/* Quantity controller styling */
+.quantity-controller {
+  display: flex;
+  align-items: center;
+  gap: 5px; /* Add spacing between buttons and the number */
+}
+
+.quantity-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.quantity-btn:hover {
+  background-color: #0056b3;
+}
+
+.confirm-btn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.confirm-btn:hover {
+  background-color: #1e7e34;
 }

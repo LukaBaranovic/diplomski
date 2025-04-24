@@ -74,4 +74,45 @@ const deleteTableItem = async (req, res) => {
   }
 };
 
-module.exports = { getTableItemsByNumber, deleteTableItem };
+/**
+ * Controller to update the quantity of an item in table_cart_items.
+ */
+const updateItemQuantity = async (req, res) => {
+  const { table_number, item_name, quantity } = req.body;
+
+  if (!table_number || !item_name || quantity < 1) {
+    return res.status(400).json({ error: "Invalid input data." });
+  }
+
+  const updateQuery = `
+    UPDATE table_cart_items c
+    LEFT JOIN tables t ON t.table_id = c.table_id
+    SET c.quantity = ?
+    WHERE t.table_number = ? AND c.item_name = ?;
+  `;
+
+  const fetchUpdatedItemsQuery = `
+    SELECT c.item_name, c.quantity, c.item_price, (c.quantity * c.item_price) AS total_price
+    FROM table_cart_items c
+    LEFT JOIN tables t ON t.table_id = c.table_id
+    WHERE t.table_number = ?
+    ORDER BY c.item_name;
+  `;
+
+  try {
+    // Update the quantity in the database
+    await db.execute(updateQuery, [quantity, table_number, item_name]);
+
+    // Fetch the updated list of items
+    const [updatedItems] = await db.execute(fetchUpdatedItemsQuery, [
+      table_number,
+    ]);
+
+    res.status(200).json(updatedItems); // Return the updated list
+  } catch (err) {
+    console.error("Error updating quantity:", err.message);
+    res.status(500).json({ error: "Failed to update quantity." });
+  }
+};
+
+module.exports = { getTableItemsByNumber, deleteTableItem, updateItemQuantity };

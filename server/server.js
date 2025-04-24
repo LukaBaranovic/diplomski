@@ -11,6 +11,7 @@ const {
 const {
   getTableItemsByNumber,
   deleteTableItem,
+  updateItemQuantity,
 } = require("./tablePopupController"); // Import tablePopupController functions
 const { getTableData } = require("./tableDisplayController"); // Import the function from tableDisplayController
 
@@ -37,6 +38,7 @@ app.post("/api/addToTable", addToTable); // Add route for adding items to an exi
 app.get("/api/getTableData", getTableData); // Add route for fetching table data
 app.get("/api/getTableItemsByNumber/:tableNumber", getTableItemsByNumber); // Add route for fetching items for a specific table
 app.delete("/api/deleteTableItem", deleteTableItem); // Add route for deleting a specific item from a table
+app.post("/api/updateItemQuantity", updateItemQuantity); // Add route for updating item quantity
 
 // Start the server
 app.listen(4500, () => console.log("Server running on port 4500"));

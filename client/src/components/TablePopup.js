@@ -4,6 +4,7 @@ import "./TablePopup.css";
 const TablePopup = ({ tableNumber, onClose }) => {
   const [tableItems, setTableItems] = useState(null); // State to store table items
   const [error, setError] = useState(""); // State for error handling
+  const [updatedQuantities, setUpdatedQuantities] = useState({}); // Track updated quantities
 
   // Fetch data for the selected table when the popup is opened
   useEffect(() => {
@@ -14,11 +15,19 @@ const TablePopup = ({ tableNumber, onClose }) => {
         }
         return res.json();
       })
-      .then((data) => setTableItems(data))
+      .then((data) => {
+        setTableItems(data);
+        // Initialize updatedQuantities state
+        const initialQuantities = {};
+        data.forEach((item) => {
+          initialQuantities[item.item_name] = item.quantity;
+        });
+        setUpdatedQuantities(initialQuantities);
+      })
       .catch(() => setError("Failed to load table items."));
   }, [tableNumber]);
 
-  // Handler for deleting an item
+  // Handle deleting an item
   const handleDelete = (itemName) => {
     const confirmDelete = window.confirm(
       `Are you sure you want to delete the item "${itemName}"?`
@@ -42,8 +51,44 @@ const TablePopup = ({ tableNumber, onClose }) => {
       })
       .then((updatedItems) => {
         setTableItems(updatedItems); // Update the table with the new list
+        setError(""); // Clear any previous errors
       })
-      .catch(() => setError("Failed to delete the item. Please try again."));
+      .catch(() => setError(`Failed to delete the item "${itemName}".`));
+  };
+
+  // Handle updating quantity locally (+/- buttons)
+  const handleQuantityChange = (itemName, change) => {
+    setUpdatedQuantities((prevState) => {
+      const newQuantity = Math.max(1, prevState[itemName] + change); // Ensure minimum is 1
+      return { ...prevState, [itemName]: newQuantity };
+    });
+  };
+
+  // Handle confirming the quantity change
+  const handleConfirmQuantity = (itemName) => {
+    const newQuantity = updatedQuantities[itemName];
+
+    // Send the updated quantity to the backend
+    fetch(`/api/updateItemQuantity`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        table_number: tableNumber,
+        item_name: itemName,
+        quantity: newQuantity,
+      }),
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Failed to update quantity.");
+        }
+        return res.json();
+      })
+      .then((updatedItems) => {
+        setTableItems(updatedItems); // Update the table with the new list
+        setError(""); // Clear any previous errors
+      })
+      .catch(() => setError(`Failed to update quantity for "${itemName}".`));
   };
 
   if (error) {
@@ -85,15 +130,21 @@ const TablePopup = ({ tableNumber, onClose }) => {
               <th>Item Name</th>
               <th>Quantity</th>
               <th>Total Price</th>
-              <th>Actions</th>
+              <th>Action 1 (Delete)</th>
+              <th>Action 2 (Quantity Control)</th>
             </tr>
           </thead>
           <tbody>
             {tableItems.map((item, index) => (
               <tr key={index}>
                 <td>{item.item_name}</td>
-                <td>{item.quantity}</td>
-                <td>${Number(item.total_price).toFixed(2)}</td>
+                <td>{updatedQuantities[item.item_name]}</td>
+                <td>
+                  $
+                  {(
+                    updatedQuantities[item.item_name] * item.item_price
+                  ).toFixed(2)}
+                </td>
                 <td>
                   <button
                     className="delete-button"
@@ -101,6 +152,29 @@ const TablePopup = ({ tableNumber, onClose }) => {
                   >
                     Delete
                   </button>
+                </td>
+                <td>
+                  <div className="quantity-controller">
+                    <button
+                      className="quantity-btn"
+                      onClick={() => handleQuantityChange(item.item_name, -1)}
+                    >
+                      -
+                    </button>
+                    <span>{updatedQuantities[item.item_name]}</span>
+                    <button
+                      className="quantity-btn"
+                      onClick={() => handleQuantityChange(item.item_name, 1)}
+                    >
+                      +
+                    </button>
+                    <button
+                      className="confirm-btn"
+                      onClick={() => handleConfirmQuantity(item.item_name)}
+                    >
+                      Confirm
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))}
