@@ -7,9 +7,9 @@ const getTableItemsByNumber = async (req, res) => {
   const { tableNumber } = req.params;
 
   const query = `
-    SELECT t.table_number, c.item_name, c.quantity, c.item_price
-    FROM tables t
-    LEFT JOIN table_cart_items c ON t.table_id = c.table_id
+    SELECT c.item_name, c.quantity, c.item_price, (c.quantity * c.item_price) AS total_price
+    FROM table_cart_items c
+    LEFT JOIN tables t ON t.table_id = c.table_id
     WHERE t.table_number = ?
     ORDER BY c.item_name;
   `;
@@ -21,20 +21,10 @@ const getTableItemsByNumber = async (req, res) => {
     if (rows.length === 0) {
       return res
         .status(404)
-        .json({ error: "Table not found or no items associated." });
+        .json({ error: "No items available for this table." });
     }
 
-    // Transform the data into the desired format
-    const tableData = {
-      table_number: rows[0].table_number,
-      items: rows.map((row) => ({
-        item_name: row.item_name,
-        quantity: row.quantity,
-        item_price: row.item_price,
-      })),
-    };
-
-    res.status(200).json(tableData);
+    res.status(200).json(rows); // Return the rows directly
   } catch (err) {
     console.error("Error fetching table items:", err.message);
     res.status(500).json({ error: "Failed to fetch table items." });

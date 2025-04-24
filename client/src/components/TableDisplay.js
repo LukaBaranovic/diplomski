@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import TablePopup from "./TablePopup"; // Import the popup component
 import "./TableDisplay.css";
 
 const TableDisplay = () => {
   const [tableData, setTableData] = useState([]); // State to store table data
   const [error, setError] = useState(""); // State to handle errors
+  const [selectedTableNumber, setSelectedTableNumber] = useState(null); // State to track selected table
 
   // Fetch table data from the backend
   const fetchTableData = () => {
@@ -28,11 +30,19 @@ const TableDisplay = () => {
     return () => clearInterval(interval); // Cleanup interval on unmount
   }, []);
 
+  const handleTableClick = (tableNumber) => {
+    setSelectedTableNumber(tableNumber); // Open the popup for the selected table
+  };
+
   return (
     <div className="table-display-container">
       {error && <p className="error-message">{error}</p>}
       {tableData.map((table) => (
-        <div key={table.table_number} className="table-container">
+        <div
+          key={table.table_number}
+          className="table-container"
+          onClick={() => handleTableClick(table.table_number)} // Open popup on click
+        >
           <h3>Table {table.table_number}</h3>
           <ul>
             {table.items.map((item) => (
@@ -43,6 +53,13 @@ const TableDisplay = () => {
           </ul>
         </div>
       ))}
+
+      {selectedTableNumber && (
+        <TablePopup
+          tableNumber={selectedTableNumber}
+          onClose={() => setSelectedTableNumber(null)} // Close popup
+        />
+      )}
     </div>
   );
 };

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import "./TablePopup.css"; // Import CSS for styling the popup
+import "./TablePopup.css";
 
 const TablePopup = ({ tableNumber, onClose }) => {
-  const [tableData, setTableData] = useState(null); // State to store table data
+  const [tableItems, setTableItems] = useState(null); // State to store table items
   const [error, setError] = useState(""); // State for error handling
 
-  // Fetch data for the selected table
+  // Fetch data for the selected table when the popup is opened
   useEffect(() => {
     fetch(`/api/getTableItemsByNumber/${tableNumber}`)
       .then((res) => {
@@ -14,8 +14,8 @@ const TablePopup = ({ tableNumber, onClose }) => {
         }
         return res.json();
       })
-      .then((data) => setTableData(data))
-      .catch((err) => setError("Failed to load table items."));
+      .then((data) => setTableItems(data))
+      .catch(() => setError("No items available for this table."));
   }, [tableNumber]);
 
   if (error) {
@@ -31,10 +31,13 @@ const TablePopup = ({ tableNumber, onClose }) => {
     );
   }
 
-  if (!tableData) {
+  if (!tableItems) {
     return (
       <div className="popup-overlay">
         <div className="popup">
+          <button className="close-button" onClick={onClose}>
+            &times;
+          </button>
           <p>Loading...</p>
         </div>
       </div>
@@ -47,7 +50,7 @@ const TablePopup = ({ tableNumber, onClose }) => {
         <button className="close-button" onClick={onClose}>
           &times;
         </button>
-        <h2>Table Number: {tableData.table_number}</h2>
+        <h2>Table {tableNumber}</h2>
         <table className="item-table">
           <thead>
             <tr>
@@ -57,11 +60,11 @@ const TablePopup = ({ tableNumber, onClose }) => {
             </tr>
           </thead>
           <tbody>
-            {tableData.items.map((item, index) => (
+            {tableItems.map((item, index) => (
               <tr key={index}>
                 <td>{item.item_name}</td>
                 <td>{item.quantity}</td>
-                <td>${(item.quantity * item.item_price).toFixed(2)}</td>
+                <td>${Number(item.total_price).toFixed(2)}</td>
               </tr>
             ))}
           </tbody>
