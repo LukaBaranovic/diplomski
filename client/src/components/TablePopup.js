@@ -185,17 +185,16 @@ const TablePopup = ({ tableNumber, onClose }) => {
           <thead>
             <tr>
               <th>Item Name</th>
-              <th>Quantity</th>
+              <th className="quantity-column">Quantity</th>
               <th>Total Price</th>
-              <th>Action 1 (Delete)</th>
-              <th>Action 2 (Quantity Control)</th>
+              <th>Action (Delete)</th>
             </tr>
           </thead>
           <tbody>
             {tableItems.map((item, index) => (
               <tr key={index}>
                 <td>{item.item_name}</td>
-                <td>
+                <td className="quantity-column">
                   <div className="quantity-controller">
                     <button
                       className="quantity-btn"
