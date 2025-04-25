@@ -148,6 +148,33 @@ const TablePopup = ({ tableNumber, onClose }) => {
       .catch(() => setError("Failed to delete the table."));
   };
 
+  // Handle cashing the table
+  const handleCash = () => {
+    const confirmCash = window.confirm(
+      `Are you sure you want to finalize and save this table?`
+    );
+    if (!confirmCash) return;
+
+    // Send a request to save the receipt and delete the table
+    fetch(`/api/cashTable`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ table_number: tableNumber }),
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Failed to process the cash operation.");
+        }
+        return res.json();
+      })
+      .then(() => {
+        // Close the popup after successful cash operation
+        onClose();
+        setError(""); // Clear any previous errors
+      })
+      .catch(() => setError("Failed to finalize and save the table."));
+  };
+
   if (error) {
     return (
       <div className="popup-overlay">
@@ -238,9 +265,14 @@ const TablePopup = ({ tableNumber, onClose }) => {
         <div className="total-price-container">
           <h3>Total Price: ${totalPrice.toFixed(2)}</h3>
         </div>
-        <button className="delete-table-button" onClick={handleDeleteTable}>
-          Delete Table
-        </button>
+        <div className="action-buttons">
+          <button className="cash-button" onClick={handleCash}>
+            Cash
+          </button>
+          <button className="delete-table-button" onClick={handleDeleteTable}>
+            Delete Table
+          </button>
+        </div>
       </div>
     </div>
   );

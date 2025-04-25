@@ -115,6 +115,9 @@ const updateItemQuantity = async (req, res) => {
   }
 };
 
+/**
+ * Controller to delete the entire table and its items.
+ */
 const deleteTable = async (req, res) => {
   const { table_number } = req.body;
 
@@ -147,9 +150,87 @@ const deleteTable = async (req, res) => {
   }
 };
 
+/**
+ * Controller to handle "Cash" functionality.
+ * Saves the table's data to receipts and receipt_items, then deletes the table.
+ */
+const cashTable = async (req, res) => {
+  const { table_number } = req.body;
+
+  if (!table_number) {
+    return res.status(400).json({ error: "Table number is required." });
+  }
+
+  const fetchTableQuery = `
+    SELECT * FROM table_cart_items 
+    WHERE table_id = (SELECT table_id FROM tables WHERE table_number = ?);
+  `;
+  const fetchTotalPriceQuery = `
+    SELECT SUM(quantity * item_price) AS total_price 
+    FROM table_cart_items 
+    WHERE table_id = (SELECT table_id FROM tables WHERE table_number = ?);
+  `;
+  const deleteTableItemsQuery = `
+    DELETE FROM table_cart_items 
+    WHERE table_id = (SELECT table_id FROM tables WHERE table_number = ?);
+  `;
+  const deleteTableQuery = `
+    DELETE FROM tables WHERE table_number = ?;
+  `;
+  const insertReceiptQuery = `
+    INSERT INTO receipts (table_number, total_price) VALUES (?, ?);
+  `;
+  const insertReceiptItemsQuery = `
+    INSERT INTO receipt_items (receipt_id, item_name, quantity, total_price) 
+    VALUES (?, ?, ?, ?);
+  `;
+
+  try {
+    const connection = await db.getConnection();
+    await connection.beginTransaction();
+
+    // Fetch table items and total price
+    const [items] = await connection.query(fetchTableQuery, [table_number]);
+    const [totalPriceResult] = await connection.query(fetchTotalPriceQuery, [
+      table_number,
+    ]);
+    const total_price = totalPriceResult[0].total_price;
+
+    // Insert receipt into receipts table
+    const [receiptResult] = await connection.query(insertReceiptQuery, [
+      table_number,
+      total_price,
+    ]);
+    const receipt_id = receiptResult.insertId;
+
+    // Insert items into receipt_items table
+    for (const item of items) {
+      await connection.query(insertReceiptItemsQuery, [
+        receipt_id,
+        item.item_name,
+        item.quantity,
+        item.item_price * item.quantity,
+      ]);
+    }
+
+    // Delete table and its items
+    await connection.query(deleteTableItemsQuery, [table_number]);
+    await connection.query(deleteTableQuery, [table_number]);
+
+    await connection.commit();
+    connection.release();
+
+    res.status(200).json({ message: "Table cashed successfully." });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to process cash operation." });
+  }
+};
+
 module.exports = {
   getTableItemsByNumber,
   deleteTableItem,
   updateItemQuantity,
   deleteTable,
+  cashTable, // Export the cashTable controller
 };
