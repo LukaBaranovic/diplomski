@@ -5,6 +5,7 @@ const TablePopup = ({ tableNumber, onClose }) => {
   const [tableItems, setTableItems] = useState(null); // State to store table items
   const [error, setError] = useState(""); // State for error handling
   const [updatedQuantities, setUpdatedQuantities] = useState({}); // Track updated quantities
+  const [totalPrice, setTotalPrice] = useState(0); // State to track the total price of the table
 
   // Fetch data for the selected table when the popup is opened
   useEffect(() => {
@@ -19,13 +20,25 @@ const TablePopup = ({ tableNumber, onClose }) => {
         setTableItems(data);
         // Initialize updatedQuantities state
         const initialQuantities = {};
+        let initialTotalPrice = 0;
+
         data.forEach((item) => {
           initialQuantities[item.item_name] = item.quantity;
+          initialTotalPrice += item.quantity * item.item_price; // Calculate initial total price
         });
+
         setUpdatedQuantities(initialQuantities);
+        setTotalPrice(initialTotalPrice); // Set the initial total price
       })
       .catch(() => setError("Failed to load table items."));
   }, [tableNumber]);
+
+  // Helper function to calculate the total price
+  const calculateTotalPrice = (items, quantities) => {
+    return items.reduce((total, item) => {
+      return total + item.item_price * (quantities[item.item_name] || 0);
+    }, 0);
+  };
 
   // Handle deleting an item
   const handleDelete = (itemName) => {
@@ -51,6 +64,14 @@ const TablePopup = ({ tableNumber, onClose }) => {
       })
       .then((updatedItems) => {
         setTableItems(updatedItems); // Update the table with the new list
+
+        // Recalculate the total price
+        const updatedTotalPrice = calculateTotalPrice(
+          updatedItems,
+          updatedQuantities
+        );
+        setTotalPrice(updatedTotalPrice);
+
         setError(""); // Clear any previous errors
       })
       .catch(() => setError(`Failed to delete the item "${itemName}".`));
@@ -86,6 +107,14 @@ const TablePopup = ({ tableNumber, onClose }) => {
       })
       .then((updatedItems) => {
         setTableItems(updatedItems); // Update the table with the new list
+
+        // Recalculate the total price
+        const updatedTotalPrice = calculateTotalPrice(
+          updatedItems,
+          updatedQuantities
+        );
+        setTotalPrice(updatedTotalPrice);
+
         setError(""); // Clear any previous errors
       })
       .catch(() => setError(`Failed to update quantity for "${itemName}".`));
@@ -207,7 +236,9 @@ const TablePopup = ({ tableNumber, onClose }) => {
             ))}
           </tbody>
         </table>
-        {/* Add Delete Table Button */}
+        <div className="total-price-container">
+          <h3>Total Price: ${totalPrice.toFixed(2)}</h3>
+        </div>
         <button className="delete-table-button" onClick={handleDeleteTable}>
           Delete Table
         </button>

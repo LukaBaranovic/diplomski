@@ -132,3 +132,11 @@
 .delete-table-button:hover {
   background-color: #cc0000;
 }
+
+/* Total Price Container Styling */
+.total-price-container {
+  margin-top: 20px;
+  font-weight: bold;
+  font-size: 18px;
+  text-align: center;
+}
