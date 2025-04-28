@@ -5,6 +5,7 @@ import AmountPopup from "./components/AmountPopup";
 import CreateTable from "./components/CreateTable"; // Import CreateTable component
 import AddToTable from "./components/AddToTable"; // Import AddToTable component
 import TableDisplay from "./components/TableDisplay"; // Import TableDisplay component
+import ReceiptsView from "./components/ReceiptsView"; // Import ReceiptsView component
 import "./App.css";
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
   const [showAmountPopup, setShowAmountPopup] = useState(false);
   const [showCreateTablePopup, setShowCreateTablePopup] = useState(false); // State for CreateTable popup
   const [showAddToTablePopup, setShowAddToTablePopup] = useState(false); // State for AddToTable popup
+  const [showReceiptsPopup, setShowReceiptsPopup] = useState(false); // State for ReceiptsView popup
 
   useEffect(() => {
     // Fetch categories from the server
@@ -168,6 +170,10 @@ function App() {
           >
             Add to Table
           </button>
+          {/* View Receipts button */}
+          <button onClick={() => setShowReceiptsPopup(true)}>
+            View Receipts
+          </button>
         </div>
         <div className="right-section">
           {/* Pass cartItems, selectedItemId, and setSelectedItemId to the Cart component */}
@@ -196,6 +202,9 @@ function App() {
           onClose={() => setShowAddToTablePopup(false)}
           onSave={handleAddToTable}
         />
+      )}
+      {showReceiptsPopup && (
+        <ReceiptsView onClose={() => setShowReceiptsPopup(false)} />
       )}
     </div>
   );

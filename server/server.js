@@ -2,7 +2,6 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const db = require("./dbConfig"); // Import database configuration
 const { getCategories, getItemsByCategory } = require("./categoryController");
-const receiptController = require("./receiptController");
 const {
   createTable,
   getAvailableTables,
@@ -16,6 +15,7 @@ const {
   cashTable, // Import the new cashTable function
 } = require("./tablePopupController"); // Import tablePopupController functions
 const { getTableData } = require("./tableDisplayController"); // Import the function from tableDisplayController
+const { getReceipts } = require("./receiptViewController"); // Import the receiptViewController functions
 
 const app = express();
 
@@ -43,6 +43,7 @@ app.delete("/api/deleteTableItem", deleteTableItem); // Add route for deleting a
 app.post("/api/updateItemQuantity", updateItemQuantity); // Add route for updating item quantity
 app.delete("/api/deleteTable", deleteTable); // Add route for deleting a table and its items
 app.post("/api/cashTable", cashTable); // Add route for cashing a table
+app.get("/api/getReceipts", getReceipts); // Add route for fetching receipts by date
 
 // Start the server
 app.listen(4500, () => console.log("Server running on port 4500"));
