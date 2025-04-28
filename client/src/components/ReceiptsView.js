@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import ReceiptDetailsView from "./ReceiptDetailsView"; // Import the new ReceiptDetailsView
 import "./ReceiptsView.css";
 
 const ReceiptsView = ({ onClose }) => {
@@ -6,6 +7,7 @@ const ReceiptsView = ({ onClose }) => {
   const [selectedDate, setSelectedDate] = useState(
     new Date().toISOString().split("T")[0]
   ); // Default to today's date
+  const [selectedReceipt, setSelectedReceipt] = useState(null); // State to store selected receipt details
 
   // Fetch receipts when the popup is opened or the date changes
   useEffect(() => {
@@ -24,6 +26,11 @@ const ReceiptsView = ({ onClose }) => {
         alert("Failed to load receipts.");
       });
   }, [selectedDate]);
+
+  // Handle row click to open the details view
+  const handleRowClick = (receipt) => {
+    setSelectedReceipt(receipt);
+  };
 
   return (
     <div className="popup-overlay">
@@ -57,7 +64,10 @@ const ReceiptsView = ({ onClose }) => {
               ).toLocaleTimeString(); // Extract time
               const totalPrice = receipt.total_price || 0; // Default to 0 if total_price is missing
               return (
-                <tr key={receipt.receipt_id}>
+                <tr
+                  key={receipt.receipt_id}
+                  onClick={() => handleRowClick(receipt)}
+                >
                   <td>{receipt.receipt_id}</td>
                   <td>{receipt.table_number}</td>
                   <td>${Number(totalPrice).toFixed(2)}</td>
@@ -68,6 +78,14 @@ const ReceiptsView = ({ onClose }) => {
           </tbody>
         </table>
       </div>
+
+      {/* Show ReceiptDetailsView if a receipt is selected */}
+      {selectedReceipt && (
+        <ReceiptDetailsView
+          receiptId={selectedReceipt.receipt_id}
+          onClose={() => setSelectedReceipt(null)}
+        />
+      )}
     </div>
   );
 };

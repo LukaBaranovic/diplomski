@@ -16,6 +16,7 @@ const {
 } = require("./tablePopupController"); // Import tablePopupController functions
 const { getTableData } = require("./tableDisplayController"); // Import the function from tableDisplayController
 const { getReceipts } = require("./receiptViewController"); // Import the receiptViewController functions
+const { getReceiptDetails } = require("./receiptDetailsViewController"); // Import the receiptDetailsViewController function
 
 const app = express();
 
@@ -44,6 +45,7 @@ app.post("/api/updateItemQuantity", updateItemQuantity); // Add route for updati
 app.delete("/api/deleteTable", deleteTable); // Add route for deleting a table and its items
 app.post("/api/cashTable", cashTable); // Add route for cashing a table
 app.get("/api/getReceipts", getReceipts); // Add route for fetching receipts by date
+app.get("/api/getReceiptDetails", getReceiptDetails); // Add route for fetching receipt details by receipt ID
 
 // Start the server
 app.listen(4500, () => console.log("Server running on port 4500"));
