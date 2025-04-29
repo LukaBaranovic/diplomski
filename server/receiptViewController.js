@@ -18,11 +18,9 @@ const getReceipts = async (req, res) => {
       r.receipt_id, 
       r.table_number, 
       r.timestamp,
-      COALESCE(SUM(ri.total_price), 0) AS total_price
+      r.total_price
     FROM receipts r
-    LEFT JOIN receipt_items ri ON r.receipt_id = ri.receipt_id
-    WHERE r.timestamp >= ? AND r.timestamp < DATE_ADD(?, INTERVAL 1 DAY)
-    GROUP BY r.receipt_id, r.table_number, r.timestamp;
+    WHERE r.timestamp >= ? AND r.timestamp < DATE_ADD(?, INTERVAL 1 DAY);
   `;
 
   try {

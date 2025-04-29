@@ -1,22 +1,33 @@
+/* Styling for the category list */
 ul {
   list-style-type: none;
   padding: 0;
+  margin: 0;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-wrap: wrap; /* Ensure items wrap to the next row */
+  justify-content: center; /* Center the items horizontally */
+  max-height: 100%; /* Prevent items from overflowing the container */
+  overflow-y: auto; /* Enable vertical scrolling if needed */
+  box-sizing: border-box;
 }
 
+/* Individual category boxes */
 .category-container {
-  width: 200px; /* Set a specific width for the boxes */
-  padding: 10px;
-  margin: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  cursor: pointer;
+  width: 150px; /* Set a fixed width for all boxes */
+  height: 150px; /* Set a fixed height for all boxes */
+  margin: 5px; /* Space between boxes */
+  border: 1px solid #ccc; /* Add a border */
+  border-radius: 0; /* Remove rounded edges */
+  cursor: pointer; /* Pointer cursor on hover */
   transition: background-color 0.3s ease;
   text-align: center; /* Center the text inside the box */
+  display: flex; /* Use flexbox for centering text */
+  justify-content: center; /* Horizontally center text */
+  align-items: center; /* Vertically center text */
+  box-sizing: border-box; /* Ensure padding and border don't affect size */
 }
 
+/* Hover effect */
 .category-container:hover {
-  background-color: #f0f0f0;
+  background-color: #f0f0f0; /* Slightly darker background on hover */
 }

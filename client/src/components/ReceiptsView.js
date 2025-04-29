@@ -53,7 +53,7 @@ const ReceiptsView = ({ onClose }) => {
             <tr>
               <th>Receipt ID</th>
               <th>Table Number</th>
-              <th>Total Price</th>
+              <th>Total Price</th> {/* Display "Total Price" */}
               <th>Time</th>
             </tr>
           </thead>
@@ -70,7 +70,8 @@ const ReceiptsView = ({ onClose }) => {
                 >
                   <td>{receipt.receipt_id}</td>
                   <td>{receipt.table_number}</td>
-                  <td>${Number(totalPrice).toFixed(2)}</td>
+                  <td>${Number(totalPrice).toFixed(2)}</td>{" "}
+                  {/* Display total_price */}
                   <td>{receiptTime}</td>
                 </tr>
               );

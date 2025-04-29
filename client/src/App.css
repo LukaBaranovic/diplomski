@@ -5,6 +5,7 @@ html {
   height: 100%;
   width: 100%;
   box-sizing: border-box;
+  overflow: hidden; /* Prevent scrolling for the entire page */
 }
 
 .page-container {
@@ -19,6 +20,7 @@ html {
   justify-content: center;
   align-items: center;
   width: 100%; /* Full width */
+  overflow: hidden; /* Prevent content from overflowing */
 }
 
 .lower-section {
@@ -27,19 +29,21 @@ html {
   gap: 0; /* No space between sections */
   width: 100%; /* Full width */
   border-top: 2px solid #ccc; /* Lighter line to separate upper and lower sections */
+  overflow: hidden; /* Prevent content overflow */
 }
 
 .left-section,
 .middle-section,
 .right-section {
   border-left: 2px solid #ccc; /* Lighter lines to separate sections */
+  overflow-y: auto; /* Enable vertical scrolling if content overflows */
+}
+
+.left-section {
+  border-left: none; /* Remove the left border from the left section */
 }
 
 .middle-section,
 .right-section {
   border-left: 2px solid #ccc; /* Lighter lines to separate middle and right sections */
-}
-
-.left-section {
-  border-left: none; /* Remove the left border from the left section */
 }
