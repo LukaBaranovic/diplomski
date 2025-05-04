@@ -5,7 +5,7 @@ html {
   height: 100%;
   width: 100%;
   box-sizing: border-box;
-  overflow: hidden; /* Prevent scrolling for the entire page */
+  overflow: auto; /* Prevent scrolling for the entire page */
 }
 
 .page-container {
@@ -20,7 +20,7 @@ html {
   justify-content: center;
   align-items: center;
   width: 100%; /* Full width */
-  overflow: hidden; /* Prevent content from overflowing */
+  overflow: auto; /* Prevent content from overflowing */
 }
 
 .lower-section {

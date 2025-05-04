@@ -1,33 +1,108 @@
-/* Styling for the category list */
-ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-wrap: wrap; /* Ensure items wrap to the next row */
-  justify-content: center; /* Center the items horizontally */
-  max-height: 100%; /* Prevent items from overflowing the container */
-  overflow-y: auto; /* Enable vertical scrolling if needed */
+/* General styling for the category list */
+.category-list {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(200px, 1fr)
+  ); /* Responsive grid */
+  gap: 16px;
+  padding: 20px 16px; /* Add some horizontal padding */
+  width: 100%;
   box-sizing: border-box;
 }
 
-/* Individual category boxes */
+/* Styling for individual category items */
 .category-container {
-  width: 150px; /* Set a fixed width for all boxes */
-  height: 150px; /* Set a fixed height for all boxes */
-  margin: 5px; /* Space between boxes */
-  border: 1px solid #ccc; /* Add a border */
-  border-radius: 0; /* Remove rounded edges */
-  cursor: pointer; /* Pointer cursor on hover */
-  transition: background-color 0.3s ease;
-  text-align: center; /* Center the text inside the box */
-  display: flex; /* Use flexbox for centering text */
-  justify-content: center; /* Horizontally center text */
-  align-items: center; /* Vertically center text */
-  box-sizing: border-box; /* Ensure padding and border don't affect size */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: #e0f7fa;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
-/* Hover effect */
 .category-container:hover {
-  background-color: #f0f0f0; /* Slightly darker background on hover */
+  background-color: #b2ebf2;
+  transform: scale(1.02);
+}
+
+.category-container:active {
+  background-color: #80deea;
+}
+
+/* Style for the selected category */
+.category-container.selected {
+  background-color: #4fc3f7;
+  color: white;
+  font-weight: bold;
+}
+
+/* Responsive design for smaller screens (width <= 768px) */
+@media (max-width: 768px) {
+  .category-list {
+    margin-top: 40px; /* Increased margin from the top */
+    gap: 12px; /* Reduced gap between items */
+  }
+
+  .category-container {
+    font-size: 0.9rem;
+    padding: 15px;
+  }
+}
+
+/* Responsive design for very small screens (width <= 480px) */
+@media (max-width: 480px) {
+  .category-list {
+    margin-top: 50px; /* Further increase margin for smaller devices */
+    gap: 8px; /* Minimize gap for compact screens */
+  }
+
+  .category-container {
+    font-size: 0.8rem; /* Reduce font size for smaller screens */
+    padding: 12px; /* Compact padding */
+  }
+}
+
+/* Responsive design for medium screens (width >= 768px and <= 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .category-list {
+    margin-top: 30px;
+    gap: 18px; /* Slightly larger gap for tablets */
+  }
+
+  .category-container {
+    font-size: 1rem;
+    padding: 18px;
+  }
+}
+
+/* Responsive design for desktops (width >= 1025px and <= 1440px) */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .category-list {
+    margin-top: 20px;
+    gap: 20px; /* Slightly larger gap for larger screens */
+  }
+
+  .category-container {
+    font-size: 1.1rem; /* Slightly increased font size */
+    padding: 22px; /* Larger padding for desktops */
+  }
+}
+
+/* Responsive design for large screens (width >= 1441px) */
+@media (min-width: 1441px) {
+  .category-list {
+    margin-top: 20px;
+    gap: 24px; /* Larger gap for ultra-wide screens */
+    padding: 30px 40px; /* More horizontal padding for large screens */
+  }
+
+  .category-container {
+    font-size: 1.2rem; /* Larger font size for readability */
+    padding: 25px; /* Increased padding for larger screens */
+  }
 }
