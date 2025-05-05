@@ -1,42 +1,77 @@
 .table-display-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(250px, 1fr)
+  ); /* Create equally sized columns */
+  gap: 20px; /* Space between grid items */
   padding: 20px;
   height: 100%; /* Ensure the container takes up the full height of its parent */
   box-sizing: border-box; /* Include padding in size calculations */
-  justify-content: center;
-  overflow-y: auto; /* Allow scrolling if content exceeds the container height */
+  overflow-y: auto; /* Allow vertical scrolling when content overflows */
 }
 
 .table-container {
   border: 1px solid #ccc;
   border-radius: 8px;
   background-color: #f9f9f9;
-  padding: 15px;
-  width: 250px;
+  padding: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: left; /* Align text to the left by default */
+  display: flex; /* Use flexbox for internal content organization */
+  flex-direction: column; /* Stack content vertically */
+  justify-content: flex-start; /* Align all content to the top of the container */
 }
 
 .table-container h3 {
-  margin: 0 0 10px 0;
+  margin: 0 0 5px 0; /* Reduced margin for a more compact layout */
   font-size: 18px;
   color: #333;
+  text-align: center; /* Center the table title horizontally */
 }
 
 .table-container ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
+  border-top: 1px solid #ddd; /* Light line between items */
 }
 
 .table-container li {
   font-size: 14px;
   color: #555;
+  padding: 5px 0; /* Reduced padding for a tighter layout */
+  display: flex;
+  justify-content: space-between; /* Space between item name and quantity */
+  align-items: center; /* Center align vertically */
+  border-bottom: 1px solid #ddd; /* Light line between items */
+}
+
+.table-container li:last-child {
+  border-bottom: none; /* Remove the last item's bottom border */
+}
+
+.table-container .item-name {
+  flex-grow: 1; /* Item name takes available space */
+  text-align: left; /* Align item name to the left */
+}
+
+.table-container .item-quantity {
+  text-align: right; /* Align quantity text to the right */
+  font-weight: bold; /* Optional: Make the quantity bold */
+  color: #333; /* Optional: Darker color for emphasis */
+  width: 50px; /* Optional: Set a fixed width for alignment consistency */
 }
 
 .error-message {
   color: red;
   font-size: 16px;
   margin-bottom: 20px;
+}
+
+/* Responsive Design for Screens Smaller than 768px */
+@media (max-width: 768px) {
+  .table-container ul {
+    display: none; /* Hide the items list on smaller screens */
+  }
 }

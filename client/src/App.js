@@ -149,30 +149,43 @@ function App() {
         </div>
         <div className="middle-section">
           {/* Delete button */}
-          <button onClick={deleteItemFromCart} disabled={!selectedItemId}>
-            Delete
+          <button
+            className="functionality-button"
+            onClick={deleteItemFromCart}
+            disabled={!selectedItemId}
+          >
+            Izbriši
           </button>
           {/* Amount button */}
-          <button onClick={openAmountPopup} disabled={!selectedItemId}>
-            Amount
+          <button
+            className="functionality-button"
+            onClick={openAmountPopup}
+            disabled={!selectedItemId}
+          >
+            Količina
           </button>
           {/* Create Table button */}
           <button
+            className="functionality-button"
             onClick={() => setShowCreateTablePopup(true)}
             disabled={cartItems.length === 0}
           >
-            Create Table
+            Novi Stol
           </button>
           {/* Add to Table button */}
           <button
+            className="functionality-button"
             onClick={() => setShowAddToTablePopup(true)}
             disabled={cartItems.length === 0}
           >
-            Add to Table
+            Dodaj na Stol
           </button>
           {/* View Receipts button */}
-          <button onClick={() => setShowReceiptsPopup(true)}>
-            View Receipts
+          <button
+            className="functionality-button"
+            onClick={() => setShowReceiptsPopup(true)}
+          >
+            Pregled
           </button>
         </div>
         <div className="right-section">

@@ -47,7 +47,8 @@ const TableDisplay = () => {
           <ul>
             {table.items.map((item) => (
               <li key={item.item_id}>
-                {item.item_name} - Quantity: {item.quantity}
+                <span className="item-name">{item.item_name}</span>
+                <span className="item-quantity">{item.quantity}</span>
               </li>
             ))}
           </ul>

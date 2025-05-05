@@ -50,9 +50,37 @@ html {
   box-sizing: border-box; /* Include padding/border in the dimensions */
 }
 
-.middle-section,
-.right-section {
-  border-left: 2px solid #ccc; /* Lighter lines to separate middle and right sections */
-  height: 100%; /* Ensure these sections also take up their full height */
+/* Centering buttons in the middle-section */
+.middle-section {
+  display: flex; /* Enable Flexbox */
+  flex-direction: column; /* Stack buttons vertically */
+  justify-content: center; /* Center buttons vertically */
+  align-items: center; /* Center buttons horizontally */
+  border-left: 2px solid #ccc; /* Keep the border for separation */
+  height: 100%; /* Ensure the section takes up its full height */
   box-sizing: border-box; /* Include padding/border in the dimensions */
+}
+
+/* Styling for functionality buttons */
+.functionality-button {
+  width: 100px; /* Fixed width for consistent size */
+  height: 40px; /* Fixed height for consistent size */
+  margin: 10px; /* Add some space around buttons */
+  padding: 5px; /* Inner padding for comfortable spacing */
+  font-size: 14px; /* Font size for readability */
+  text-align: center; /* Center text inside the button */
+  background-color: #007bff; /* Blue background */
+  color: white; /* White text */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+}
+
+.functionality-button:disabled {
+  background-color: #ccc; /* Grey out disabled buttons */
+  cursor: not-allowed; /* Show not-allowed cursor for disabled buttons */
+}
+
+.functionality-button:hover:not(:disabled) {
+  background-color: #0056b3; /* Darker blue on hover */
 }
