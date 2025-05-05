@@ -44,61 +44,62 @@
 }
 
 /* Responsive design for smaller screens (width <= 768px) */
-@media (max-width: 768px) {
-  .category-list {
-    grid-template-columns: repeat(
-      auto-fit,
-      minmax(200px, 1fr) /* Adjusted size for smaller screens */
-    );
-    gap: 12px; /* Reduced gap between items */
-  }
-
-  .category-container {
-    font-size: 0.9rem;
-    height: 100px; /* Consistent height for smaller screens */
-  }
-}
-
 /* Responsive design for very small screens (width <= 480px) */
 @media (max-width: 480px) {
   .category-list {
     grid-template-columns: repeat(
       auto-fit,
-      minmax(180px, 1fr) /* Adjusted size for very small screens */
-    );
-    gap: 8px; /* Minimize gap for compact screens */
+      minmax(180px, 1fr)
+    ); /* Compact size */
+    gap: 8px; /* Minimized gap for very small screens */
   }
 
   .category-container {
-    font-size: 0.8rem; /* Reduce font size for smaller screens */
-    height: 90px; /* Consistent height for very small screens */
+    font-size: 0.8rem; /* Small font size */
+    height: 90px; /* Smaller height */
   }
 }
 
-/* Responsive design for medium screens (width >= 768px and <= 1024px) */
-@media (min-width: 768px) and (max-width: 1024px) {
+/* Responsive design for smaller screens (481px to 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
   .category-list {
     grid-template-columns: repeat(
       auto-fit,
-      minmax(216px, 1fr) /* Adjusted size for tablets */
-    );
-    gap: 18px; /* Slightly larger gap for tablets */
+      minmax(200px, 1fr)
+    ); /* Adjusted size */
+    gap: 12px; /* Reduced gap */
   }
 
   .category-container {
-    font-size: 1rem;
+    font-size: 0.9rem; /* Slightly larger font size */
+    height: 100px; /* Consistent height */
+  }
+}
+
+/* Responsive design for medium screens (769px to 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .category-list {
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(216px, 1fr)
+    ); /* Tablet size */
+    gap: 18px; /* Slightly larger gap */
+  }
+
+  .category-container {
+    font-size: 1rem; /* Default font size */
     height: 110px; /* Consistent height for tablets */
   }
 }
 
-/* Responsive design for desktops (width >= 1025px and <= 1440px) */
+/* Responsive design for desktops (1025px to 1440px) */
 @media (min-width: 1025px) and (max-width: 1440px) {
   .category-list {
     grid-template-columns: repeat(
       auto-fit,
-      minmax(232px, 1fr) /* Adjusted size for desktops */
-    );
-    gap: 20px; /* Slightly larger gap for larger screens */
+      minmax(232px, 1fr)
+    ); /* Optimized for desktops */
+    gap: 20px; /* Larger gap */
   }
 
   .category-container {
@@ -107,14 +108,14 @@
   }
 }
 
-/* Responsive design for large screens (width >= 1441px) */
+/* Responsive design for large screens (1441px and above) */
 @media (min-width: 1441px) {
   .category-list {
     grid-template-columns: repeat(
       auto-fit,
-      minmax(250px, 1fr) /* Adjusted size for ultra-wide screens */
-    );
-    gap: 24px; /* Larger gap for ultra-wide screens */
+      minmax(250px, 1fr)
+    ); /* Ultra-wide size */
+    gap: 24px; /* Largest gap for large screens */
   }
 
   .category-container {

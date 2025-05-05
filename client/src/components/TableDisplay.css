@@ -3,7 +3,7 @@
   grid-template-columns: repeat(
     auto-fill,
     minmax(250px, 1fr)
-  ); /* Create equally sized columns */
+  ); /* Default size for larger screens */
   gap: 20px; /* Space between grid items */
   padding: 20px;
   height: 100%; /* Ensure the container takes up the full height of its parent */
@@ -71,7 +71,57 @@
 
 /* Responsive Design for Screens Smaller than 768px */
 @media (max-width: 768px) {
+  .table-display-container {
+    grid-template-columns: 1fr; /* Single column layout for smaller screens */
+    gap: 10px; /* Reduced gap for compact layout */
+  }
+
   .table-container ul {
     display: none; /* Hide the items list on smaller screens */
+  }
+
+  .table-container {
+    padding: 8px; /* Adjust padding for smaller screens */
+  }
+
+  .table-container h3 {
+    font-size: 16px; /* Adjust font size for smaller screens */
+  }
+}
+
+/* Responsive Design for Screens Between 769px and 1024px */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .table-display-container {
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(216px, 1fr)
+    ); /* Adjust column size for tablets */
+    gap: 18px; /* Slightly reduced gap for tablets */
+  }
+
+  .table-container h3 {
+    font-size: 17px; /* Slightly smaller font size for tablets */
+  }
+}
+
+/* Responsive Design for Screens Between 1025px and 1440px */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .table-display-container {
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(232px, 1fr)
+    ); /* Adjust column size for desktops */
+    gap: 20px; /* Default gap for desktops */
+  }
+}
+
+/* Responsive Design for Screens Larger than 1441px */
+@media (min-width: 1441px) {
+  .table-display-container {
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(280px, 1fr)
+    ); /* Larger column size for ultra-wide screens */
+    gap: 24px; /* Larger gap for ultra-wide screens */
   }
 }

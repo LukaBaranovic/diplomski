@@ -28,7 +28,7 @@ html {
 
 .lower-section {
   display: grid;
-  grid-template-columns: 50% 10% 40%; /* Define the widths of the three sections */
+  grid-template-columns: 45% 15% 40%; /* Define the widths of the three sections */
   gap: 0; /* No space between sections */
   width: 100%; /* Full width */
   height: 100%; /* Ensure the lower section fills its allocated height */
@@ -58,12 +58,13 @@ html {
   align-items: center; /* Center buttons horizontally */
   border-left: 2px solid #ccc; /* Keep the border for separation */
   height: 100%; /* Ensure the section takes up its full height */
+  width: 100%; /* Ensure the left section takes up its full width */
   box-sizing: border-box; /* Include padding/border in the dimensions */
 }
 
 /* Styling for functionality buttons */
 .functionality-button {
-  width: 100px; /* Fixed width for consistent size */
+  width: 120px; /* Fixed width for consistent size */
   height: 40px; /* Fixed height for consistent size */
   margin: 10px; /* Add some space around buttons */
   padding: 5px; /* Inner padding for comfortable spacing */
