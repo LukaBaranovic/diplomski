@@ -8,35 +8,36 @@ const Cart = ({ items, selectedItemId, setSelectedItemId }) => {
 
   return (
     <div className="cart-container">
-      <h2>Shopping Cart</h2>
-      {items.length === 0 ? (
-        <p>No items in the cart</p>
-      ) : (
-        <>
-          <table className="cart-table">
-            <thead>
-              <tr>
-                <th>Item Name</th>
-                <th>Amount</th>
-                <th>Price</th>
+      <table className="cart-table">
+        <thead>
+          <tr>
+            <th>Artikal</th>
+            <th>Količina</th>
+            <th>Cijena</th>
+          </tr>
+        </thead>
+        <tbody>
+          {items.length === 0 ? (
+            <tr>
+              <td colSpan="3" style={{ textAlign: "center" }}>
+                Nema artikala
+              </td>
+            </tr>
+          ) : (
+            items.map((item) => (
+              <tr
+                key={item.item_id}
+                onClick={() => toggleItem(item.item_id)}
+                className={selectedItemId === item.item_id ? "selected" : ""}
+              >
+                <td>{item.item_name}</td>
+                <td>{item.quantity}</td> {/* Display the quantity */}
+                <td>€{item.item_price}</td>
               </tr>
-            </thead>
-            <tbody>
-              {items.map((item) => (
-                <tr
-                  key={item.item_id}
-                  onClick={() => toggleItem(item.item_id)}
-                  className={selectedItemId === item.item_id ? "selected" : ""}
-                >
-                  <td>{item.item_name}</td>
-                  <td>{item.quantity}</td> {/* Display the quantity */}
-                  <td>€{item.item_price}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </>
-      )}
+            ))
+          )}
+        </tbody>
+      </table>
     </div>
   );
 };

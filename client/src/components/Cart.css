@@ -4,12 +4,13 @@
 
 .cart-table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: collapse; /* Ensures no gaps between table cells */
+  border: none; /* Remove the outer border of the table */
 }
 
 .cart-table th,
 .cart-table td {
-  border: 1px solid #ddd;
+  border: 1px solid #ddd; /* Keep inner cell borders */
   padding: 8px;
   text-align: left;
 }
@@ -30,5 +31,5 @@
 
 .cart-container .selected {
   background-color: #add8e6; /* Light blue color for selected item */
-  border: 1px solid #ccc;
+  border: 1px solid #ccc; /* Optional: Add a border to the selected row */
 }

@@ -28,9 +28,10 @@ html {
 
 .lower-section {
   display: grid;
-  grid-template-columns: 40% 20% 40%; /* Define the widths of the three sections */
+  grid-template-columns: 50% 10% 40%; /* Define the widths of the three sections */
   gap: 0; /* No space between sections */
   width: 100%; /* Full width */
+  height: 100%; /* Ensure the lower section fills its allocated height */
   border-top: 2px solid #ccc; /* Lighter line to separate upper and lower sections */
   overflow: hidden; /* Prevent content overflow */
 }
@@ -44,9 +45,14 @@ html {
 
 .left-section {
   border-left: none; /* Remove the left border from the left section */
+  height: 100%; /* Ensure the left section takes up its full height */
+  width: 100%; /* Ensure the left section takes up its full width */
+  box-sizing: border-box; /* Include padding/border in the dimensions */
 }
 
 .middle-section,
 .right-section {
   border-left: 2px solid #ccc; /* Lighter lines to separate middle and right sections */
+  height: 100%; /* Ensure these sections also take up their full height */
+  box-sizing: border-box; /* Include padding/border in the dimensions */
 }
