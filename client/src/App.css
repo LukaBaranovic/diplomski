@@ -5,7 +5,7 @@ html {
   height: 100%;
   width: 100%;
   box-sizing: border-box;
-  overflow: auto; /* Prevent scrolling for the entire page */
+  overflow: auto; /* Allow scrolling for the entire page */
 }
 
 .page-container {
@@ -18,9 +18,12 @@ html {
 .upper-section {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start; /* Align items to the top */
   width: 100%; /* Full width */
-  overflow: auto; /* Prevent content from overflowing */
+  overflow: hidden; /* Prevent horizontal overflow */
+  max-height: 50vh; /* Constrain height to half the viewport */
+  padding: 20px; /* Add some padding for spacing */
+  box-sizing: border-box; /* Include padding in size calculations */
 }
 
 .lower-section {

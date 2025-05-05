@@ -1,14 +1,15 @@
-/* General styling for the category list */
 .category-list {
   display: grid;
   grid-template-columns: repeat(
     auto-fit,
-    minmax(232px, 1fr) /* Adjusted size to account for removed padding */
+    minmax(232px, 1fr) /* Adjusted size to account for padding */
   ); /* Responsive grid */
   gap: 16px; /* Keep the gap between items */
+  padding: 20px; /* Inner padding for the grid */
   width: 100%;
-  box-sizing: border-box;
-  margin-top: 60px; /* Maintain the margin from the top */
+  max-height: 100%; /* Prevent the grid from overflowing its parent */
+  overflow-y: auto; /* Allow vertical scrolling for overflowing content */
+  box-sizing: border-box; /* Include padding in size calculations */
 }
 
 /* Styling for individual category items */
@@ -16,7 +17,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  height: 120px; /* Set a consistent height */
+  width: 100%; /* Ensure full width within grid */
   background-color: #e0f7fa;
   border-radius: 5px;
   font-size: 1rem;
@@ -44,65 +46,79 @@
 /* Responsive design for smaller screens (width <= 768px) */
 @media (max-width: 768px) {
   .category-list {
-    margin-top: 80px; /* Increased margin for smaller screens */
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(200px, 1fr) /* Adjusted size for smaller screens */
+    );
     gap: 12px; /* Reduced gap between items */
   }
 
   .category-container {
     font-size: 0.9rem;
-    padding: 15px;
+    height: 100px; /* Consistent height for smaller screens */
   }
 }
 
 /* Responsive design for very small screens (width <= 480px) */
 @media (max-width: 480px) {
   .category-list {
-    margin-top: 100px; /* Further increase margin for very small devices */
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(180px, 1fr) /* Adjusted size for very small screens */
+    );
     gap: 8px; /* Minimize gap for compact screens */
   }
 
   .category-container {
     font-size: 0.8rem; /* Reduce font size for smaller screens */
-    padding: 12px; /* Compact padding */
+    height: 90px; /* Consistent height for very small screens */
   }
 }
 
 /* Responsive design for medium screens (width >= 768px and <= 1024px) */
 @media (min-width: 768px) and (max-width: 1024px) {
   .category-list {
-    margin-top: 70px; /* Ensure consistent spacing for tablets */
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(216px, 1fr) /* Adjusted size for tablets */
+    );
     gap: 18px; /* Slightly larger gap for tablets */
   }
 
   .category-container {
     font-size: 1rem;
-    padding: 18px;
+    height: 110px; /* Consistent height for tablets */
   }
 }
 
 /* Responsive design for desktops (width >= 1025px and <= 1440px) */
 @media (min-width: 1025px) and (max-width: 1440px) {
   .category-list {
-    margin-top: 60px; /* Adjust margin for desktops */
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(232px, 1fr) /* Adjusted size for desktops */
+    );
     gap: 20px; /* Slightly larger gap for larger screens */
   }
 
   .category-container {
     font-size: 1.1rem; /* Slightly increased font size */
-    padding: 22px; /* Larger padding for desktops */
+    height: 120px; /* Consistent height for desktops */
   }
 }
 
 /* Responsive design for large screens (width >= 1441px) */
 @media (min-width: 1441px) {
   .category-list {
-    margin-top: 60px; /* Maintain margin for ultra-wide screens */
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(250px, 1fr) /* Adjusted size for ultra-wide screens */
+    );
     gap: 24px; /* Larger gap for ultra-wide screens */
-    padding: 30px 40px; /* More horizontal padding for large screens */
   }
 
   .category-container {
     font-size: 1.2rem; /* Larger font size for readability */
-    padding: 25px; /* Increased padding for larger screens */
+    height: 130px; /* Consistent height for ultra-wide screens */
   }
 }
