@@ -11,10 +11,9 @@
 }
 
 .popup-content {
-  width: 80vw; /* 80% of the viewport width */
-  height: 80vh; /* 80% of the viewport height */
+  width: 80vw; /* Default: 80% of the viewport width */
+  height: 80vh; /* Default: 80% of the viewport height */
   background: white;
-  padding: 20px;
   border-radius: 10px;
   text-align: center;
   display: flex;
@@ -24,6 +23,14 @@
 .popup-header,
 .popup-footer {
   flex-shrink: 0; /* Ensure header and footer do not shrink */
+}
+
+.popup-footer {
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  justify-content: center; /* Center children vertically */
+  align-items: center; /* Center children horizontally */
+  padding: 10px;
 }
 
 .popup-body {
@@ -51,7 +58,8 @@ hr.smooth-line {
   border: none;
   height: 1px;
   background: linear-gradient(to right, transparent, #ccc, transparent);
-  margin: 10px 0;
+  margin: 0; /* Remove all margin */
+  align-self: stretch; /* Ensure the line stretches across the footer */
 }
 
 .item-list {
@@ -65,8 +73,8 @@ hr.smooth-line {
 }
 
 .item-container {
-  width: 200px; /* Slightly larger size */
-  padding: 20px;
+  width: 200px; /* Default width */
+  padding: 20px; /* Default padding */
   border: 1px solid #ccc;
   border-radius: 5px;
   text-align: center;
@@ -91,4 +99,63 @@ hr.smooth-line {
 
 .item-price {
   color: #007bff;
+}
+
+/* Responsive design for very small screens (width <= 480px) */
+@media (max-width: 480px) {
+  .item-container {
+    width: 150px; /* Decreased width */
+    padding: 10px; /* Decreased padding */
+    font-size: 0.8rem; /* Small font size for very small screens */
+  }
+
+  .popup-content {
+    width: 100vw; /* 100% width for small screens */
+    height: 100vh; /* 100% height for small screens */
+    border-radius: 0; /* Remove border radius for full-screen look */
+  }
+}
+
+/* Responsive design for smaller screens (481px to 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .item-container {
+    width: 180px; /* Slightly decreased width */
+    padding: 15px; /* Slightly decreased padding */
+    font-size: 0.9rem; /* Slightly larger font size */
+  }
+
+  .popup-content {
+    width: 100vw; /* 100% width for smaller screens */
+    height: 100vh; /* 100% height for smaller screens */
+    border-radius: 0; /* Remove border radius for full-screen look */
+  }
+}
+
+/* Responsive design for medium screens (769px to 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .item-container {
+    width: 200px; /* Default width */
+    padding: 20px; /* Default padding */
+    font-size: 1rem; /* Default font size for tablets */
+  }
+
+  .popup-content {
+    width: 90vw; /* 90% width for medium screens */
+    height: 90vh; /* 90% height for medium screens */
+    border-radius: 10px; /* Keep rounded corners */
+  }
+}
+
+/* Responsive design for desktops (1025px to 1440px) */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .item-container {
+    font-size: 1.1rem; /* Slightly increased font size */
+  }
+}
+
+/* Responsive design for large screens (1441px and above) */
+@media (min-width: 1441px) {
+  .item-container {
+    font-size: 1.2rem; /* Larger font size for ultra-wide screens */
+  }
 }
