@@ -11,7 +11,7 @@ const AmountPopup = ({ onClose, onSave, currentAmount }) => {
       setAmount(value);
       setErrorMessage("");
     } else if (value === 0) {
-      setErrorMessage("Amount cannot be zero.");
+      setErrorMessage("Količina ne može biti nula"); // Updated message
     }
   };
 
@@ -19,7 +19,7 @@ const AmountPopup = ({ onClose, onSave, currentAmount }) => {
     if (amount > 0) {
       onSave(amount);
     } else {
-      setErrorMessage("Amount cannot be zero.");
+      setErrorMessage("Količina ne može biti nula"); // Updated message
     }
   };
 
@@ -33,23 +33,54 @@ const AmountPopup = ({ onClose, onSave, currentAmount }) => {
       setAmount(amount - 1);
       setErrorMessage("");
     } else {
-      setErrorMessage("Amount cannot be zero.");
+      setErrorMessage("Količina ne može biti nula"); // Updated message
     }
   };
 
   return (
     <div className="amount-popup">
       <div className="amount-popup-content">
-        <h3>Enter New Amount</h3>
-        <input type="number" value={amount} onChange={handleChange} min="1" />
-        <div className="amount-popup-buttons">
-          <button onClick={decrementAmount}>-</button>
-          <button onClick={incrementAmount}>+</button>
+        {/* Header Section */}
+        <div className="popup-header">
+          <div className="header-container">
+            <h3>Unesi novu količinu</h3> {/* Updated header text */}
+          </div>
+          <hr className="smooth-line" />
         </div>
-        {errorMessage && <p className="error-message">{errorMessage}</p>}
-        <div className="amount-popup-buttons">
-          <button onClick={handleSave}>Save</button>
-          <button onClick={onClose}>Cancel</button>
+
+        {/* Main Content Section */}
+        <div className="popup-main">
+          <input
+            type="number"
+            value={amount}
+            onChange={handleChange}
+            min="1"
+            className="amount-display"
+          />
+          <div className="popup-buttons">
+            <button className="popup-button blue" onClick={decrementAmount}>
+              -
+            </button>
+            <button className="popup-button blue" onClick={incrementAmount}>
+              +
+            </button>
+          </div>
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
+        </div>
+
+        {/* Footer Section */}
+        <div className="popup-footer">
+          <hr className="smooth-line" />
+          <div className="footer-container">
+            <div className="popup-buttons">
+              <button className="popup-button green" onClick={handleSave}>
+                Spremi {/* Changed Save to Spremi */}
+              </button>
+              <button className="popup-button red" onClick={onClose}>
+                Otkaži {/* Changed Cancel to Otkaži */}
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
