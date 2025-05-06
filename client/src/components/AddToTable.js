@@ -3,7 +3,7 @@ import "./AddToTable.css";
 
 const AddToTable = ({ onClose, onSave }) => {
   const [availableTables, setAvailableTables] = useState([]);
-  const [selectedTableNumber, setSelectedTableNumber] = useState(null); // Use table_number instead of table_id
+  const [selectedTableNumber, setSelectedTableNumber] = useState(null);
   const [error, setError] = useState("");
 
   // Fetch available tables when the component loads
@@ -15,8 +15,8 @@ const AddToTable = ({ onClose, onSave }) => {
         }
         return res.json();
       })
-      .then((data) => setAvailableTables(data)) // Expecting an array of { table_id, table_number }
-      .catch((err) => setError("Failed to load table numbers."));
+      .then((data) => setAvailableTables(data))
+      .catch(() => setError("Failed to load table numbers."));
   }, []);
 
   // Handle the 'Add to Table' action
@@ -25,34 +25,61 @@ const AddToTable = ({ onClose, onSave }) => {
       setError("Please select a table.");
       return;
     }
-    onSave(selectedTableNumber); // Pass the selected `table_number` to the parent
+    onSave(selectedTableNumber);
   };
 
   return (
-    <div className="popup-container">
-      <div className="popup">
-        <h2>Add to Table</h2>
-        {error && <p className="error-message">{error}</p>}
-        <label htmlFor="table-select">Select a Table:</label>
-        <select
-          id="table-select"
-          value={selectedTableNumber || ""}
-          onChange={(e) => setSelectedTableNumber(e.target.value)}
-        >
-          <option value="" disabled>
-            -- Select a Table --
-          </option>
-          {availableTables.map((table) => (
-            <option key={table.table_id} value={table.table_number}>
-              {" "}
-              {/* Send table_number */}
-              Table {table.table_number}
+    <div className="add-to-table-popup-container">
+      <div className="add-to-table-popup">
+        {/* Header Section */}
+        <div className="add-to-table-popup-header">
+          <div className="add-to-table-header-container">
+            <h2 className="add-to-table-title">Novi Stol</h2>{" "}
+            {/* Updated class */}
+          </div>
+        </div>
+
+        {/* Main Content Section */}
+        <div className="add-to-table-popup-main">
+          {error && <p className="add-to-table-error-message">{error}</p>}
+          <label htmlFor="add-to-table-select" className="add-to-table-label">
+            Unesi broj stola:
+          </label>
+          <select
+            id="add-to-table-select"
+            value={selectedTableNumber || ""}
+            onChange={(e) => setSelectedTableNumber(e.target.value)}
+            className="add-to-table-select"
+          >
+            <option value="" disabled>
+              -- Select a Table --
             </option>
-          ))}
-        </select>
-        <div className="popup-buttons">
-          <button onClick={handleAddToTable}>Add</button>
-          <button onClick={onClose}>Cancel</button>
+            {availableTables.map((table) => (
+              <option key={table.table_id} value={table.table_number}>
+                Table {table.table_number}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Footer Section */}
+        <div className="add-to-table-popup-footer">
+          <div className="add-to-table-footer-container">
+            <div className="add-to-table-popup-buttons">
+              <button
+                onClick={handleAddToTable}
+                className="add-to-table-popup-button green"
+              >
+                Save
+              </button>
+              <button
+                onClick={onClose}
+                className="add-to-table-popup-button red"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

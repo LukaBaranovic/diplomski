@@ -1,4 +1,4 @@
-.popup-container {
+.add-to-table-popup-container {
   position: fixed;
   top: 0;
   left: 0;
@@ -11,20 +11,50 @@
   z-index: 1000;
 }
 
-.popup {
+.add-to-table-popup {
   background-color: white;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
   width: 400px;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.popup h2 {
-  margin-bottom: 20px;
+.add-to-table-popup-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
 }
 
-.popup select {
+.add-to-table-header-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.add-to-table-title {
+  margin: 0;
+  padding-bottom: 15px;
+}
+
+.add-to-table-popup-main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-to-table-label {
+  margin-bottom: 10px;
+}
+
+.add-to-table-select {
   width: 100%;
   padding: 10px;
   margin-bottom: 20px;
@@ -32,24 +62,46 @@
   border-radius: 4px;
 }
 
-.popup-buttons {
+.add-to-table-popup-footer {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
 }
 
-.popup-buttons button {
+.add-to-table-footer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.add-to-table-popup-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  padding-top: 15px;
+}
+
+.add-to-table-popup-button {
+  margin: 5px;
   padding: 10px 20px;
+  font-size: 1rem;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
 }
 
-.popup-buttons button:first-child {
+.add-to-table-popup-button.green {
   background-color: #4caf50;
   color: white;
 }
 
-.popup-buttons button:last-child {
+.add-to-table-popup-button.red {
   background-color: #f44336;
   color: white;
+}
+
+.add-to-table-popup-button:hover {
+  opacity: 0.9;
 }
