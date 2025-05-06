@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import "./AddToTable.css";
 
 const AddToTable = ({ onClose, onSave }) => {
-  const [availableTables, setAvailableTables] = useState([]);
-  const [selectedTableNumber, setSelectedTableNumber] = useState(null);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [availableTables, setAvailableTables] = useState([]); // Fetch available tables
+  const [selectedTableNumber, setSelectedTableNumber] = useState(null); // Track selected table
+  const [errorMessage, setErrorMessage] = useState(""); // Handle errors
 
-  // Fetch available tables when the component loads
+  // Fetch table data when component loads
   useEffect(() => {
     fetch("/api/getAvailableTables")
       .then((res) => {
@@ -15,17 +15,21 @@ const AddToTable = ({ onClose, onSave }) => {
         }
         return res.json();
       })
-      .then((data) => setAvailableTables(data))
-      .catch((err) => setErrorMessage("Nije moguće učitati stolove.")); // Updated message
+      .then((data) => setAvailableTables(data)) // Expecting an array of { table_id, table_number }
+      .catch(() => setErrorMessage("Nije moguće učitati stolove."));
   }, []);
 
-  // Handle the 'Add to Table' action
-  const handleAddToTable = () => {
+  const handleTableClick = (tableNumber) => {
+    setSelectedTableNumber(tableNumber); // Set selected table
+    setErrorMessage(""); // Clear error message
+  };
+
+  const handleSave = () => {
     if (!selectedTableNumber) {
-      setErrorMessage("Molimo odaberite stol."); // Updated message
+      setErrorMessage("Molimo odaberite stol."); // Display error if no table selected
       return;
     }
-    onSave(selectedTableNumber); // Pass the selected `table_number` to the parent
+    onSave(selectedTableNumber); // Pass selected table to parent
   };
 
   return (
@@ -34,7 +38,7 @@ const AddToTable = ({ onClose, onSave }) => {
         {/* Header Section */}
         <div className="popup-header">
           <div className="header-container">
-            <h3>Dodaj na stol</h3> {/* Updated header text */}
+            <h3>Dodaj na Stol</h3>
           </div>
           <hr className="smooth-line" />
         </div>
@@ -42,38 +46,31 @@ const AddToTable = ({ onClose, onSave }) => {
         {/* Main Content Section */}
         <div className="popup-main">
           {errorMessage && <p className="error-message">{errorMessage}</p>}
-          <label htmlFor="table-select" className="input-label">
-            Odaberite stol:
-          </label>
-          <select
-            id="table-select"
-            value={selectedTableNumber || ""}
-            onChange={(e) => setSelectedTableNumber(e.target.value)}
-            className="table-select"
-          >
-            <option value="" disabled>
-              -- Odaberite stol --
-            </option>
+          <div className="table-list">
             {availableTables.map((table) => (
-              <option key={table.table_id} value={table.table_number}>
+              <div
+                key={table.table_id}
+                className={`table-item ${
+                  selectedTableNumber === table.table_number ? "selected" : ""
+                }`}
+                onClick={() => handleTableClick(table.table_number)}
+              >
                 Stol {table.table_number}
-              </option>
+              </div>
             ))}
-          </select>
+          </div>
         </div>
 
         {/* Footer Section */}
         <div className="popup-footer">
           <hr className="smooth-line" />
           <div className="footer-container">
-            <div className="popup-buttons">
-              <button className="popup-button green" onClick={handleAddToTable}>
-                Dodaj {/* Updated Add button */}
-              </button>
-              <button className="popup-button red" onClick={onClose}>
-                Otkaži {/* Updated Cancel button */}
-              </button>
-            </div>
+            <button className="popup-button green" onClick={handleSave}>
+              Spremi
+            </button>
+            <button className="popup-button red" onClick={onClose}>
+              Otkaži
+            </button>
           </div>
         </div>
       </div>

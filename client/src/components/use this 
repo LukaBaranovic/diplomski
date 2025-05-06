@@ -1,0 +1,27 @@
+.table-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.table-item {
+  width: 150px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.table-item:hover {
+  background-color: #f0f0f0;
+}
+
+.table-item.selected {
+  background-color: #007bff;
+  color: white;
+  border-color: #0056b3;
+  transform: scale(1.05);
+}
