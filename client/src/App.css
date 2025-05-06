@@ -22,13 +22,12 @@ html {
   width: 100%; /* Full width */
   overflow: hidden; /* Prevent horizontal overflow */
   max-height: 50vh; /* Constrain height to half the viewport */
-  padding: 20px; /* Add some padding for spacing */
   box-sizing: border-box; /* Include padding in size calculations */
 }
 
 .lower-section {
   display: grid;
-  grid-template-columns: 45% 15% 40%; /* Default division for larger screens */
+  grid-template-columns: 40% 10% 50%; /* Default division for larger screens */
   gap: 0; /* No space between sections */
   width: 100%; /* Full width */
   height: 100%; /* Ensure the lower section fills its allocated height */
@@ -106,6 +105,10 @@ html {
 
 /* Responsive Design for Screens Between 769px and 1024px */
 @media (min-width: 769px) and (max-width: 1024px) {
+  .lower-section {
+    grid-template-columns: 35% 15% 50%; /* New division for smaller screens */
+  }
+
   .page-container {
     grid-template-rows: 55% 45%; /* Slightly adjust grid layout */
   }
@@ -119,6 +122,10 @@ html {
     width: 90px; /* Adjust button width */
     height: 38px; /* Adjust button height */
     font-size: 13px; /* Adjust font size */
+  }
+
+  .upper-section {
+    max-height: 55vh; /* Constrain height to half the viewport */
   }
 }
 

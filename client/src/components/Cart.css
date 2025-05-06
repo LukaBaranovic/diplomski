@@ -1,18 +1,23 @@
 .cart-container {
   margin: 20px;
+  padding: 20px; /* Add inner padding for consistency */
+  box-sizing: border-box; /* Include padding in size calculations */
 }
 
+/* Base styles for the cart table */
 .cart-table {
   width: 100%;
   border-collapse: collapse; /* Ensures no gaps between table cells */
   border: none; /* Remove the outer border of the table */
+  table-layout: fixed; /* Ensures proper column layout for responsive design */
 }
 
 .cart-table th,
 .cart-table td {
   border: 1px solid #ddd; /* Keep inner cell borders */
-  padding: 8px;
+  padding: 12px; /* Adjust padding for better spacing */
   text-align: left;
+  word-wrap: break-word; /* Ensure text wraps within cells */
 }
 
 .cart-table th {
@@ -32,4 +37,84 @@
 .cart-container .selected {
   background-color: #add8e6; /* Light blue color for selected item */
   border: 1px solid #ccc; /* Optional: Add a border to the selected row */
+}
+
+/* Responsive design for very small screens (width <= 480px) */
+@media (max-width: 480px) {
+  .cart-container {
+    margin: 10px; /* Reduce margin for small screens */
+    padding: 10px;
+  }
+
+  .cart-table th,
+  .cart-table td {
+    padding: 8px; /* Reduce padding for compact display */
+    font-size: 0.8rem; /* Smaller font size for small screens */
+  }
+
+  .cart-table {
+    font-size: 0.8rem; /* General font size adjustment for the table */
+  }
+}
+
+/* Responsive design for smaller screens (481px to 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .cart-container {
+    margin: 15px; /* Adjust margin for medium screens */
+    padding: 15px;
+  }
+
+  .cart-table th,
+  .cart-table td {
+    padding: 10px; /* Adjust padding for better spacing */
+    font-size: 0.9rem; /* Slightly larger font size */
+  }
+
+  .cart-table {
+    font-size: 0.9rem; /* General font size adjustment for the table */
+  }
+}
+
+/* Responsive design for medium screens (769px to 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .cart-container {
+    margin: 20px; /* Default margin */
+    padding: 20px;
+  }
+
+  .cart-table th,
+  .cart-table td {
+    padding: 12px; /* Default padding */
+    font-size: 1rem; /* Default font size */
+  }
+
+  .cart-table {
+    font-size: 1rem; /* General font size adjustment */
+  }
+}
+
+/* Responsive design for desktops (1025px to 1440px) */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .cart-table th,
+  .cart-table td {
+    padding: 14px; /* Slightly increased padding */
+    font-size: 1.1rem; /* Slightly larger font size */
+  }
+
+  .cart-table {
+    font-size: 1.1rem;
+  }
+}
+
+/* Responsive design for large screens (1441px and above) */
+@media (min-width: 1441px) {
+  .cart-table th,
+  .cart-table td {
+    padding: 16px; /* Larger padding for better readability */
+    font-size: 1.2rem; /* Larger font size */
+  }
+
+  .cart-table {
+    font-size: 1.2rem;
+  }
 }
