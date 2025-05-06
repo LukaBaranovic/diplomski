@@ -1,36 +1,68 @@
 import React, { useState } from "react";
-import "./CreateTable.css"; // Import CSS for styling
+import "./CreateTable.css";
 
 const CreateTable = ({ onClose, onSave }) => {
   const [tableNumber, setTableNumber] = useState(""); // State for the table number
-  const [error, setError] = useState(""); // State for error messages
+  const [errorMessage, setErrorMessage] = useState(""); // State for error messages
+
+  const handleChange = (e) => {
+    const value = parseInt(e.target.value, 10);
+    if (!isNaN(value) && value > 0) {
+      setTableNumber(value);
+      setErrorMessage("");
+    } else if (value === 0) {
+      setErrorMessage("Broj stola ne može biti nula"); // Error message for zero
+    }
+  };
 
   const handleSave = () => {
-    if (tableNumber) {
-      onSave(tableNumber, setError); // Pass the table number and setError function to the parent
+    if (tableNumber > 0) {
+      onSave(tableNumber);
     } else {
-      setError("Please enter a valid table number!"); // Show error if no table number is provided
+      setErrorMessage("Unesite ispravan broj stola"); // Error message for invalid input
     }
   };
 
   return (
-    <div className="popup-container">
-      <div className="popup">
-        <h2>Create Table</h2>
-        <label>
-          Enter Table Number:
+    <div className="create-table-popup">
+      <div className="create-table-popup-content">
+        {/* Header Section */}
+        <div className="popup-header">
+          <div className="header-container">
+            <h3>Kreiraj Stol</h3> {/* Title */}
+          </div>
+          <hr className="smooth-line" />
+        </div>
+
+        {/* Main Content Section */}
+        <div className="popup-main">
+          <label htmlFor="table-number" className="input-label">
+            Unesite broj stola:
+          </label>
           <input
+            id="table-number"
             type="number"
             value={tableNumber}
-            onChange={(e) => setTableNumber(e.target.value)}
-            placeholder="Table Number"
+            onChange={handleChange}
+            placeholder="Broj stola"
+            className="table-number-input"
           />
-        </label>
-        {error && <p className="error-message">{error}</p>}{" "}
-        {/* Display error message */}
-        <div className="popup-buttons">
-          <button onClick={handleSave}>Save</button>
-          <button onClick={onClose}>Cancel</button>
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
+        </div>
+
+        {/* Footer Section */}
+        <div className="popup-footer">
+          <hr className="smooth-line" />
+          <div className="footer-container">
+            <div className="popup-buttons">
+              <button className="popup-button green" onClick={handleSave}>
+                Spremi {/* Save button */}
+              </button>
+              <button className="popup-button red" onClick={onClose}>
+                Otkaži {/* Cancel button */}
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

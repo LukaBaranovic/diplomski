@@ -4,7 +4,7 @@ import "./AddToTable.css";
 const AddToTable = ({ onClose, onSave }) => {
   const [availableTables, setAvailableTables] = useState([]);
   const [selectedTableNumber, setSelectedTableNumber] = useState(null);
-  const [error, setError] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   // Fetch available tables when the component loads
   useEffect(() => {
@@ -16,67 +16,62 @@ const AddToTable = ({ onClose, onSave }) => {
         return res.json();
       })
       .then((data) => setAvailableTables(data))
-      .catch(() => setError("Failed to load table numbers."));
+      .catch((err) => setErrorMessage("Nije moguće učitati stolove.")); // Updated message
   }, []);
 
   // Handle the 'Add to Table' action
   const handleAddToTable = () => {
     if (!selectedTableNumber) {
-      setError("Please select a table.");
+      setErrorMessage("Molimo odaberite stol."); // Updated message
       return;
     }
-    onSave(selectedTableNumber);
+    onSave(selectedTableNumber); // Pass the selected `table_number` to the parent
   };
 
   return (
-    <div className="add-to-table-popup-container">
-      <div className="add-to-table-popup">
+    <div className="add-to-table-popup">
+      <div className="add-to-table-popup-content">
         {/* Header Section */}
-        <div className="add-to-table-popup-header">
-          <div className="add-to-table-header-container">
-            <h2 className="add-to-table-title">Novi Stol</h2>{" "}
-            {/* Updated class */}
+        <div className="popup-header">
+          <div className="header-container">
+            <h3>Dodaj na stol</h3> {/* Updated header text */}
           </div>
+          <hr className="smooth-line" />
         </div>
 
         {/* Main Content Section */}
-        <div className="add-to-table-popup-main">
-          {error && <p className="add-to-table-error-message">{error}</p>}
-          <label htmlFor="add-to-table-select" className="add-to-table-label">
-            Unesi broj stola:
+        <div className="popup-main">
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
+          <label htmlFor="table-select" className="input-label">
+            Odaberite stol:
           </label>
           <select
-            id="add-to-table-select"
+            id="table-select"
             value={selectedTableNumber || ""}
             onChange={(e) => setSelectedTableNumber(e.target.value)}
-            className="add-to-table-select"
+            className="table-select"
           >
             <option value="" disabled>
-              -- Select a Table --
+              -- Odaberite stol --
             </option>
             {availableTables.map((table) => (
               <option key={table.table_id} value={table.table_number}>
-                Table {table.table_number}
+                Stol {table.table_number}
               </option>
             ))}
           </select>
         </div>
 
         {/* Footer Section */}
-        <div className="add-to-table-popup-footer">
-          <div className="add-to-table-footer-container">
-            <div className="add-to-table-popup-buttons">
-              <button
-                onClick={handleAddToTable}
-                className="add-to-table-popup-button green"
-              >
-                Save
+        <div className="popup-footer">
+          <hr className="smooth-line" />
+          <div className="footer-container">
+            <div className="popup-buttons">
+              <button className="popup-button green" onClick={handleAddToTable}>
+                Dodaj {/* Updated Add button */}
               </button>
-              <button
-                onClick={onClose}
-                className="add-to-table-popup-button red"
-              >
-                Cancel
+              <button className="popup-button red" onClick={onClose}>
+                Otkaži {/* Updated Cancel button */}
               </button>
             </div>
           </div>

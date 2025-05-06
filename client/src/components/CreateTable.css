@@ -1,80 +1,131 @@
-.popup-container {
+.create-table-popup {
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; /* Ensure it appears above other content */
+  z-index: 1000;
 }
 
-.popup {
-  min-width: 40%; /* Adjust width to be smaller than the original popup */
-  max-width: 80%; /* Ensure it doesn't exceed the screen width */
-  max-height: 80%; /* Set a max height to ensure it fits on the screen */
-  background: white; /* White background for the popup */
-  padding: 20px; /* Padding inside the popup */
-  border-radius: 10px; /* Rounded corners */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
-  text-align: center; /* Center the text inside */
-  overflow-y: auto; /* Add scroll for overflowing content */
+.create-table-popup-content {
+  background-color: white;
+  padding: 20px; /* Added padding */
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 50vw; /* 50% of the viewport width */
+  height: 50vh; /* 50% of the viewport height */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.popup h2 {
-  margin-bottom: 20px; /* Space below the title */
-  font-size: 24px; /* Larger font size for the title */
-  color: #333; /* Darker text color for the title */
+.popup-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
 }
 
-.popup label {
-  display: block; /* Ensure the label is on a new line */
-  font-size: 16px; /* Font size for the label */
-  margin-bottom: 10px; /* Space below the label */
-  color: #555; /* Neutral text color for the label */
+.header-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Full height of header */
 }
 
-.popup input {
-  width: 100%; /* Full width input field */
-  padding: 10px; /* Padding inside the input field */
-  font-size: 16px; /* Font size for the input text */
-  border: 1px solid #ccc; /* Light border color */
-  border-radius: 5px; /* Rounded corners for the input */
-  margin-bottom: 20px; /* Space below the input field */
+.popup-header h3 {
+  margin: 0;
+  padding-bottom: 15px; /* Space below title */
+}
+
+.smooth-line {
+  border: none;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #ccc, transparent);
+  margin: 0;
+  align-self: stretch;
+}
+
+.popup-main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.input-label {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.table-number-input {
+  width: 100px; /* Narrower width */
+  height: 40px; /* Taller height */
+  font-size: 1.2rem;
+  text-align: center;
+  margin-bottom: 16px;
+
+  /* Remove arrows for number input */
+  -moz-appearance: textfield; /* For Firefox */
+  -webkit-appearance: none; /* For Chrome, Safari, and Edge */
+  appearance: none;
+}
+
+.table-number-input::-webkit-inner-spin-button,
+.table-number-input::-webkit-outer-spin-button {
+  -webkit-appearance: none; /* Remove arrows for WebKit browsers */
+  margin: 0;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 10px;
+}
+
+.popup-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
 .popup-buttons {
-  display: flex; /* Arrange buttons side by side */
-  justify-content: space-between; /* Add space between buttons */
-  gap: 10px; /* Add a gap between buttons */
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding-top: 15px; /* Space above buttons */
 }
 
-.popup-buttons button {
-  flex: 1; /* Make buttons equal in width */
-  padding: 10px 20px; /* Padding for the buttons */
-  font-size: 16px; /* Font size for the button text */
-  border: none; /* Remove default border */
-  border-radius: 5px; /* Rounded corners for the buttons */
-  cursor: pointer; /* Pointer cursor for the button */
-  transition: background-color 0.3s ease; /* Smooth transition for hover */
+.popup-button {
+  margin: 5px;
+  padding: 10px 20px; /* Larger buttons */
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-.popup-buttons button:first-child {
-  background: #28a745; /* Green for the save button */
-  color: white; /* White text for the button */
+.popup-button.green {
+  background-color: green;
+  color: #fff;
 }
 
-.popup-buttons button:first-child:hover {
-  background: #218838; /* Darker green on hover */
-}
-
-.popup-buttons button:last-child {
-  background: #dc3545; /* Red for the cancel button */
-  color: white; /* White text for the button */
-}
-
-.popup-buttons button:last-child:hover {
-  background: #c82333; /* Darker red on hover */
+.popup-button.red {
+  background-color: red;
+  color: #fff;
 }
