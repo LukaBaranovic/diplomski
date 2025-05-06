@@ -65,22 +65,28 @@ hr.smooth-line {
 }
 
 .item-container {
-  width: 200px; /* Increased width from 200px to 240px */
-  padding: 20px; /* Increased padding from 10px to 15px */
+  width: 200px; /* Slightly larger size */
+  padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
   text-align: center;
-  transition: background-color 0.3s ease;
-  cursor: pointer; /* Add cursor pointer */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
 }
 
 .item-container:hover {
   background-color: #f0f0f0;
 }
 
+.item-container.added {
+  background-color: #d4edda; /* Light green to indicate success */
+  transform: scale(1.05); /* Slightly enlarge the container */
+  transition: background-color 0.5s ease, transform 0.3s ease;
+}
+
 .item-name {
   font-weight: bold;
-  margin-bottom: 10px; /* Add gap between item names and prices */
+  margin-bottom: 10px;
 }
 
 .item-price {
