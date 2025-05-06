@@ -1,5 +1,5 @@
 /* Overlay for the popup */
-.popup-overlay {
+.receipts-popup {
   position: fixed;
   top: 0;
   left: 0;
@@ -13,34 +13,58 @@
 }
 
 /* Popup container */
-.popup {
+.receipts-popup-content {
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;
-  width: 70%; /* 70% of the screen width */
-  max-width: 90%;
-  height: 70%; /* 70% of the screen height */
+  width: 50vw; /* 50% of the viewport width */
+  height: 50vh; /* Increased height to 60% of the viewport height */
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   position: relative;
+  display: flex;
+  flex-direction: column;
   text-align: center;
-  overflow-y: auto; /* Scrollable if content overflows */
 }
 
-/* Close button styling */
-.close-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: none;
+/* Header styling */
+.popup-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-header h3 {
+  margin: 0;
+  padding-bottom: 15px;
+}
+
+.smooth-line {
   border: none;
-  font-size: 24px;
-  font-weight: bold;
-  color: #333;
-  cursor: pointer;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #ccc, transparent);
+  align-self: stretch;
 }
 
-.close-button:hover {
-  color: red;
+/* Main content styling with scrolling */
+.popup-main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Align content at the top */
+  align-items: center;
+  overflow-y: auto; /* Enables scrolling for overflowing content */
+  max-height: calc(
+    60vh - 120px
+  ); /* Adjust height to allow space for header and footer */
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box; /* Includes padding in width and height calculations */
 }
 
 /* Date picker styling */
@@ -55,7 +79,7 @@
 }
 
 .date-picker-container input {
-  padding: 5px 10px;
+  padding: 5px 10px; /* Reduced padding to 10px */
   font-size: 14px;
 }
 
@@ -80,4 +104,31 @@
 
 .receipts-table tr:hover {
   background-color: #f9f9f9;
+}
+
+/* Footer styling */
+.popup-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-button {
+  margin: 5px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #fff;
+}
+
+.popup-button.red {
+  background-color: red;
 }
