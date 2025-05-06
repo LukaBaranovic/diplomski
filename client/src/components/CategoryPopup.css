@@ -11,55 +11,67 @@
 }
 
 .popup-content {
-  min-width: 60%;
-  max-width: 90%;
-  max-height: 90%;
+  width: 80vw; /* 80% of the viewport width */
+  height: 80vh; /* 80% of the viewport height */
   background: white;
   padding: 20px;
   border-radius: 10px;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.popup-header,
+.popup-footer {
+  flex-shrink: 0; /* Ensure header and footer do not shrink */
+}
+
+.popup-body {
+  flex-grow: 1; /* Allow body to grow and take available space */
   overflow-y: auto; /* Add scroll for overflowing content */
+  margin: 20px 0;
 }
 
 button {
-  margin-top: 20px;
-  padding: 15px 30px; /* Increase padding to make the button larger */
-  font-size: 16px; /* Increase font size */
+  margin-top: 10px;
+  padding: 15px 30px;
+  font-size: 16px;
   border: none;
-  background: #007bff;
+  background: red; /* Change background to red */
   color: white;
   cursor: pointer;
   border-radius: 5px;
 }
 
 button:hover {
-  background: #0056b3;
+  background: darkred; /* Make the hover color a darker red */
 }
 
 hr.smooth-line {
   border: none;
   height: 1px;
   background: linear-gradient(to right, transparent, #ccc, transparent);
-  margin: 20px 0;
+  margin: 10px 0;
 }
 
 .item-list {
   list-style-type: none;
   padding: 0;
+  margin: 0; /* Remove margin from ul.item-list */
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  gap: 10px;
 }
 
 .item-container {
-  width: 200px; /* Set a specific width for the boxes */
-  padding: 10px;
-  margin: 10px;
+  width: 200px; /* Increased width from 200px to 240px */
+  padding: 20px; /* Increased padding from 10px to 15px */
   border: 1px solid #ccc;
   border-radius: 5px;
-  cursor: pointer;
+  text-align: center;
   transition: background-color 0.3s ease;
-  text-align: center; /* Center the text inside the box */
+  cursor: pointer; /* Add cursor pointer */
 }
 
 .item-container:hover {
@@ -68,7 +80,7 @@ hr.smooth-line {
 
 .item-name {
   font-weight: bold;
-  margin-bottom: 5px;
+  margin-bottom: 10px; /* Add gap between item names and prices */
 }
 
 .item-price {
