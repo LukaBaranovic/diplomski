@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "./PopupStyle.css"; // Shared styles
 import "./ReceiptDetailsView.css";
 
 const ReceiptDetailsView = ({ receiptId, onClose }) => {
@@ -28,7 +29,7 @@ const ReceiptDetailsView = ({ receiptId, onClose }) => {
 
   return (
     <div className="popup-overlay">
-      <div className="popup">
+      <div className="popup-content receipt-details-popup">
         <button className="close-button" onClick={onClose}>
           &times;
         </button>

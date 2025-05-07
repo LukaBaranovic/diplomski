@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./AddToTable.css";
+import "./PopupStyle.css"; // Adjust the path based on your folder structure
 
 const AddToTable = ({ onClose, onSave }) => {
   const [availableTables, setAvailableTables] = useState([]); // Fetch available tables
@@ -33,12 +34,12 @@ const AddToTable = ({ onClose, onSave }) => {
   };
 
   return (
-    <div className="add-to-table-popup">
-      <div className="add-to-table-popup-content">
+    <div className="popup-overlay">
+      <div className="popup-content add-to-table-popup">
         {/* Header Section */}
         <div className="popup-header">
           <div className="header-container">
-            <h3>Dodaj na Stol</h3>
+            <h2>Dodaj na Stol</h2>
           </div>
           <hr className="smooth-line" />
         </div>

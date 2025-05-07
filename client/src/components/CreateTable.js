@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./PopupStyle.css"; // Shared styles
 import "./CreateTable.css";
 
 const CreateTable = ({ onClose, onSave }) => {
@@ -24,12 +25,12 @@ const CreateTable = ({ onClose, onSave }) => {
   };
 
   return (
-    <div className="create-table-popup">
-      <div className="create-table-popup-content">
+    <div className="popup-overlay">
+      <div className="popup-content create-table-popup">
         {/* Header Section */}
         <div className="popup-header">
           <div className="header-container">
-            <h3>Kreiraj Stol</h3> {/* Title */}
+            <h2>Kreiraj Stol</h2> {/* Title */}
           </div>
           <hr className="smooth-line" />
         </div>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import "./CategoryPopup.css"; // Import the CSS file for styling
+import "./CategoryPopup.css"; // Component-specific styles
+import "./PopupStyle.css"; // Shared styles
 
 const CategoryPopup = ({
   categoryId,
@@ -30,12 +31,11 @@ const CategoryPopup = ({
 
   return (
     <div className="popup-overlay">
-      <div className="popup-content">
+      <div className="popup-content category-popup">
         <div className="popup-header">
           <h2>{categoryName}</h2>
-          <hr className="smooth-line" />
         </div>
-        <div className="popup-body">
+        <div className="popup-main">
           {items.length > 0 ? (
             <ul className="item-list">
               {items.map((item) => (
@@ -56,8 +56,9 @@ const CategoryPopup = ({
           )}
         </div>
         <div className="popup-footer">
-          <hr className="smooth-line" />
-          <button onClick={onClose}>Close</button>
+          <button className="popup-button red" onClick={onClose}>
+            Close
+          </button>
         </div>
       </div>
     </div>

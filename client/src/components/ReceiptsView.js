@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import ReceiptDetailsView from "./ReceiptDetailsView"; // Import the new ReceiptDetailsView
+import "./PopupStyle.css"; // Shared styles
 import "./ReceiptsView.css";
+import ReceiptDetailsView from "./ReceiptDetailsView"; // Import the new ReceiptDetailsView
 
 const ReceiptsView = ({ onClose }) => {
   const [receipts, setReceipts] = useState([]); // State to store receipts
@@ -33,55 +34,63 @@ const ReceiptsView = ({ onClose }) => {
   };
 
   return (
-    <div className="receipts-view-overlay">
-      <div className="receipts-view-popup">
+    <div className="popup-overlay">
+      <div className="popup-content receipts-view-popup">
         {/* Header container */}
-        <div className="receipts-view-header">
+        <div className="popup-header receipts-view-header">
           <h2 className="receipts-view-title">Pregled Računa</h2>
-          <button className="receipts-view-close-button" onClick={onClose}>
-            &times;
-          </button>
         </div>
 
-        <div className="receipts-view-date-picker-container">
-          <input
-            type="date"
-            id="receipts-view-date-picker"
-            value={selectedDate}
-            onChange={(e) => setSelectedDate(e.target.value)}
-          />
+        {/* Date picker section */}
+        <div className="popup-main">
+          <div className="receipts-view-date-picker-container">
+            <input
+              type="date"
+              id="receipts-view-date-picker"
+              value={selectedDate}
+              onChange={(e) => setSelectedDate(e.target.value)}
+            />
+          </div>
+
+          {/* Receipts table */}
+          <table className="receipts-view-table">
+            <thead>
+              <tr>
+                <th>Receipt ID</th>
+                <th>Table Number</th>
+                <th>Total Price</th>
+                <th>Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              {receipts.map((receipt) => {
+                const receiptTime = new Date(
+                  receipt.timestamp
+                ).toLocaleTimeString();
+                const totalPrice = receipt.total_price || 0;
+                return (
+                  <tr
+                    key={receipt.receipt_id}
+                    onClick={() => handleRowClick(receipt)}
+                  >
+                    <td>{receipt.receipt_id}</td>
+                    <td>{receipt.table_number}</td>
+                    <td>${Number(totalPrice).toFixed(2)}</td>
+                    <td>{receiptTime}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
-        <table className="receipts-view-table">
-          <thead>
-            <tr>
-              <th>Receipt ID</th>
-              <th>Table Number</th>
-              <th>Total Price</th>
-              <th>Time</th>
-            </tr>
-          </thead>
-          <tbody>
-            {receipts.map((receipt) => {
-              const receiptTime = new Date(
-                receipt.timestamp
-              ).toLocaleTimeString();
-              const totalPrice = receipt.total_price || 0;
-              return (
-                <tr
-                  key={receipt.receipt_id}
-                  onClick={() => handleRowClick(receipt)}
-                >
-                  <td>{receipt.receipt_id}</td>
-                  <td>{receipt.table_number}</td>
-                  <td>${Number(totalPrice).toFixed(2)}</td>
-                  <td>{receiptTime}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+
+        {/* Footer Section */}
+        <div className="popup-footer">
+          <hr className="smooth-line" />
+        </div>
       </div>
 
+      {/* Receipt details view */}
       {selectedReceipt && (
         <ReceiptDetailsView
           receiptId={selectedReceipt.receipt_id}

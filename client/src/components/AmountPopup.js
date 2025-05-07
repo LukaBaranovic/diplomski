@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./AmountPopup.css";
+import "./PopupStyle.css"; // Adjust the path based on your folder structure
 
 const AmountPopup = ({ onClose, onSave, currentAmount }) => {
   const [amount, setAmount] = useState(currentAmount);
@@ -38,12 +39,12 @@ const AmountPopup = ({ onClose, onSave, currentAmount }) => {
   };
 
   return (
-    <div className="amount-popup">
-      <div className="amount-popup-content">
+    <div className="popup-overlay">
+      <div className="popup-content amount-popup">
         {/* Header Section */}
         <div className="popup-header">
           <div className="header-container">
-            <h3>Unesi novu količinu</h3> {/* Updated header text */}
+            <h2>Unesi novu količinu</h2> {/* Updated header text */}
           </div>
           <hr className="smooth-line" />
         </div>

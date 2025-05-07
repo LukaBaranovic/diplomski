@@ -1,0 +1,244 @@
+/* ==========================
+   Common Styles for All Popups
+   ========================== */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  overflow-y: auto; /* Add scroll for overflowing content */
+  margin: 10px; /* Added 10px margin */
+}
+
+.popup-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px; /* Updated padding */
+  margin: 0; /* Updated margin */
+  border-bottom: 2px solid #ddd; /* Add a border at the bottom of the header */
+}
+
+h2 {
+  margin: 0; /* Added global h2 style */
+}
+
+.popup-main {
+  flex-grow: 1;
+  display: flex;
+  margin: 20px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px; /* Updated padding */
+  gap: 10px;
+  border-top: 2px solid #ddd; /* Add a border at the top of the footer */
+  /* Removed margin-top */
+}
+
+.popup-button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.popup-button.green {
+  background-color: green;
+  color: white;
+}
+
+.popup-button.green:hover {
+  background-color: darkgreen;
+}
+
+.popup-button.red {
+  background-color: red;
+  color: white;
+}
+
+.popup-button.red:hover {
+  background-color: darkred;
+}
+
+/* ==========================
+       AddToTable Popup Styles
+       ========================== */
+.add-to-table-popup .popup-content {
+  width: 55vw; /* 55% of the viewport width */
+  height: 55vh; /* 55% of the viewport height */
+}
+
+.table-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* Adds spacing between rows and columns */
+  justify-content: center;
+  overflow-y: auto;
+}
+
+.table-item {
+  width: 150px; /* Fixed width for each table card */
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.table-item:hover {
+  background-color: #f0f0f0; /* Light gray on hover */
+}
+
+.table-item.selected {
+  background-color: #007bff; /* Blue background for selected */
+  color: white;
+  border-color: #0056b3; /* Darker blue border */
+  transform: scale(1.05); /* Slightly larger on selection */
+}
+
+/* ==========================
+       Amount Popup Styles
+       ========================== */
+.amount-popup .popup-content {
+  width: 50vw; /* 50% of the viewport width */
+  height: 50vh; /* 50% of the viewport height */
+}
+
+.amount-display {
+  width: 100px; /* Narrower width */
+  height: 40px; /* Taller height */
+  font-size: 1.2rem;
+  text-align: center;
+  margin-bottom: 16px;
+  -moz-appearance: textfield; /* For Firefox */
+  -webkit-appearance: none; /* For Chrome, Safari, and Edge */
+  appearance: none; /* Standard */
+}
+
+.amount-display::-webkit-inner-spin-button,
+.amount-display::-webkit-outer-spin-button {
+  -webkit-appearance: none; /* Remove arrows for WebKit browsers */
+  margin: 0;
+}
+
+.popup-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* ==========================
+       Category Popup Styles
+       ========================== */
+.category-popup .popup-content {
+  width: 80vw; /* 80% of the viewport width */
+  height: 80vh; /* 80% of the viewport height */
+}
+
+.item-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0; /* Remove margin */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.item-container {
+  width: 200px; /* Default width */
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+}
+
+.item-container:hover {
+  background-color: #f0f0f0;
+}
+
+.item-container.added {
+  background-color: #d4edda; /* Light green to indicate success */
+  transform: scale(1.05); /* Slightly enlarge the container */
+  transition: background-color 0.5s ease, transform 0.3s ease;
+}
+
+.item-name {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.item-price {
+  color: #007bff;
+}
+
+/* ==========================
+       Responsive Styles
+       ========================== */
+@media (max-width: 480px) {
+  .popup-content {
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0; /* Remove border radius for small screens */
+  }
+
+  .item-container {
+    width: 150px;
+    padding: 10px;
+    font-size: 0.8rem;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .popup-content {
+    width: 90vw;
+    height: 90vh;
+    border-radius: 5px;
+  }
+
+  .item-container {
+    width: 180px;
+    padding: 15px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .popup-content {
+    width: 90vw;
+    height: 90vh;
+    border-radius: 10px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .item-container {
+    font-size: 1.1rem;
+  }
+}
