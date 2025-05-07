@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import "./AddToTable.css";
-import "./PopupStyle.css"; // Adjust the path based on your folder structure
+import "./AddToTable.css"; // Specific styles for AddToTable
+import "./PopupStyle.css"; // Shared popup styles
 
 const AddToTable = ({ onClose, onSave }) => {
   const [availableTables, setAvailableTables] = useState([]); // Fetch available tables
@@ -38,14 +38,11 @@ const AddToTable = ({ onClose, onSave }) => {
       <div className="popup-content add-to-table-popup">
         {/* Header Section */}
         <div className="popup-header">
-          <div className="header-container">
-            <h2>Dodaj na Stol</h2>
-          </div>
-          <hr className="smooth-line" />
+          <h2>Dodaj na Stol</h2> {/* Title */}
         </div>
 
         {/* Main Content Section */}
-        <div className="popup-main">
+        <div className="popup-main add-to-table-main">
           {errorMessage && <p className="error-message">{errorMessage}</p>}
           <div className="table-list">
             {availableTables.map((table) => (
@@ -64,15 +61,12 @@ const AddToTable = ({ onClose, onSave }) => {
 
         {/* Footer Section */}
         <div className="popup-footer">
-          <hr className="smooth-line" />
-          <div className="footer-container">
-            <button className="popup-button green" onClick={handleSave}>
-              Spremi
-            </button>
-            <button className="popup-button red" onClick={onClose}>
-              Otkaži
-            </button>
-          </div>
+          <button className="popup-button green" onClick={handleSave}>
+            Spremi
+          </button>
+          <button className="popup-button red" onClick={onClose}>
+            Otkaži
+          </button>
         </div>
       </div>
     </div>

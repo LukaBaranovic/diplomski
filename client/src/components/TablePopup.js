@@ -157,102 +157,99 @@ const TablePopup = ({ tableNumber, onClose }) => {
       .catch(() => setError("Failed to finalize and save the table."));
   };
 
-  if (error) {
-    return (
-      <div className="popup-overlay">
-        <div className="popup-content">
-          <button className="popup-button red" onClick={onClose}>
-            &times;
-          </button>
-          <p className="error-message">{error}</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (!tableItems) {
-    return (
-      <div className="popup-overlay">
-        <div className="popup-content">
-          <button className="popup-button red" onClick={onClose}>
-            &times;
-          </button>
-          <p>Loading...</p>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="popup-overlay">
       <div className="popup-content">
-        <button className="popup-button red" onClick={onClose}>
-          &times;
-        </button>
-        <h2>Table {tableNumber}</h2>
-        <table className="item-table">
-          <thead>
-            <tr>
-              <th>Item Name</th>
-              <th className="quantity-column">Quantity</th>
-              <th>Total Price</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {tableItems.map((item, index) => (
-              <tr key={index}>
-                <td>{item.item_name}</td>
-                <td className="quantity-column">
-                  <div className="quantity-controller">
-                    <button
-                      className="popup-button"
-                      onClick={() => handleQuantityChange(item.item_name, -1)}
-                    >
-                      -
-                    </button>
-                    <span>{updatedQuantities[item.item_name]}</span>
-                    <button
-                      className="popup-button"
-                      onClick={() => handleQuantityChange(item.item_name, 1)}
-                    >
-                      +
-                    </button>
-                    <button
-                      className="popup-button green"
-                      onClick={() => handleConfirmQuantity(item.item_name)}
-                    >
-                      Confirm
-                    </button>
-                  </div>
-                </td>
-                <td>
-                  $
-                  {(
-                    updatedQuantities[item.item_name] * item.item_price
-                  ).toFixed(2)}
-                </td>
-                <td>
-                  <button
-                    className="popup-button red"
-                    onClick={() => handleDelete(item.item_name)}
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <div className="total-price-container">
-          <h3>Total Price: ${totalPrice.toFixed(2)}</h3>
+        {/* Header */}
+        <div className="popup-header">
+          <h2>Table {tableNumber}</h2>
         </div>
+
+        {/* Main Content */}
+        <div className="popup-main">
+          {error ? (
+            <p className="error-message">{error}</p>
+          ) : !tableItems ? (
+            <p>Loading...</p>
+          ) : (
+            <>
+              <table className="item-table">
+                <thead>
+                  <tr>
+                    <th>Item Name</th>
+                    <th className="quantity-column">Quantity</th>
+                    <th>Total Price</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {tableItems.map((item, index) => (
+                    <tr key={index}>
+                      <td>{item.item_name}</td>
+                      <td className="quantity-column">
+                        <div className="quantity-controller">
+                          <button
+                            className="popup-button"
+                            onClick={() =>
+                              handleQuantityChange(item.item_name, -1)
+                            }
+                          >
+                            -
+                          </button>
+                          <span>{updatedQuantities[item.item_name]}</span>
+                          <button
+                            className="popup-button"
+                            onClick={() =>
+                              handleQuantityChange(item.item_name, 1)
+                            }
+                          >
+                            +
+                          </button>
+                          <button
+                            className="popup-button green"
+                            onClick={() =>
+                              handleConfirmQuantity(item.item_name)
+                            }
+                          >
+                            Confirm
+                          </button>
+                        </div>
+                      </td>
+                      <td>
+                        $
+                        {(
+                          updatedQuantities[item.item_name] * item.item_price
+                        ).toFixed(2)}
+                      </td>
+                      <td>
+                        <button
+                          className="popup-button red"
+                          onClick={() => handleDelete(item.item_name)}
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <div className="total-price-container">
+                <h3>Total Price: ${totalPrice.toFixed(2)}</h3>
+              </div>
+            </>
+          )}
+        </div>
+
+        {/* Footer */}
         <div className="popup-footer">
           <button className="popup-button green" onClick={handleCash}>
             Cash
           </button>
           <button className="popup-button red" onClick={handleDeleteTable}>
             Delete Table
+          </button>
+          <button className="popup-button red" onClick={onClose}>
+            Close
           </button>
         </div>
       </div>

@@ -29,14 +29,11 @@ const CreateTable = ({ onClose, onSave }) => {
       <div className="popup-content create-table-popup">
         {/* Header Section */}
         <div className="popup-header">
-          <div className="header-container">
-            <h2>Kreiraj Stol</h2> {/* Title */}
-          </div>
-          <hr className="smooth-line" />
+          <h2>Kreiraj Stol</h2> {/* Title */}
         </div>
 
         {/* Main Content Section */}
-        <div className="popup-main">
+        <div className="popup-main create-table-main">
           <label htmlFor="table-number" className="input-label">
             Unesite broj stola:
           </label>
@@ -53,17 +50,12 @@ const CreateTable = ({ onClose, onSave }) => {
 
         {/* Footer Section */}
         <div className="popup-footer">
-          <hr className="smooth-line" />
-          <div className="footer-container">
-            <div className="popup-buttons">
-              <button className="popup-button green" onClick={handleSave}>
-                Spremi {/* Save button */}
-              </button>
-              <button className="popup-button red" onClick={onClose}>
-                Otkaži {/* Cancel button */}
-              </button>
-            </div>
-          </div>
+          <button className="popup-button green" onClick={handleSave}>
+            Spremi {/* Save button */}
+          </button>
+          <button className="popup-button red" onClick={onClose}>
+            Otkaži {/* Cancel button */}
+          </button>
         </div>
       </div>
     </div>

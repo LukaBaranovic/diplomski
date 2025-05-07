@@ -3,12 +3,21 @@
   height: 55vh; /* 55% of the viewport height */
 }
 
+.add-to-table-main {
+  display: flex;
+  flex-direction: column; /* Stack content vertically */
+  align-items: center; /* Center align content */
+  justify-content: flex-start; /* Align content at the top */
+  gap: 10px; /* Add spacing between elements */
+}
+
 .table-list {
   display: flex;
   flex-wrap: wrap;
   gap: 10px; /* Adds spacing between rows and columns */
   justify-content: center;
   overflow-y: auto;
+  padding: 10px; /* Add padding for better spacing */
 }
 
 .table-item {
@@ -30,4 +39,11 @@
   color: white;
   border-color: #0056b3; /* Darker blue border */
   transform: scale(1.05); /* Slightly larger on selection */
+}
+
+.error-message {
+  color: red;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+  text-align: center;
 }

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import "./AmountPopup.css";
-import "./PopupStyle.css"; // Adjust the path based on your folder structure
+import "./AmountPopup.css"; // Specific styles for AmountPopup
+import "./PopupStyle.css"; // Shared popup styles
 
 const AmountPopup = ({ onClose, onSave, currentAmount }) => {
   const [amount, setAmount] = useState(currentAmount);
@@ -12,7 +12,7 @@ const AmountPopup = ({ onClose, onSave, currentAmount }) => {
       setAmount(value);
       setErrorMessage("");
     } else if (value === 0) {
-      setErrorMessage("Količina ne može biti nula"); // Updated message
+      setErrorMessage("Količina ne može biti nula"); // Error for zero
     }
   };
 
@@ -20,7 +20,7 @@ const AmountPopup = ({ onClose, onSave, currentAmount }) => {
     if (amount > 0) {
       onSave(amount);
     } else {
-      setErrorMessage("Količina ne može biti nula"); // Updated message
+      setErrorMessage("Količina ne može biti nula"); // Error for invalid input
     }
   };
 
@@ -34,7 +34,7 @@ const AmountPopup = ({ onClose, onSave, currentAmount }) => {
       setAmount(amount - 1);
       setErrorMessage("");
     } else {
-      setErrorMessage("Količina ne može biti nula"); // Updated message
+      setErrorMessage("Količina ne može biti nula"); // Error for invalid decrement
     }
   };
 
@@ -43,14 +43,11 @@ const AmountPopup = ({ onClose, onSave, currentAmount }) => {
       <div className="popup-content amount-popup">
         {/* Header Section */}
         <div className="popup-header">
-          <div className="header-container">
-            <h2>Unesi novu količinu</h2> {/* Updated header text */}
-          </div>
-          <hr className="smooth-line" />
+          <h2>Unesi novu količinu</h2>
         </div>
 
         {/* Main Content Section */}
-        <div className="popup-main">
+        <div className="popup-main amount-popup-main">
           <input
             type="number"
             value={amount}
@@ -58,7 +55,7 @@ const AmountPopup = ({ onClose, onSave, currentAmount }) => {
             min="1"
             className="amount-display"
           />
-          <div className="popup-buttons">
+          <div className="amount-buttons">
             <button className="popup-button blue" onClick={decrementAmount}>
               -
             </button>
@@ -71,17 +68,12 @@ const AmountPopup = ({ onClose, onSave, currentAmount }) => {
 
         {/* Footer Section */}
         <div className="popup-footer">
-          <hr className="smooth-line" />
-          <div className="footer-container">
-            <div className="popup-buttons">
-              <button className="popup-button green" onClick={handleSave}>
-                Spremi {/* Changed Save to Spremi */}
-              </button>
-              <button className="popup-button red" onClick={onClose}>
-                Otkaži {/* Changed Cancel to Otkaži */}
-              </button>
-            </div>
-          </div>
+          <button className="popup-button green" onClick={handleSave}>
+            Spremi
+          </button>
+          <button className="popup-button red" onClick={onClose}>
+            Otkaži
+          </button>
         </div>
       </div>
     </div>

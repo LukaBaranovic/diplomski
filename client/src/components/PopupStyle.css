@@ -19,19 +19,20 @@
   border-radius: 10px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /* Column layout for header, main, and footer */
   text-align: center;
-  overflow-y: auto; /* Add scroll for overflowing content */
-  margin: 10px; /* Added 10px margin */
+  overflow: hidden; /* Prevent overflow beyond the popup */
+  margin: 10px;
+  max-height: 90%; /* Constrain popup height to 90% of the viewport */
 }
 
 .popup-header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px; /* Updated padding */
-  margin: 0; /* Updated margin */
+  padding: 20px;
   border-bottom: 2px solid #ddd; /* Add a border at the bottom of the header */
+  flex-shrink: 0; /* Prevent the header from shrinking */
 }
 
 h2 {
@@ -39,22 +40,19 @@ h2 {
 }
 
 .popup-main {
-  flex-grow: 1;
-  display: flex;
-  margin: 20px;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  flex: 1; /* Allow the main content to take up remaining space */
+  overflow-y: auto; /* Make the main section scrollable */
+  padding: 20px;
 }
 
 .popup-footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px; /* Updated padding */
+  padding: 20px;
   gap: 10px;
   border-top: 2px solid #ddd; /* Add a border at the top of the footer */
-  /* Removed margin-top */
+  flex-shrink: 0; /* Prevent the footer from shrinking */
 }
 
 .popup-button {
@@ -84,8 +82,8 @@ h2 {
 }
 
 /* ==========================
-       AddToTable Popup Styles
-       ========================== */
+         AddToTable Popup Styles
+         ========================== */
 .add-to-table-popup .popup-content {
   width: 55vw; /* 55% of the viewport width */
   height: 55vh; /* 55% of the viewport height */
@@ -94,7 +92,7 @@ h2 {
 .table-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px; /* Adds spacing between rows and columns */
+  gap: 10px;
   justify-content: center;
   overflow-y: auto;
 }
@@ -121,8 +119,8 @@ h2 {
 }
 
 /* ==========================
-       Amount Popup Styles
-       ========================== */
+         Amount Popup Styles
+         ========================== */
 .amount-popup .popup-content {
   width: 50vw; /* 50% of the viewport width */
   height: 50vh; /* 50% of the viewport height */
@@ -152,8 +150,8 @@ h2 {
 }
 
 /* ==========================
-       Category Popup Styles
-       ========================== */
+         Category Popup Styles
+         ========================== */
 .category-popup .popup-content {
   width: 80vw; /* 80% of the viewport width */
   height: 80vh; /* 80% of the viewport height */
@@ -162,7 +160,7 @@ h2 {
 .item-list {
   list-style-type: none;
   padding: 0;
-  margin: 0; /* Remove margin */
+  margin: 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -170,7 +168,7 @@ h2 {
 }
 
 .item-container {
-  width: 200px; /* Default width */
+  width: 200px;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -199,8 +197,8 @@ h2 {
 }
 
 /* ==========================
-       Responsive Styles
-       ========================== */
+         Responsive Styles
+         ========================== */
 @media (max-width: 480px) {
   .popup-content {
     width: 100vw;

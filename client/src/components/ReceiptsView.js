@@ -36,12 +36,12 @@ const ReceiptsView = ({ onClose }) => {
   return (
     <div className="popup-overlay">
       <div className="popup-content receipts-view-popup">
-        {/* Header container */}
-        <div className="popup-header receipts-view-header">
-          <h2 className="receipts-view-title">Pregled Računa</h2>
+        {/* Header */}
+        <div className="popup-header">
+          <h2>Pregled Računa</h2>
         </div>
 
-        {/* Date picker section */}
+        {/* Main Content */}
         <div className="popup-main">
           <div className="receipts-view-date-picker-container">
             <input
@@ -52,7 +52,6 @@ const ReceiptsView = ({ onClose }) => {
             />
           </div>
 
-          {/* Receipts table */}
           <table className="receipts-view-table">
             <thead>
               <tr>
@@ -84,9 +83,11 @@ const ReceiptsView = ({ onClose }) => {
           </table>
         </div>
 
-        {/* Footer Section */}
+        {/* Footer */}
         <div className="popup-footer">
-          <hr className="smooth-line" />
+          <button className="popup-button red" onClick={onClose}>
+            Close
+          </button>
         </div>
       </div>
 

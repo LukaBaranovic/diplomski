@@ -3,17 +3,24 @@
   height: 50vh; /* 50% of the viewport height */
 }
 
+.amount-popup-main {
+  display: flex;
+  flex-direction: column; /* Stack content vertically */
+  align-items: center; /* Center align content */
+  justify-content: center; /* Center align vertically */
+  gap: 20px; /* Add spacing between elements */
+}
+
 .amount-display {
-  width: 100px; /* Narrower width */
-  height: 40px; /* Taller height */
+  width: 200px; /* Wider input field */
+  height: 40px;
   font-size: 1.2rem;
   text-align: center;
-  margin-bottom: 16px;
 
   /* Remove arrows for number input */
-  -moz-appearance: textfield; /* For Firefox */
-  -webkit-appearance: none; /* For Chrome, Safari, and Edge */
-  appearance: none; /* Standard */
+  -moz-appearance: textfield;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 .amount-display::-webkit-inner-spin-button,
@@ -22,13 +29,24 @@
   margin: 0;
 }
 
-.popup-buttons {
+.amount-buttons {
   display: flex;
   justify-content: center;
   gap: 10px;
 }
 
 .popup-button.blue {
-  background-color: #007bff !important; /* Correct Blue color for + and - buttons */
-  color: #fff;
+  background-color: #007bff; /* Blue color for increment and decrement buttons */
+  color: white;
+}
+
+.popup-button.blue:hover {
+  background-color: #0056b3; /* Darker Blue on hover */
+}
+
+.error-message {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 10px;
+  text-align: center;
 }

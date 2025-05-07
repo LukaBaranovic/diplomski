@@ -24,46 +24,65 @@ const ReceiptDetailsView = ({ receiptId, onClose }) => {
   }, [receiptId]);
 
   if (!details) {
-    return <div>Loading...</div>;
+    return (
+      <div className="popup-overlay">
+        <div className="popup-content">
+          <div className="popup-main">
+            <p>Loading...</p>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (
     <div className="popup-overlay">
       <div className="popup-content receipt-details-popup">
-        <button className="close-button" onClick={onClose}>
-          &times;
-        </button>
-        <h2>Receipt Details</h2>
-        <p>
-          <strong>Table Number:</strong> {details.table_number}
-        </p>
-        <p>
-          <strong>Timestamp:</strong>{" "}
-          {new Date(details.timestamp).toLocaleString()}
-        </p>
-        <p>
-          <strong>Total Price:</strong> $
-          {Number(details.total_price).toFixed(2)}
-        </p>{" "}
-        {/* Display total price */}
-        <table className="details-table">
-          <thead>
-            <tr>
-              <th>Item Name</th>
-              <th>Quantity</th>
-              <th>Price</th>
-            </tr>
-          </thead>
-          <tbody>
-            {details.items.map((item, index) => (
-              <tr key={index}>
-                <td>{item.item_name}</td>
-                <td>{item.quantity}</td>
-                <td>${Number(item.total_price).toFixed(2)}</td>
+        {/* Header */}
+        <div className="popup-header">
+          <h2>Detalji Računa</h2>
+        </div>
+
+        {/* Main Content */}
+        <div className="popup-main">
+          <p>
+            <strong>Table Number:</strong> {details.table_number}
+          </p>
+          <p>
+            <strong>Timestamp:</strong>{" "}
+            {new Date(details.timestamp).toLocaleString()}
+          </p>
+          <p>
+            <strong>Total Price:</strong> $
+            {Number(details.total_price).toFixed(2)}
+          </p>
+
+          <table className="details-table">
+            <thead>
+              <tr>
+                <th>Item Name</th>
+                <th>Quantity</th>
+                <th>Price</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {details.items.map((item, index) => (
+                <tr key={index}>
+                  <td>{item.item_name}</td>
+                  <td>{item.quantity}</td>
+                  <td>${Number(item.total_price).toFixed(2)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Footer */}
+        <div className="popup-footer">
+          <button className="popup-button red" onClick={onClose}>
+            Close
+          </button>
+        </div>
       </div>
     </div>
   );
