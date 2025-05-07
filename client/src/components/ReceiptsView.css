@@ -1,5 +1,5 @@
 /* Overlay for the popup */
-.receipts-popup {
+.receipts-view-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -13,122 +13,93 @@
 }
 
 /* Popup container */
-.receipts-popup-content {
+.receipts-view-popup {
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;
-  width: 50vw; /* 50% of the viewport width */
-  height: 50vh; /* Increased height to 60% of the viewport height */
+  width: 70%; /* 70% of the screen width */
+  max-width: 90%;
+  height: 70%; /* 70% of the screen height */
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   position: relative;
-  display: flex;
-  flex-direction: column;
   text-align: center;
+  overflow-y: auto; /* Scrollable if content overflows */
 }
 
-/* Header styling */
-.popup-header {
+/* Header container for the popup */
+/* Header container for the popup */
+.receipts-view-header {
+  position: relative; /* Allows absolute positioning of the title and close button */
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center; /* Centers the title horizontally */
+  align-items: center; /* Centers the title vertically */
+  height: 60px; /* Set a fixed height for the header */
+  padding: 0 20px; /* Add padding to ensure spacing */
+  border-bottom: 1px solid #ddd; /* Creates the line under the header */
+  overflow: hidden; /* Prevents overflow of content */
 }
 
-.header-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.popup-header h3 {
+/* Title styling */
+.receipts-view-title {
+  font-size: 24px; /* Increased font size for the title */
+  font-weight: bold;
   margin: 0;
-  padding-bottom: 15px;
+  position: absolute;
+  left: 50%; /* Centers the title horizontally */
+  top: 50%; /* Centers the title vertically */
+  transform: translate(-50%, -50%); /* Ensures perfect centering */
+  white-space: nowrap; /* Prevents the title from wrapping */
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
-.smooth-line {
+/* Close button styling */
+.receipts-view-close-button {
+  position: absolute; /* Keep the button inside the header */
+  top: 50%; /* Aligns vertically to the center of the header */
+  right: 20px; /* Adds spacing from the right edge */
+  transform: translateY(-50%); /* Adjusts for vertical centering */
+  background: none;
   border: none;
-  height: 1px;
-  background: linear-gradient(to right, transparent, #ccc, transparent);
-  align-self: stretch;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
 }
 
-/* Main content styling with scrolling */
-.popup-main {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start; /* Align content at the top */
-  align-items: center;
-  overflow-y: auto; /* Enables scrolling for overflowing content */
-  max-height: calc(
-    60vh - 120px
-  ); /* Adjust height to allow space for header and footer */
-  width: 100%;
-  padding: 10px;
-  box-sizing: border-box; /* Includes padding in width and height calculations */
+.receipts-view-close-button:hover {
+  color: rgba(255, 0, 0, 0.3); /* Transparent red color on hover */
 }
 
 /* Date picker styling */
-.date-picker-container {
+.receipts-view-date-picker-container {
   margin: 20px 0;
 }
 
-.date-picker-container label {
-  font-size: 16px;
-  font-weight: bold;
-  margin-right: 10px;
-}
-
-.date-picker-container input {
-  padding: 5px 10px; /* Reduced padding to 10px */
+.receipts-view-date-picker-container input {
+  padding: 5px 10px;
   font-size: 14px;
 }
 
 /* Receipts table styling */
-.receipts-table {
+.receipts-view-table {
   width: 100%;
   border-collapse: collapse;
   margin: 20px 0;
 }
 
-.receipts-table th,
-.receipts-table td {
+.receipts-view-table th,
+.receipts-view-table td {
   padding: 12px 10px;
   text-align: left;
   border-bottom: 1px solid #ddd;
 }
 
-.receipts-table th {
+.receipts-view-table th {
   background-color: #f4f4f4;
   font-weight: bold;
 }
 
-.receipts-table tr:hover {
+.receipts-view-table tr:hover {
   background-color: #f9f9f9;
-}
-
-/* Footer styling */
-.popup-footer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.footer-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.popup-button {
-  margin: 5px;
-  padding: 10px 20px;
-  font-size: 1rem;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  color: #fff;
-}
-
-.popup-button.red {
-  background-color: red;
 }

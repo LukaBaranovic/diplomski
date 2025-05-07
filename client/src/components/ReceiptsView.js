@@ -33,71 +33,55 @@ const ReceiptsView = ({ onClose }) => {
   };
 
   return (
-    <div className="receipts-popup">
-      <div className="receipts-popup-content">
-        {/* Header Section */}
-        <div className="popup-header">
-          <div className="header-container">
-            <h3>Pregled Računa</h3> {/* Updated header text */}
-          </div>
-          <hr className="smooth-line" />
+    <div className="receipts-view-overlay">
+      <div className="receipts-view-popup">
+        {/* Header container */}
+        <div className="receipts-view-header">
+          <h2 className="receipts-view-title">Pregled Računa</h2>
+          <button className="receipts-view-close-button" onClick={onClose}>
+            &times;
+          </button>
         </div>
 
-        {/* Main Content Section */}
-        <div className="popup-main">
-          <div className="date-picker-container">
-            <label htmlFor="date-picker">Select Date:</label>
-            <input
-              type="date"
-              id="date-picker"
-              value={selectedDate}
-              onChange={(e) => setSelectedDate(e.target.value)}
-            />
-          </div>
-          <table className="receipts-table">
-            <thead>
-              <tr>
-                <th>Receipt ID</th>
-                <th>Table Number</th>
-                <th>Total Price</th> {/* Display "Total Price" */}
-                <th>Time</th>
-              </tr>
-            </thead>
-            <tbody>
-              {receipts.map((receipt) => {
-                const receiptTime = new Date(
-                  receipt.timestamp
-                ).toLocaleTimeString(); // Extract time
-                const totalPrice = receipt.total_price || 0; // Default to 0 if total_price is missing
-                return (
-                  <tr
-                    key={receipt.receipt_id}
-                    onClick={() => handleRowClick(receipt)}
-                  >
-                    <td>{receipt.receipt_id}</td>
-                    <td>{receipt.table_number}</td>
-                    <td>${Number(totalPrice).toFixed(2)}</td>{" "}
-                    {/* Display total_price */}
-                    <td>{receiptTime}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+        <div className="receipts-view-date-picker-container">
+          <input
+            type="date"
+            id="receipts-view-date-picker"
+            value={selectedDate}
+            onChange={(e) => setSelectedDate(e.target.value)}
+          />
         </div>
-
-        {/* Footer Section */}
-        <div className="popup-footer">
-          <hr className="smooth-line" />
-          <div className="footer-container">
-            <button className="popup-button red" onClick={onClose}>
-              Zatvori
-            </button>
-          </div>
-        </div>
+        <table className="receipts-view-table">
+          <thead>
+            <tr>
+              <th>Receipt ID</th>
+              <th>Table Number</th>
+              <th>Total Price</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            {receipts.map((receipt) => {
+              const receiptTime = new Date(
+                receipt.timestamp
+              ).toLocaleTimeString();
+              const totalPrice = receipt.total_price || 0;
+              return (
+                <tr
+                  key={receipt.receipt_id}
+                  onClick={() => handleRowClick(receipt)}
+                >
+                  <td>{receipt.receipt_id}</td>
+                  <td>{receipt.table_number}</td>
+                  <td>${Number(totalPrice).toFixed(2)}</td>
+                  <td>{receiptTime}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       </div>
 
-      {/* Show ReceiptDetailsView if a receipt is selected */}
       {selectedReceipt && (
         <ReceiptDetailsView
           receiptId={selectedReceipt.receipt_id}
