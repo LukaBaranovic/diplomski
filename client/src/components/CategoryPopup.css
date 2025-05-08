@@ -1,8 +1,50 @@
 .category-popup {
   width: 80vw;
   height: 80vh;
+  margin: 0; /* Remove any margin to ensure full coverage */
+  background-color: white; /* Match the background color of .popup-content */
+  border-radius: 10px; /* Default border radius */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Add shadow for consistency */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
+@media (max-width: 480px) {
+  .category-popup {
+    width: 100vw; /* Full width of the viewport */
+    height: 100vh; /* Full height of the viewport */
+    margin: 0; /* Ensure no spacing around the popup */
+    border-radius: 0; /* Remove border radius for full-screen look */
+    padding: 0; /* Ensure no internal padding */
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .category-popup {
+    width: 90vw; /* Slightly smaller for middle-sized screens */
+    height: 90vh;
+    border-radius: 5px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .category-popup {
+    width: 85vw; /* Reduce size slightly for medium screens */
+    height: 85vh;
+    border-radius: 10px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .category-popup {
+    width: 80vw; /* Default size for larger screens */
+    height: 80vh;
+    border-radius: 10px;
+  }
+}
+
+/* Styles for the item list and containers */
 .item-list {
   list-style-type: none;
   padding: 0;
