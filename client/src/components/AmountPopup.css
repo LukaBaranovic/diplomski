@@ -1,9 +1,12 @@
+/* Custom styles specific to AmountPopup */
+
 .amount-popup-main {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 20px;
+  padding: 10px;
 }
 
 .amount-display {
@@ -42,4 +45,53 @@
   font-size: 0.9rem;
   margin-top: 10px;
   text-align: center;
+}
+
+/* Responsive Styles */
+@media (max-width: 480px) {
+  .amount-popup-main {
+    gap: 15px; /* Reduce gap for smaller screens */
+  }
+
+  .amount-display {
+    width: 150px; /* Smaller width for small screens */
+    height: 35px; /* Adjust height */
+    font-size: 1rem; /* Smaller font size */
+  }
+
+  .amount-buttons {
+    gap: 8px; /* Reduce button spacing */
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .amount-popup-main {
+    gap: 18px; /* Slightly larger gap for medium screens */
+  }
+
+  .amount-display {
+    width: 180px; /* Adjust width for medium screens */
+    height: 38px; /* Adjust height */
+    font-size: 1.1rem; /* Adjust font size */
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .amount-popup-main {
+    gap: 20px; /* Default gap */
+  }
+
+  .amount-display {
+    width: 190px; /* Adjust width for medium-large screens */
+    height: 40px; /* Default height */
+    font-size: 1.2rem; /* Default font size */
+  }
+}
+
+@media (min-width: 1025px) {
+  .amount-display {
+    width: 200px; /* Default width */
+    height: 40px; /* Default height */
+    font-size: 1.2rem; /* Default font size */
+  }
 }

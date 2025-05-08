@@ -49,7 +49,7 @@ const ReceiptDetailsView = ({ receiptId, onClose }) => {
             {new Date(details.timestamp).toLocaleString()}
           </p>
           <p>
-            <strong>Ukupna Cijena:</strong> $
+            <strong>Ukupna Cijena:</strong> €
             {Number(details.total_price).toFixed(2)}
           </p>
           <table className="details-table">
@@ -65,7 +65,7 @@ const ReceiptDetailsView = ({ receiptId, onClose }) => {
                 <tr key={index}>
                   <td>{item.item_name}</td>
                   <td>{item.quantity}</td>
-                  <td>${Number(item.total_price).toFixed(2)}</td>
+                  <td>€{Number(item.total_price).toFixed(2)}</td>
                 </tr>
               ))}
             </tbody>

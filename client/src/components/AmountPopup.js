@@ -40,7 +40,7 @@ const AmountPopup = ({ onClose, onSave, currentAmount }) => {
 
   return (
     <div className="popup-overlay">
-      <div className="popup-content amount-popup">
+      <div className="popup-content">
         <div className="popup-header">
           <h2>Unesi novu količinu</h2>
         </div>

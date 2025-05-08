@@ -1,3 +1,5 @@
+/* Custom styles specific to TablePopup */
+
 .item-table {
   width: 100%;
   border-collapse: collapse;
@@ -35,4 +37,49 @@
   font-size: 0.9rem;
   text-align: center;
   margin: 10px 0;
+}
+
+/* Responsive styles */
+@media (max-width: 480px) {
+  .item-table {
+    font-size: 0.8rem; /* Smaller font size for table content */
+  }
+
+  .item-table th,
+  .item-table td {
+    padding: 6px; /* Reduced padding for smaller screens */
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .item-table {
+    font-size: 0.9rem; /* Slightly smaller font size for medium screens */
+  }
+
+  .item-table th,
+  .item-table td {
+    padding: 8px; /* Adjusted padding for medium screens */
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .item-table {
+    font-size: 1rem; /* Default font size for medium-large screens */
+  }
+
+  .item-table th,
+  .item-table td {
+    padding: 10px; /* Default padding */
+  }
+}
+
+@media (min-width: 1025px) {
+  .item-table {
+    font-size: 1.1rem; /* Slightly larger font size for high-resolution screens */
+  }
+
+  .item-table th,
+  .item-table td {
+    padding: 12px; /* Enhanced padding for larger screens */
+  }
 }

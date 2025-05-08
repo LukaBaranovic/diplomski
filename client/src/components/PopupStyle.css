@@ -12,8 +12,8 @@
 }
 
 .popup-content {
-  width: 70vw;
-  height: 75vh;
+  width: 65vw;
+  height: 65vh;
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
@@ -71,6 +71,11 @@ h2 {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.popup-button:hover {
+  transform: scale(1.05); /* Add a slight zoom effect on hover */
 }
 
 .popup-button.green {
@@ -89,21 +94,6 @@ h2 {
 
 .popup-button.red:hover {
   background-color: darkred;
-}
-
-.add-to-table-popup {
-  width: 55vw;
-  height: 55vh;
-}
-
-.create-table-popup {
-  width: 55vw;
-  height: 55vh;
-}
-
-.amount-popup {
-  width: 55vw;
-  height: 55vh;
 }
 
 .table-list {
@@ -135,31 +125,8 @@ h2 {
   transform: scale(1.05);
 }
 
-.receipts-view-popup {
-  width: 70vw;
-  height: 70vh;
-}
-
-.amount-popup {
-  width: 55vw;
-  height: 55vh;
-}
-
 .amount-display {
-  width: 100px;
-  height: 40px;
-  font-size: 1.2rem;
-  text-align: center;
   margin-bottom: 16px;
-  -moz-appearance: textfield;
-  -webkit-appearance: none;
-  appearance: none;
-}
-
-.amount-display::-webkit-inner-spin-button,
-.amount-display::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
 }
 
 .popup-buttons {
@@ -168,46 +135,69 @@ h2 {
   gap: 10px;
 }
 
+/* Responsive Styles */
 @media (max-width: 480px) {
   .popup-content {
-    width: 100vw;
-    height: 100vh;
+    width: 85vw;
+    height: 85vh;
     border-radius: 0;
   }
 
   .popup-large {
-    width: 100vw; /* Full width of the viewport */
-    height: 100vh; /* Full height of the viewport */
-    margin: 0; /* Ensure no spacing around the popup */
-    border-radius: 0; /* Remove border radius for full-screen look */
-    padding: 0; /* Ensure no internal padding */
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    border-radius: 0;
+    padding: 0;
+  }
+
+  .popup-button {
+    padding: 8px 15px;
+    font-size: 0.9rem;
   }
 }
 
 @media (min-width: 481px) and (max-width: 768px) {
   .popup-content {
+    width: 77vw;
+    height: 77vh;
+    border-radius: 5px;
+  }
+
+  .popup-large {
     width: 90vw;
     height: 90vh;
     border-radius: 5px;
   }
 
-  .popup-large {
-    width: 90vw; /* Slightly smaller for middle-sized screens */
-    height: 90vh;
-    border-radius: 5px;
+  .popup-button {
+    padding: 9px 18px;
+    font-size: 0.95rem;
   }
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
   .popup-content {
-    width: 90vw;
-    height: 90vh;
+    width: 75vw;
+    height: 75vh;
     border-radius: 10px;
   }
 
   .popup-large {
-    width: 85vw; /* Reduce size slightly for medium screens */
+    width: 85vw;
     height: 85vh;
     border-radius: 10px;
+  }
+
+  .popup-button {
+    padding: 10px 20px;
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 1025px) {
+  .popup-button {
+    padding: 12px 25px;
+    font-size: 1.1rem;
   }
 }

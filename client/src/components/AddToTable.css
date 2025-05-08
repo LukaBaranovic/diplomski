@@ -1,9 +1,12 @@
+/* Custom styles specific to AddToTable */
+
 .add-to-table-main {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   gap: 10px;
+  padding: 10px;
 }
 
 .table-list {
@@ -41,4 +44,45 @@
   font-size: 0.9rem;
   margin-bottom: 10px;
   text-align: center;
+}
+
+/* Responsive Styles */
+@media (max-width: 480px) {
+  .table-item {
+    width: 120px; /* Smaller width for small screens */
+    padding: 15px; /* Adjusted padding */
+    font-size: 0.8rem; /* Smaller font size for small screens */
+  }
+
+  .add-to-table-main {
+    gap: 5px; /* Reduced gap between elements */
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .table-item {
+    width: 135px; /* Slightly smaller width for medium screens */
+    padding: 18px; /* Adjusted padding */
+    font-size: 0.9rem; /* Adjusted font size */
+  }
+
+  .add-to-table-main {
+    gap: 8px; /* Slightly reduced gap */
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .table-item {
+    width: 140px; /* Width for medium-large screens */
+    padding: 18px; /* Adjusted padding */
+    font-size: 1rem; /* Default font size */
+  }
+}
+
+@media (min-width: 1025px) {
+  .table-item {
+    width: 150px; /* Default width for large screens */
+    padding: 20px; /* Default padding */
+    font-size: 1rem; /* Default font size */
+  }
 }

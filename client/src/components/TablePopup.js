@@ -132,7 +132,7 @@ const TablePopup = ({ tableNumber, onClose }) => {
 
   return (
     <div className="popup-overlay">
-      <div className="popup-content">
+      <div className="popup-large">
         <div className="popup-header">
           <h2>Stol {tableNumber}</h2>
         </div>
@@ -186,7 +186,7 @@ const TablePopup = ({ tableNumber, onClose }) => {
                         </div>
                       </td>
                       <td>
-                        $
+                        €
                         {(
                           updatedQuantities[item.item_name] * item.item_price
                         ).toFixed(2)}
@@ -204,7 +204,7 @@ const TablePopup = ({ tableNumber, onClose }) => {
                 </tbody>
               </table>
               <div className="total-price-container">
-                <h3>Ukupno: ${totalPrice.toFixed(2)}</h3>
+                <h3>Ukupno: €{totalPrice.toFixed(2)}</h3>
               </div>
             </>
           )}

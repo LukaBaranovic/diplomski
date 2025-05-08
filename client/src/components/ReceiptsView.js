@@ -72,7 +72,7 @@ const ReceiptsView = ({ onClose }) => {
                   >
                     <td>{receipt.receipt_id}</td>
                     <td>{receipt.table_number}</td>
-                    <td>${Number(totalPrice).toFixed(2)}</td>
+                    <td>€{Number(totalPrice).toFixed(2)}</td>
                     <td>{receiptTime}</td>
                   </tr>
                 );

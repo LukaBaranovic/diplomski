@@ -34,7 +34,7 @@ const AddToTable = ({ onClose, onSave }) => {
 
   return (
     <div className="popup-overlay">
-      <div className="popup-content add-to-table-popup">
+      <div className="popup-content">
         <div className="popup-header">
           <h2>Dodaj na Stol</h2>
         </div>

@@ -26,7 +26,7 @@ const CreateTable = ({ onClose, onSave }) => {
 
   return (
     <div className="popup-overlay">
-      <div className="popup-content create-table-popup">
+      <div className="popup-content">
         <div className="popup-header">
           <h2>Kreiraj Stol</h2>
         </div>
