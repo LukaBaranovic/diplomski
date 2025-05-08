@@ -3,9 +3,8 @@ import "./PopupStyle.css"; // Shared styles
 import "./ReceiptDetailsView.css";
 
 const ReceiptDetailsView = ({ receiptId, onClose }) => {
-  const [details, setDetails] = useState(null); // State to store receipt details
+  const [details, setDetails] = useState(null);
 
-  // Fetch receipt details when the component mounts
   useEffect(() => {
     fetch(`/api/getReceiptDetails?receiptId=${receiptId}`)
       .then((res) => {
@@ -38,12 +37,9 @@ const ReceiptDetailsView = ({ receiptId, onClose }) => {
   return (
     <div className="popup-overlay">
       <div className="popup-content receipt-details-popup">
-        {/* Header */}
         <div className="popup-header">
           <h2>Detalji Računa</h2>
         </div>
-
-        {/* Main Content */}
         <div className="popup-main">
           <p>
             <strong>Broj Stola:</strong> {details.table_number}
@@ -56,7 +52,6 @@ const ReceiptDetailsView = ({ receiptId, onClose }) => {
             <strong>Ukupna Cijena:</strong> $
             {Number(details.total_price).toFixed(2)}
           </p>
-
           <table className="details-table">
             <thead>
               <tr>
@@ -76,8 +71,6 @@ const ReceiptDetailsView = ({ receiptId, onClose }) => {
             </tbody>
           </table>
         </div>
-
-        {/* Footer */}
         <div className="popup-footer">
           <button className="popup-button red" onClick={onClose}>
             Otkaži

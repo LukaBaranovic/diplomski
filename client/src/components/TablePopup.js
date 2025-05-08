@@ -39,18 +39,13 @@ const TablePopup = ({ tableNumber, onClose }) => {
   };
 
   const handleDelete = (itemName) => {
-    const confirmDelete = window.confirm(
-      `Are you sure you want to delete the item "${itemName}"?`
-    );
-    if (!confirmDelete) return;
+    if (!window.confirm(`Are you sure you want to delete "${itemName}"?`))
+      return;
 
     fetch(`/api/deleteTableItem`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        table_number: tableNumber,
-        item_name: itemName,
-      }),
+      body: JSON.stringify({ table_number: tableNumber, item_name: itemName }),
     })
       .then((res) => {
         if (!res.ok) {
@@ -60,11 +55,7 @@ const TablePopup = ({ tableNumber, onClose }) => {
       })
       .then((updatedItems) => {
         setTableItems(updatedItems);
-        const updatedTotalPrice = calculateTotalPrice(
-          updatedItems,
-          updatedQuantities
-        );
-        setTotalPrice(updatedTotalPrice);
+        setTotalPrice(calculateTotalPrice(updatedItems, updatedQuantities));
         setError("");
       })
       .catch(() => setError(`Failed to delete the item "${itemName}".`));
@@ -79,7 +70,6 @@ const TablePopup = ({ tableNumber, onClose }) => {
 
   const handleConfirmQuantity = (itemName) => {
     const newQuantity = updatedQuantities[itemName];
-
     fetch(`/api/updateItemQuantity`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -97,36 +87,24 @@ const TablePopup = ({ tableNumber, onClose }) => {
       })
       .then((updatedItems) => {
         setTableItems(updatedItems);
-        const updatedTotalPrice = calculateTotalPrice(
-          updatedItems,
-          updatedQuantities
-        );
-        setTotalPrice(updatedTotalPrice);
+        setTotalPrice(calculateTotalPrice(updatedItems, updatedQuantities));
         setError("");
       })
       .catch(() => setError(`Failed to update quantity for "${itemName}".`));
   };
 
   const handleDeleteTable = () => {
-    const confirmDelete = window.confirm(
-      `Are you sure you want to delete this table? This action cannot be undone.`
-    );
-    if (!confirmDelete) return;
+    if (!window.confirm("Are you sure you want to delete this table?")) return;
 
     fetch(`/api/deleteTable`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        table_number: tableNumber,
-      }),
+      body: JSON.stringify({ table_number: tableNumber }),
     })
       .then((res) => {
         if (!res.ok) {
           throw new Error("Failed to delete the table.");
         }
-        return res.json();
-      })
-      .then(() => {
         onClose();
         setError("");
       })
@@ -134,10 +112,8 @@ const TablePopup = ({ tableNumber, onClose }) => {
   };
 
   const handleCash = () => {
-    const confirmCash = window.confirm(
-      `Are you sure you want to finalize and save this table?`
-    );
-    if (!confirmCash) return;
+    if (!window.confirm("Are you sure you want to finalize this table?"))
+      return;
 
     fetch(`/api/cashTable`, {
       method: "POST",
@@ -148,9 +124,6 @@ const TablePopup = ({ tableNumber, onClose }) => {
         if (!res.ok) {
           throw new Error("Failed to process the cash operation.");
         }
-        return res.json();
-      })
-      .then(() => {
         onClose();
         setError("");
       })
@@ -160,12 +133,9 @@ const TablePopup = ({ tableNumber, onClose }) => {
   return (
     <div className="popup-overlay">
       <div className="popup-content">
-        {/* Header */}
         <div className="popup-header">
           <h2>Stol {tableNumber}</h2>
         </div>
-
-        {/* Main Content */}
         <div className="popup-main">
           {error ? (
             <p className="error-message">{error}</p>
@@ -177,8 +147,8 @@ const TablePopup = ({ tableNumber, onClose }) => {
                 <thead>
                   <tr>
                     <th>Naziv artikla</th>
-                    <th className="quantity-column">Količina</th>
-                    <th>Cijena </th>
+                    <th>Količina</th>
+                    <th>Cijena</th>
                     <th></th>
                   </tr>
                 </thead>
@@ -186,7 +156,7 @@ const TablePopup = ({ tableNumber, onClose }) => {
                   {tableItems.map((item, index) => (
                     <tr key={index}>
                       <td>{item.item_name}</td>
-                      <td className="quantity-column">
+                      <td>
                         <div className="quantity-controller">
                           <button
                             className="popup-button"
@@ -239,8 +209,6 @@ const TablePopup = ({ tableNumber, onClose }) => {
             </>
           )}
         </div>
-
-        {/* Footer */}
         <div className="popup-footer">
           <button className="popup-button green" onClick={handleCash}>
             Račun

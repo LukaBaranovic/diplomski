@@ -1,9 +1,9 @@
 .create-table-main {
   display: flex;
-  flex-direction: column; /* Stack label and input vertically */
-  align-items: center; /* Center align the content */
-  justify-content: center; /* Center align vertically */
-  gap: 10px; /* Add space between elements */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
 .input-label {
@@ -12,12 +12,10 @@
 }
 
 .table-number-input {
-  width: 200px; /* Adjust the width for better input visibility */
+  width: 200px;
   height: 40px;
   font-size: 1.2rem;
   text-align: center;
-
-  /* Remove arrows for number input */
   -moz-appearance: textfield;
   -webkit-appearance: none;
   appearance: none;
@@ -25,7 +23,7 @@
 
 .table-number-input::-webkit-inner-spin-button,
 .table-number-input::-webkit-outer-spin-button {
-  -webkit-appearance: none; /* Remove arrows for WebKit browsers */
+  -webkit-appearance: none;
   margin: 0;
 }
 

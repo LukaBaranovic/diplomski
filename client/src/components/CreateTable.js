@@ -3,8 +3,8 @@ import "./PopupStyle.css"; // Shared styles
 import "./CreateTable.css";
 
 const CreateTable = ({ onClose, onSave }) => {
-  const [tableNumber, setTableNumber] = useState(""); // State for the table number
-  const [errorMessage, setErrorMessage] = useState(""); // State for error messages
+  const [tableNumber, setTableNumber] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = (e) => {
     const value = parseInt(e.target.value, 10);
@@ -12,7 +12,7 @@ const CreateTable = ({ onClose, onSave }) => {
       setTableNumber(value);
       setErrorMessage("");
     } else if (value === 0) {
-      setErrorMessage("Broj stola ne može biti nula"); // Error message for zero
+      setErrorMessage("Broj stola ne može biti nula");
     }
   };
 
@@ -20,19 +20,16 @@ const CreateTable = ({ onClose, onSave }) => {
     if (tableNumber > 0) {
       onSave(tableNumber);
     } else {
-      setErrorMessage("Unesite ispravan broj stola"); // Error message for invalid input
+      setErrorMessage("Unesite ispravan broj stola");
     }
   };
 
   return (
     <div className="popup-overlay">
       <div className="popup-content create-table-popup">
-        {/* Header Section */}
         <div className="popup-header">
-          <h2>Kreiraj Stol</h2> {/* Title */}
+          <h2>Kreiraj Stol</h2>
         </div>
-
-        {/* Main Content Section */}
         <div className="popup-main create-table-main">
           <label htmlFor="table-number" className="input-label">
             Unesite broj stola:
@@ -47,14 +44,12 @@ const CreateTable = ({ onClose, onSave }) => {
           />
           {errorMessage && <p className="error-message">{errorMessage}</p>}
         </div>
-
-        {/* Footer Section */}
         <div className="popup-footer">
           <button className="popup-button green" onClick={handleSave}>
-            Spremi {/* Save button */}
+            Spremi
           </button>
           <button className="popup-button red" onClick={onClose}>
-            Otkaži {/* Cancel button */}
+            Otkaži
           </button>
         </div>
       </div>

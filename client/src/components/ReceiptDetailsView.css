@@ -1,6 +1,6 @@
 .receipt-details-popup {
-  width: 60%; /* 60% of the screen width */
-  max-width: 800px; /* Maximum width of the popup */
+  width: 60%;
+  max-width: 800px;
 }
 
 .details-table {
@@ -30,5 +30,5 @@
 
 .details-table th:nth-child(3),
 .details-table td:nth-child(3) {
-  text-align: right; /* Align the total price column to the right */
+  text-align: right;
 }

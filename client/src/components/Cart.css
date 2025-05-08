@@ -1,23 +1,22 @@
 .cart-container {
   margin: 20px;
-  padding: 20px; /* Add inner padding for consistency */
-  box-sizing: border-box; /* Include padding in size calculations */
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 /* Base styles for the cart table */
 .cart-table {
   width: 100%;
-  border-collapse: collapse; /* Ensures no gaps between table cells */
-  border: none; /* Remove the outer border of the table */
-  table-layout: fixed; /* Ensures proper column layout for responsive design */
+  border-collapse: collapse;
+  table-layout: fixed;
 }
 
 .cart-table th,
 .cart-table td {
-  border: 1px solid #ddd; /* Keep inner cell borders */
-  padding: 12px; /* Adjust padding for better spacing */
+  border: 1px solid #ddd;
+  padding: 12px;
   text-align: left;
-  word-wrap: break-word; /* Ensure text wraps within cells */
+  word-wrap: break-word;
 }
 
 .cart-table th {
@@ -26,70 +25,76 @@
 }
 
 .cart-table tr {
-  background-color: white; /* Set all rows to white */
+  background-color: white;
 }
 
 .cart-table tr:hover {
-  background-color: #d0e8f2; /* Light blue color when hovering */
-  cursor: pointer; /* Pointer cursor when hovering */
+  background-color: #d0e8f2;
+  cursor: pointer;
 }
 
-.cart-container .selected {
-  background-color: #add8e6; /* Light blue color for selected item */
-  border: 1px solid #ccc; /* Optional: Add a border to the selected row */
+.cart-table .selected {
+  background-color: #add8e6;
+  border: 1px solid #ccc;
+}
+
+.empty-cart-message {
+  text-align: center;
+  font-style: italic;
+  color: #888;
 }
 
 /* Responsive design for very small screens (width <= 480px) */
 @media (max-width: 480px) {
   .cart-container {
-    margin: 10px; /* Reduce margin for small screens */
+    margin: 10px;
     padding: 10px;
   }
 
   .cart-table th,
   .cart-table td {
-    padding: 8px; /* Reduce padding for compact display */
-    font-size: 0.8rem; /* Smaller font size for small screens */
+    padding: 8px;
+    font-size: 0.8rem;
   }
 
   .cart-table {
-    font-size: 0.8rem; /* General font size adjustment for the table */
+    font-size: 0.8rem;
   }
 }
 
 /* Responsive design for smaller screens (481px to 768px) */
 @media (min-width: 481px) and (max-width: 768px) {
   .cart-container {
-    margin: 15px; /* Adjust margin for medium screens */
+    margin: 15px;
     padding: 15px;
   }
 
   .cart-table th,
   .cart-table td {
-    padding: 10px; /* Adjust padding for better spacing */
-    font-size: 0.9rem; /* Slightly larger font size */
+    padding: 10px;
+    font-size: 0.9rem;
   }
 
   .cart-table {
-    font-size: 0.9rem; /* General font size adjustment for the table */
+    font-size: 0.9rem;
   }
 }
 
 /* Responsive design for medium screens (769px to 1024px) */
 @media (min-width: 769px) and (max-width: 1024px) {
   .cart-container {
-    margin: 20px; /* Default margin */
+    margin: 20px;
     padding: 20px;
   }
 
   .cart-table th,
   .cart-table td {
-    padding: 12px; /* Default padding */
-    font-size: 1rem; /* Default font size */
+    padding: 12px;
+    font-size: 1rem;
   }
 
   .cart-table {
-    font-size: 1rem; /* General font size adjustment */
+    font-size: 1rem;
   }
 }
 
@@ -97,8 +102,8 @@
 @media (min-width: 1025px) and (max-width: 1440px) {
   .cart-table th,
   .cart-table td {
-    padding: 14px; /* Slightly increased padding */
-    font-size: 1.1rem; /* Slightly larger font size */
+    padding: 14px;
+    font-size: 1.1rem;
   }
 
   .cart-table {
@@ -110,8 +115,8 @@
 @media (min-width: 1441px) {
   .cart-table th,
   .cart-table td {
-    padding: 16px; /* Larger padding for better readability */
-    font-size: 1.2rem; /* Larger font size */
+    padding: 16px;
+    font-size: 1.2rem;
   }
 
   .cart-table {

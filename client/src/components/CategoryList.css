@@ -1,129 +1,110 @@
 .category-list {
   display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(232px, 1fr) /* Adjusted size to account for padding */
-  ); /* Responsive grid */
-  gap: 16px; /* Keep the gap between items */
-  padding: 20px; /* Inner padding for the grid */
+  grid-template-columns: repeat(auto-fit, minmax(232px, 1fr));
+  gap: 16px;
+  padding: 20px;
   width: 100%;
-  max-height: 100%; /* Prevent the grid from overflowing its parent */
-  overflow-y: auto; /* Allow vertical scrolling for overflowing content */
-  box-sizing: border-box; /* Include padding in size calculations */
+  max-height: 100%;
+  overflow-y: auto;
+  box-sizing: border-box;
 }
 
 .category-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 120px; /* Set a consistent height */
-  width: 100%; /* Ensure full width within grid */
+  height: 120px;
+  width: 100%;
   background-color: #e0f7fa;
   border-radius: 5px;
   font-size: 1rem;
   cursor: pointer;
   text-align: center;
   transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
-  border: 1px solid #ccc; /* Thin border around the container */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle box shadow */
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .category-container:hover {
   background-color: #b2ebf2;
   transform: scale(1.02);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Slightly larger shadow on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .category-container:active {
   background-color: #80deea;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); /* Reduced shadow on active click */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .category-container.selected {
   background-color: #4fc3f7;
   color: white;
   font-weight: bold;
-  border: 1px solid #007bb2; /* Darker border for the selected state */
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); /* Slightly stronger shadow for selected state */
+  border: 1px solid #007bb2;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
 }
 
-/* Responsive design for smaller screens (width <= 768px) */
 /* Responsive design for very small screens (width <= 480px) */
 @media (max-width: 480px) {
   .category-list {
-    grid-template-columns: repeat(
-      auto-fit,
-      minmax(180px, 1fr)
-    ); /* Compact size */
-    gap: 8px; /* Minimized gap for very small screens */
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 8px;
   }
 
   .category-container {
-    font-size: 0.8rem; /* Small font size */
-    height: 90px; /* Smaller height */
+    font-size: 0.8rem;
+    height: 90px;
   }
 }
 
 /* Responsive design for smaller screens (481px to 768px) */
 @media (min-width: 481px) and (max-width: 768px) {
   .category-list {
-    grid-template-columns: repeat(
-      auto-fit,
-      minmax(200px, 1fr)
-    ); /* Adjusted size */
-    gap: 12px; /* Reduced gap */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
   }
 
   .category-container {
-    font-size: 0.9rem; /* Slightly larger font size */
-    height: 100px; /* Consistent height */
+    font-size: 0.9rem;
+    height: 100px;
   }
 }
 
 /* Responsive design for medium screens (769px to 1024px) */
 @media (min-width: 769px) and (max-width: 1024px) {
   .category-list {
-    grid-template-columns: repeat(
-      auto-fit,
-      minmax(216px, 1fr)
-    ); /* Tablet size */
-    gap: 18px; /* Slightly larger gap */
+    grid-template-columns: repeat(auto-fit, minmax(216px, 1fr));
+    gap: 18px;
   }
 
   .category-container {
-    font-size: 1rem; /* Default font size */
-    height: 110px; /* Consistent height for tablets */
+    font-size: 1rem;
+    height: 110px;
   }
 }
 
 /* Responsive design for desktops (1025px to 1440px) */
 @media (min-width: 1025px) and (max-width: 1440px) {
   .category-list {
-    grid-template-columns: repeat(
-      auto-fit,
-      minmax(232px, 1fr)
-    ); /* Optimized for desktops */
-    gap: 20px; /* Larger gap */
+    grid-template-columns: repeat(auto-fit, minmax(232px, 1fr));
+    gap: 20px;
   }
 
   .category-container {
-    font-size: 1.1rem; /* Slightly increased font size */
-    height: 120px; /* Consistent height for desktops */
+    font-size: 1.1rem;
+    height: 120px;
   }
 }
 
 /* Responsive design for large screens (1441px and above) */
 @media (min-width: 1441px) {
   .category-list {
-    grid-template-columns: repeat(
-      auto-fit,
-      minmax(250px, 1fr)
-    ); /* Ultra-wide size */
-    gap: 24px; /* Largest gap for large screens */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 24px;
   }
 
   .category-container {
-    font-size: 1.2rem; /* Larger font size for readability */
-    height: 130px; /* Consistent height for ultra-wide screens */
+    font-size: 1.2rem;
+    height: 130px;
   }
 }

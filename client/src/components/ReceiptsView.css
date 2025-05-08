@@ -1,17 +1,17 @@
 .receipts-view-header {
-  border-bottom: 1px solid #ddd; /* Creates the line under the header */
+  border-bottom: 1px solid #ddd;
 }
 
 .receipts-view-title {
-  font-size: 24px; /* Increased font size for the title */
+  font-size: 24px;
   font-weight: bold;
 }
 
 .receipts-view-close-button {
-  position: absolute; /* Keep the button inside the header */
-  top: 50%; /* Aligns vertically to the center of the header */
-  right: 20px; /* Adds spacing from the right edge */
-  transform: translateY(-50%); /* Adjusts for vertical centering */
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
   background: none;
   border: none;
   font-size: 24px;
@@ -21,7 +21,7 @@
 }
 
 .receipts-view-close-button:hover {
-  color: rgba(255, 0, 0, 0.3); /* Transparent red color on hover */
+  color: rgba(255, 0, 0, 0.3);
 }
 
 .receipts-view-date-picker-container {

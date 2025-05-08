@@ -1,18 +1,16 @@
 .amount-popup-main {
   display: flex;
-  flex-direction: column; /* Stack content vertically */
-  align-items: center; /* Center align content */
-  justify-content: center; /* Center align vertically */
-  gap: 20px; /* Add spacing between elements */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
 }
 
 .amount-display {
-  width: 200px; /* Wider input field */
+  width: 200px;
   height: 40px;
   font-size: 1.2rem;
   text-align: center;
-
-  /* Remove arrows for number input */
   -moz-appearance: textfield;
   -webkit-appearance: none;
   appearance: none;
@@ -20,7 +18,7 @@
 
 .amount-display::-webkit-inner-spin-button,
 .amount-display::-webkit-outer-spin-button {
-  -webkit-appearance: none; /* Remove arrows for WebKit browsers */
+  -webkit-appearance: none;
   margin: 0;
 }
 
@@ -31,12 +29,12 @@
 }
 
 .popup-button.blue {
-  background-color: #007bff; /* Blue color for increment and decrement buttons */
+  background-color: #007bff;
   color: white;
 }
 
 .popup-button.blue:hover {
-  background-color: #0056b3; /* Darker Blue on hover */
+  background-color: #0056b3;
 }
 
 .error-message {

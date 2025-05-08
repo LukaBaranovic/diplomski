@@ -1,12 +1,12 @@
 .category-popup {
-  width: 80vw; /* 80% of the viewport width */
-  height: 80vh; /* 80% of the viewport height */
+  width: 80vw;
+  height: 80vh;
 }
 
 .item-list {
   list-style-type: none;
   padding: 0;
-  margin: 0; /* Remove margin */
+  margin: 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -14,8 +14,8 @@
 }
 
 .item-container {
-  width: 200px; /* Default width */
-  padding: 20px; /* Default padding */
+  width: 200px;
+  padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
   text-align: center;
@@ -28,8 +28,8 @@
 }
 
 .item-container.added {
-  background-color: #d4edda; /* Light green to indicate success */
-  transform: scale(1.05); /* Slightly enlarge the container */
+  background-color: #d4edda;
+  transform: scale(1.05);
   transition: background-color 0.5s ease, transform 0.3s ease;
 }
 

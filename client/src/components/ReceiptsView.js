@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
 import "./PopupStyle.css"; // Shared styles
 import "./ReceiptsView.css";
-import ReceiptDetailsView from "./ReceiptDetailsView"; // Import the new ReceiptDetailsView
+import ReceiptDetailsView from "./ReceiptDetailsView"; // Import the ReceiptDetailsView component
 
 const ReceiptsView = ({ onClose }) => {
-  const [receipts, setReceipts] = useState([]); // State to store receipts
+  const [receipts, setReceipts] = useState([]);
   const [selectedDate, setSelectedDate] = useState(
     new Date().toISOString().split("T")[0]
-  ); // Default to today's date
-  const [selectedReceipt, setSelectedReceipt] = useState(null); // State to store selected receipt details
+  );
+  const [selectedReceipt, setSelectedReceipt] = useState(null);
 
-  // Fetch receipts when the popup is opened or the date changes
   useEffect(() => {
     fetch(`/api/getReceipts?date=${selectedDate}`)
       .then((res) => {
@@ -28,7 +27,6 @@ const ReceiptsView = ({ onClose }) => {
       });
   }, [selectedDate]);
 
-  // Handle row click to open the details view
   const handleRowClick = (receipt) => {
     setSelectedReceipt(receipt);
   };
@@ -55,10 +53,10 @@ const ReceiptsView = ({ onClose }) => {
           <table className="receipts-view-table">
             <thead>
               <tr>
-                <th>ID Računa </th>
+                <th>ID Računa</th>
                 <th>Broj Stola</th>
                 <th>Ukupna Cijena</th>
-                <th>Vrijeme </th>
+                <th>Vrijeme</th>
               </tr>
             </thead>
             <tbody>

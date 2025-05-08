@@ -1,37 +1,33 @@
 import React, { useEffect, useState } from "react";
-import TablePopup from "./TablePopup"; // Import the popup component
+import TablePopup from "./TablePopup";
 import "./TableDisplay.css";
 
 const TableDisplay = () => {
-  const [tableData, setTableData] = useState([]); // State to store table data
-  const [error, setError] = useState(""); // State to handle errors
-  const [selectedTableNumber, setSelectedTableNumber] = useState(null); // State to track selected table
+  const [tableData, setTableData] = useState([]);
+  const [error, setError] = useState("");
+  const [selectedTableNumber, setSelectedTableNumber] = useState(null);
 
-  // Fetch table data from the backend
-  const fetchTableData = () => {
-    fetch("/api/getTableData")
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Failed to fetch table data.");
-        }
-        return res.json();
-      })
-      .then((data) => setTableData(data))
-      .catch((err) => setError("Failed to load table data."));
-  };
-
-  // Polling: Fetch table data every 5 seconds
   useEffect(() => {
-    fetchTableData(); // Initial fetch
-    const interval = setInterval(() => {
-      fetchTableData();
-    }, 5000); // Poll every 5 seconds
+    const fetchTableData = () => {
+      fetch("/api/getTableData")
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error("Failed to fetch table data.");
+          }
+          return res.json();
+        })
+        .then((data) => setTableData(data))
+        .catch(() => setError("Failed to load table data."));
+    };
 
-    return () => clearInterval(interval); // Cleanup interval on unmount
+    fetchTableData(); // Initial fetch
+    const interval = setInterval(fetchTableData, 5000); // Poll every 5 seconds
+
+    return () => clearInterval(interval); // Cleanup on unmount
   }, []);
 
   const handleTableClick = (tableNumber) => {
-    setSelectedTableNumber(tableNumber); // Open the popup for the selected table
+    setSelectedTableNumber(tableNumber);
   };
 
   return (
@@ -41,10 +37,10 @@ const TableDisplay = () => {
         <div
           key={table.table_number}
           className="table-container"
-          data-table-number={table.table_number} // Set table number dynamically
-          onClick={() => handleTableClick(table.table_number)} // Open popup on click
+          data-table-number={table.table_number}
+          onClick={() => handleTableClick(table.table_number)}
         >
-          <h3>Table {table.table_number}</h3> {/* Title for larger screens */}
+          <h3>Table {table.table_number}</h3>
           <ul>
             {table.items.map((item) => (
               <li key={item.item_id}>
@@ -59,7 +55,7 @@ const TableDisplay = () => {
       {selectedTableNumber && (
         <TablePopup
           tableNumber={selectedTableNumber}
-          onClose={() => setSelectedTableNumber(null)} // Close popup
+          onClose={() => setSelectedTableNumber(null)}
         />
       )}
     </div>

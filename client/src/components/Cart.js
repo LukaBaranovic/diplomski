@@ -19,7 +19,7 @@ const Cart = ({ items, selectedItemId, setSelectedItemId }) => {
         <tbody>
           {items.length === 0 ? (
             <tr>
-              <td colSpan="3" style={{ textAlign: "center" }}>
+              <td colSpan="3" className="empty-cart-message">
                 Nema artikala
               </td>
             </tr>
@@ -31,7 +31,7 @@ const Cart = ({ items, selectedItemId, setSelectedItemId }) => {
                 className={selectedItemId === item.item_id ? "selected" : ""}
               >
                 <td>{item.item_name}</td>
-                <td>{item.quantity}</td> {/* Display the quantity */}
+                <td>{item.quantity}</td>
                 <td>€{item.item_price}</td>
               </tr>
             ))

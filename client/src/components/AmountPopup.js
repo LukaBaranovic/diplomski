@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import "./AmountPopup.css"; // Specific styles for AmountPopup
-import "./PopupStyle.css"; // Shared popup styles
+import "./AmountPopup.css";
+import "./PopupStyle.css";
 
 const AmountPopup = ({ onClose, onSave, currentAmount }) => {
   const [amount, setAmount] = useState(currentAmount);
@@ -12,7 +12,7 @@ const AmountPopup = ({ onClose, onSave, currentAmount }) => {
       setAmount(value);
       setErrorMessage("");
     } else if (value === 0) {
-      setErrorMessage("Količina ne može biti nula"); // Error for zero
+      setErrorMessage("Količina ne može biti nula");
     }
   };
 
@@ -20,7 +20,7 @@ const AmountPopup = ({ onClose, onSave, currentAmount }) => {
     if (amount > 0) {
       onSave(amount);
     } else {
-      setErrorMessage("Količina ne može biti nula"); // Error for invalid input
+      setErrorMessage("Količina ne može biti nula");
     }
   };
 
@@ -34,19 +34,16 @@ const AmountPopup = ({ onClose, onSave, currentAmount }) => {
       setAmount(amount - 1);
       setErrorMessage("");
     } else {
-      setErrorMessage("Količina ne može biti nula"); // Error for invalid decrement
+      setErrorMessage("Količina ne može biti nula");
     }
   };
 
   return (
     <div className="popup-overlay">
       <div className="popup-content amount-popup">
-        {/* Header Section */}
         <div className="popup-header">
           <h2>Unesi novu količinu</h2>
         </div>
-
-        {/* Main Content Section */}
         <div className="popup-main amount-popup-main">
           <input
             type="number"
@@ -65,8 +62,6 @@ const AmountPopup = ({ onClose, onSave, currentAmount }) => {
           </div>
           {errorMessage && <p className="error-message">{errorMessage}</p>}
         </div>
-
-        {/* Footer Section */}
         <div className="popup-footer">
           <button className="popup-button green" onClick={handleSave}>
             Spremi
