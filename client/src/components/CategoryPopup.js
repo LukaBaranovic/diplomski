@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import "./CategoryPopup.css";
 import "./PopupStyle.css";
+import "./CategoryPopup.css";
 
 const CategoryPopup = ({
   categoryId,
