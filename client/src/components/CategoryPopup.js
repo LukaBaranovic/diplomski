@@ -31,7 +31,7 @@ const CategoryPopup = ({
 
   return (
     <div className="popup-overlay">
-      <div className="category-popup">
+      <div className="popup-large">
         {/* Header */}
         <div className="popup-header">
           <h2>{categoryName}</h2>

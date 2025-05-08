@@ -1,8 +1,6 @@
-.receipt-details-popup {
-  width: 60%;
-  max-width: 800px;
-}
+/* Custom styles specific to ReceiptDetailsView */
 
+/* Table Styles */
 .details-table {
   width: 100%;
   border-collapse: collapse;
@@ -31,4 +29,49 @@
 .details-table th:nth-child(3),
 .details-table td:nth-child(3) {
   text-align: right;
+}
+
+/* Responsive styles */
+@media (max-width: 480px) {
+  .details-table {
+    font-size: 0.8rem; /* Smaller font size for table content */
+  }
+
+  .details-table thead th,
+  .details-table tbody td {
+    padding: 6px; /* Reduced padding for smaller screens */
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .details-table {
+    font-size: 0.9rem; /* Slightly smaller font size for medium screens */
+  }
+
+  .details-table thead th,
+  .details-table tbody td {
+    padding: 8px; /* Adjusted padding for medium screens */
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .details-table {
+    font-size: 1rem; /* Default font size for medium-large screens */
+  }
+
+  .details-table thead th,
+  .details-table tbody td {
+    padding: 10px; /* Default padding */
+  }
+}
+
+@media (min-width: 1025px) {
+  .details-table {
+    font-size: 1.1rem; /* Slightly larger font size for high-resolution screens */
+  }
+
+  .details-table thead th,
+  .details-table tbody td {
+    padding: 12px; /* Enhanced padding for larger screens */
+  }
 }

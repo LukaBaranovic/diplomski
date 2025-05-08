@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./PopupStyle.css"; // Shared styles
-import "./ReceiptsView.css";
+import "./ReceiptsView.css"; // Specific styles for ReceiptsView
 import ReceiptDetailsView from "./ReceiptDetailsView"; // Import the ReceiptDetailsView component
 
 const ReceiptsView = ({ onClose }) => {
@@ -33,7 +33,7 @@ const ReceiptsView = ({ onClose }) => {
 
   return (
     <div className="popup-overlay">
-      <div className="popup-content receipts-view-popup">
+      <div className="popup-large">
         {/* Header */}
         <div className="popup-header">
           <h2>Pregled Računa</h2>

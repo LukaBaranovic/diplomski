@@ -24,6 +24,18 @@
   margin: 10px;
 }
 
+.popup-large {
+  width: 80vw;
+  height: 80vh;
+  margin: 0; /* Remove any margin to ensure full coverage */
+  background-color: white; /* Match the background color of .popup-content */
+  border-radius: 10px; /* Default border radius */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Add shadow for consistency */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
 .popup-header {
   display: flex;
   flex-direction: column;
@@ -156,50 +168,6 @@ h2 {
   gap: 10px;
 }
 
-.category-popup .popup-content {
-  width: 80vw;
-  height: 80vh;
-}
-
-.item-list {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-}
-
-.item-container {
-  width: 200px;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  text-align: center;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-  cursor: pointer;
-}
-
-.item-container:hover {
-  background-color: #f0f0f0;
-}
-
-.item-container.added {
-  background-color: #d4edda;
-  transform: scale(1.05);
-  transition: background-color 0.5s ease, transform 0.3s ease;
-}
-
-.item-name {
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.item-price {
-  color: #007bff;
-}
-
 @media (max-width: 480px) {
   .popup-content {
     width: 100vw;
@@ -207,10 +175,12 @@ h2 {
     border-radius: 0;
   }
 
-  .item-container {
-    width: 150px;
-    padding: 10px;
-    font-size: 0.8rem;
+  .popup-large {
+    width: 100vw; /* Full width of the viewport */
+    height: 100vh; /* Full height of the viewport */
+    margin: 0; /* Ensure no spacing around the popup */
+    border-radius: 0; /* Remove border radius for full-screen look */
+    padding: 0; /* Ensure no internal padding */
   }
 }
 
@@ -221,10 +191,10 @@ h2 {
     border-radius: 5px;
   }
 
-  .item-container {
-    width: 180px;
-    padding: 15px;
-    font-size: 0.9rem;
+  .popup-large {
+    width: 90vw; /* Slightly smaller for middle-sized screens */
+    height: 90vh;
+    border-radius: 5px;
   }
 }
 
@@ -234,10 +204,10 @@ h2 {
     height: 90vh;
     border-radius: 10px;
   }
-}
 
-@media (min-width: 1025px) {
-  .item-container {
-    font-size: 1.1rem;
+  .popup-large {
+    width: 85vw; /* Reduce size slightly for medium screens */
+    height: 85vh;
+    border-radius: 10px;
   }
 }

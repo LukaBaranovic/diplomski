@@ -25,7 +25,7 @@ const ReceiptDetailsView = ({ receiptId, onClose }) => {
   if (!details) {
     return (
       <div className="popup-overlay">
-        <div className="popup-content">
+        <div className="popup-large">
           <div className="popup-main">
             <p>Loading...</p>
           </div>
@@ -36,7 +36,7 @@ const ReceiptDetailsView = ({ receiptId, onClose }) => {
 
   return (
     <div className="popup-overlay">
-      <div className="popup-content receipt-details-popup">
+      <div className="popup-large">
         <div className="popup-header">
           <h2>Detalji Računa</h2>
         </div>
