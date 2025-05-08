@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import "./CategoryPopup.css"; // Component-specific styles
-import "./PopupStyle.css"; // Shared styles
+import "./CategoryPopup.css";
+import "./PopupStyle.css";
 
 const CategoryPopup = ({
   categoryId,
@@ -9,7 +9,7 @@ const CategoryPopup = ({
   addItemToCart,
 }) => {
   const [items, setItems] = useState([]);
-  const [addedItems, setAddedItems] = useState(new Set()); // Track added items
+  const [addedItems, setAddedItems] = useState(new Set());
 
   useEffect(() => {
     fetch(`/api/items/${categoryId}`)
@@ -19,14 +19,14 @@ const CategoryPopup = ({
 
   const handleAddToCart = (item) => {
     addItemToCart(item);
-    setAddedItems((prev) => new Set(prev).add(item.item_id)); // Mark item as added
+    setAddedItems((prev) => new Set(prev).add(item.item_id));
     setTimeout(() => {
       setAddedItems((prev) => {
         const updated = new Set(prev);
-        updated.delete(item.item_id); // Remove effect after a delay
+        updated.delete(item.item_id);
         return updated;
       });
-    }, 1000); // Effect lasts for 1 second
+    }, 1000);
   };
 
   return (
@@ -52,12 +52,12 @@ const CategoryPopup = ({
               ))}
             </ul>
           ) : (
-            <p>No items found for this category.</p>
+            <p>Nema artikala u ovoj kategoriji.</p>
           )}
         </div>
         <div className="popup-footer">
           <button className="popup-button red" onClick={onClose}>
-            Close
+            Otkaži
           </button>
         </div>
       </div>

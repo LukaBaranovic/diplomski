@@ -12,7 +12,6 @@
   box-sizing: border-box; /* Include padding in size calculations */
 }
 
-/* Styling for individual category items */
 .category-container {
   display: flex;
   align-items: center;
@@ -24,23 +23,28 @@
   font-size: 1rem;
   cursor: pointer;
   text-align: center;
-  transition: background-color 0.3s, transform 0.2s;
+  transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+  border: 1px solid #ccc; /* Thin border around the container */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle box shadow */
 }
 
 .category-container:hover {
   background-color: #b2ebf2;
   transform: scale(1.02);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Slightly larger shadow on hover */
 }
 
 .category-container:active {
   background-color: #80deea;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); /* Reduced shadow on active click */
 }
 
-/* Style for the selected category */
 .category-container.selected {
   background-color: #4fc3f7;
   color: white;
   font-weight: bold;
+  border: 1px solid #007bb2; /* Darker border for the selected state */
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); /* Slightly stronger shadow for selected state */
 }
 
 /* Responsive design for smaller screens (width <= 768px) */

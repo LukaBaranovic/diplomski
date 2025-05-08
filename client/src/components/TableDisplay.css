@@ -1,67 +1,162 @@
 .table-display-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(250px, 1fr)
+  ); /* Default size for larger screens */
+  gap: 20px; /* Space between grid items */
   padding: 20px;
-  height: 100%;
-  box-sizing: border-box;
-  overflow-y: auto;
+  height: 100%; /* Ensure the container takes up the full height of its parent */
+  box-sizing: border-box; /* Include padding in size calculations */
+  overflow-y: auto; /* Allow vertical scrolling when content overflows */
 }
 
 .table-container {
-  border: 1px solid #ccc;
+  border: 1px solid #ccc; /* Thin border */
   border-radius: 8px;
   background-color: #f9f9f9;
   padding: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Enhanced box shadow */
+  text-align: left; /* Align text to the left by default */
+  display: flex; /* Use flexbox for internal content organization */
+  flex-direction: column; /* Stack content vertically */
+  justify-content: flex-start; /* Align all content to the top of the container */
+  cursor: pointer; /* Add pointer cursor for interactivity */
+  transition: box-shadow 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+}
+
+.table-container:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
+  transform: translateY(-2px); /* Slight upward movement on hover */
 }
 
 .table-container h3 {
-  margin: 0 0 5px 0;
+  margin: 0 0 5px 0; /* Reduced margin for a more compact layout */
   font-size: 18px;
   color: #333;
-  text-align: center;
+  text-align: center; /* Center the table title horizontally */
 }
 
 .table-container ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid #ddd; /* Light line between items */
 }
 
 .table-container li {
   font-size: 14px;
   color: #555;
-  padding: 5px 0;
+  padding: 5px 0; /* Reduced padding for a tighter layout */
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #ddd;
+  justify-content: space-between; /* Space between item name and quantity */
+  align-items: center; /* Center align vertically */
+  border-bottom: 1px solid #ddd; /* Light line between items */
 }
 
 .table-container li:last-child {
-  border-bottom: none;
+  border-bottom: none; /* Remove the last item's bottom border */
 }
 
 .table-container .item-name {
-  flex-grow: 1;
-  text-align: left;
+  flex-grow: 1; /* Item name takes available space */
+  text-align: left; /* Align item name to the left */
 }
 
 .table-container .item-quantity {
-  text-align: right;
-  font-weight: bold;
-  color: #333;
-  width: 50px;
+  text-align: right; /* Align quantity text to the right */
+  font-weight: bold; /* Optional: Make the quantity bold */
+  color: #333; /* Optional: Darker color for emphasis */
+  width: 50px; /* Optional: Set a fixed width for alignment consistency */
 }
 
 .error-message {
   color: red;
   font-size: 16px;
   margin-bottom: 20px;
+}
+
+/* Responsive Design for Screens Smaller than 768px */
+@media (max-width: 768px) {
+  .table-display-container {
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(50px, 1fr)
+    ); /* Smaller containers in a responsive grid */
+    gap: 10px; /* Reduced gap for a more compact layout */
+  }
+
+  .table-container {
+    border: 1px solid #007bff; /* Blue border for emphasis */
+    border-radius: 5px;
+    background-color: #007bff; /* Blue background for table containers */
+    color: white; /* White text for table numbers */
+    padding: 0; /* Remove padding for smaller containers */
+    box-shadow: none; /* Remove shadow for compact containers */
+    text-align: center; /* Center the text */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    height: 50px; /* Fixed height for smaller containers */
+    width: 50px; /* Fixed width for smaller containers */
+    font-size: 14px; /* Adjust font size for table numbers */
+    font-weight: bold; /* Bold table numbers */
+    position: relative; /* Ensure the ::before pseudo-element is positioned relative to this container */
+    cursor: pointer; /* Add pointer cursor for interactivity */
+  }
+
+  .table-container h3,
+  .table-container ul {
+    display: none; /* Hide the title and items list for smaller containers */
+  }
+
+  .table-container::before {
+    content: attr(
+      data-table-number
+    ); /* Dynamically display only the table number */
+    font-size: 14px; /* Ensure proper size for the table number */
+    font-weight: bold;
+    color: white; /* Match the container text color */
+    position: absolute; /* Position the number inside the container */
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Adjust for perfect centering */
+    text-align: center;
+  }
+}
+
+/* Responsive Design for Screens Between 769px and 1024px */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .table-display-container {
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(216px, 1fr)
+    ); /* Adjust column size for tablets */
+    gap: 18px; /* Slightly reduced gap for tablets */
+  }
+
+  .table-container h3 {
+    font-size: 17px; /* Slightly smaller font size for tablets */
+  }
+}
+
+/* Responsive Design for Screens Between 1025px and 1440px */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .table-display-container {
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(232px, 1fr)
+    ); /* Adjust column size for desktops */
+    gap: 20px; /* Default gap for desktops */
+  }
+}
+
+/* Responsive Design for Screens Larger than 1441px */
+@media (min-width: 1441px) {
+  .table-display-container {
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(280px, 1fr)
+    ); /* Larger column size for ultra-wide screens */
+    gap: 24px; /* Larger gap for ultra-wide screens */
+  }
 }

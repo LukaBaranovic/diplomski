@@ -1,9 +1,3 @@
-.receipts-view-popup {
-  width: 70%; /* 70% of the screen width */
-  max-width: 90%;
-  height: 70%; /* 70% of the screen height */
-}
-
 .receipts-view-header {
   border-bottom: 1px solid #ddd; /* Creates the line under the header */
 }

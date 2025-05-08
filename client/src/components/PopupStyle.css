@@ -15,6 +15,8 @@
 }
 
 .popup-content {
+  width: 65vw; /* 55% of the viewport width */
+  height: 70vh;
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
@@ -23,7 +25,6 @@
   text-align: center;
   overflow: hidden; /* Prevent overflow beyond the popup */
   margin: 10px;
-  max-height: 90%; /* Constrain popup height to 90% of the viewport */
 }
 
 .popup-header {
@@ -84,7 +85,7 @@ h2 {
 /* ==========================
          AddToTable Popup Styles
          ========================== */
-.add-to-table-popup .popup-content {
+.add-to-table-popup {
   width: 55vw; /* 55% of the viewport width */
   height: 55vh; /* 55% of the viewport height */
 }
@@ -118,12 +119,17 @@ h2 {
   transform: scale(1.05); /* Slightly larger on selection */
 }
 
+.receipts-view-popup {
+  width: 70vw;
+  height: 70vh;
+}
+
 /* ==========================
          Amount Popup Styles
          ========================== */
-.amount-popup .popup-content {
-  width: 50vw; /* 50% of the viewport width */
-  height: 50vh; /* 50% of the viewport height */
+.amount-popup {
+  width: 55vw; /* 50% of the viewport width */
+  height: 55vh; /* 50% of the viewport height */
 }
 
 .amount-display {

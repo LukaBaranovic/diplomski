@@ -46,23 +46,23 @@ const ReceiptDetailsView = ({ receiptId, onClose }) => {
         {/* Main Content */}
         <div className="popup-main">
           <p>
-            <strong>Table Number:</strong> {details.table_number}
+            <strong>Broj Stola:</strong> {details.table_number}
           </p>
           <p>
-            <strong>Timestamp:</strong>{" "}
+            <strong>Vrijeme:</strong>{" "}
             {new Date(details.timestamp).toLocaleString()}
           </p>
           <p>
-            <strong>Total Price:</strong> $
+            <strong>Ukupna Cijena:</strong> $
             {Number(details.total_price).toFixed(2)}
           </p>
 
           <table className="details-table">
             <thead>
               <tr>
-                <th>Item Name</th>
-                <th>Quantity</th>
-                <th>Price</th>
+                <th>Naziv Artikla</th>
+                <th>Količina</th>
+                <th>Cijena</th>
               </tr>
             </thead>
             <tbody>
@@ -80,7 +80,7 @@ const ReceiptDetailsView = ({ receiptId, onClose }) => {
         {/* Footer */}
         <div className="popup-footer">
           <button className="popup-button red" onClick={onClose}>
-            Close
+            Otkaži
           </button>
         </div>
       </div>

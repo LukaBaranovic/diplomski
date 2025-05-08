@@ -162,7 +162,7 @@ const TablePopup = ({ tableNumber, onClose }) => {
       <div className="popup-content">
         {/* Header */}
         <div className="popup-header">
-          <h2>Table {tableNumber}</h2>
+          <h2>Stol {tableNumber}</h2>
         </div>
 
         {/* Main Content */}
@@ -176,10 +176,10 @@ const TablePopup = ({ tableNumber, onClose }) => {
               <table className="item-table">
                 <thead>
                   <tr>
-                    <th>Item Name</th>
-                    <th className="quantity-column">Quantity</th>
-                    <th>Total Price</th>
-                    <th>Action</th>
+                    <th>Naziv artikla</th>
+                    <th className="quantity-column">Količina</th>
+                    <th>Cijena </th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -211,7 +211,7 @@ const TablePopup = ({ tableNumber, onClose }) => {
                               handleConfirmQuantity(item.item_name)
                             }
                           >
-                            Confirm
+                            Potvrdi
                           </button>
                         </div>
                       </td>
@@ -226,7 +226,7 @@ const TablePopup = ({ tableNumber, onClose }) => {
                           className="popup-button red"
                           onClick={() => handleDelete(item.item_name)}
                         >
-                          Delete
+                          Izbriši
                         </button>
                       </td>
                     </tr>
@@ -234,7 +234,7 @@ const TablePopup = ({ tableNumber, onClose }) => {
                 </tbody>
               </table>
               <div className="total-price-container">
-                <h3>Total Price: ${totalPrice.toFixed(2)}</h3>
+                <h3>Ukupno: ${totalPrice.toFixed(2)}</h3>
               </div>
             </>
           )}
@@ -243,13 +243,13 @@ const TablePopup = ({ tableNumber, onClose }) => {
         {/* Footer */}
         <div className="popup-footer">
           <button className="popup-button green" onClick={handleCash}>
-            Cash
+            Račun
           </button>
           <button className="popup-button red" onClick={handleDeleteTable}>
-            Delete Table
+            Izbriši Stol
           </button>
           <button className="popup-button red" onClick={onClose}>
-            Close
+            Otkaži
           </button>
         </div>
       </div>

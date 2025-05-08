@@ -55,10 +55,10 @@ const ReceiptsView = ({ onClose }) => {
           <table className="receipts-view-table">
             <thead>
               <tr>
-                <th>Receipt ID</th>
-                <th>Table Number</th>
-                <th>Total Price</th>
-                <th>Time</th>
+                <th>ID Računa </th>
+                <th>Broj Stola</th>
+                <th>Ukupna Cijena</th>
+                <th>Vrijeme </th>
               </tr>
             </thead>
             <tbody>
@@ -86,7 +86,7 @@ const ReceiptsView = ({ onClose }) => {
         {/* Footer */}
         <div className="popup-footer">
           <button className="popup-button red" onClick={onClose}>
-            Close
+            Otkaži
           </button>
         </div>
       </div>

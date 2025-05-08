@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import "./PopupStyle.css"; // Shared styles
-import "./TableDisplay.css";
 import TablePopup from "./TablePopup"; // Import the popup component
+import "./TableDisplay.css";
 
 const TableDisplay = () => {
   const [tableData, setTableData] = useState([]); // State to store table data
@@ -18,7 +17,7 @@ const TableDisplay = () => {
         return res.json();
       })
       .then((data) => setTableData(data))
-      .catch(() => setError("Failed to load table data."));
+      .catch((err) => setError("Failed to load table data."));
   };
 
   // Polling: Fetch table data every 5 seconds
@@ -42,9 +41,10 @@ const TableDisplay = () => {
         <div
           key={table.table_number}
           className="table-container"
+          data-table-number={table.table_number} // Set table number dynamically
           onClick={() => handleTableClick(table.table_number)} // Open popup on click
         >
-          <h2>Table {table.table_number}</h2>
+          <h3>Table {table.table_number}</h3> {/* Title for larger screens */}
           <ul>
             {table.items.map((item) => (
               <li key={item.item_id}>
