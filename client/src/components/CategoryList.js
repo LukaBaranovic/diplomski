@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import "./CategoryList.css"; // Import the CSS file
-import CategoryPopup from "./CategoryPopup.js"; // Import the popup component
+import "./CategoryList.css";
+import CategoryPopup from "./CategoryPopup.js";
 
 const CategoryList = ({ categories, addItemToCart }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);

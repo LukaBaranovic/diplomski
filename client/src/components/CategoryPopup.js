@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import "./CategoryPopup.css"; // Use only specific styles for CategoryPopup
+import "./CategoryPopup.css";
+import "./PopupStyle.css";
 
 const CategoryPopup = ({
   categoryId,
@@ -11,7 +12,6 @@ const CategoryPopup = ({
   const [addedItems, setAddedItems] = useState(new Set());
 
   useEffect(() => {
-    // Fetch items for the selected category
     fetch(`/api/items/${categoryId}`)
       .then((res) => res.json())
       .then((data) => setItems(data));
@@ -26,7 +26,7 @@ const CategoryPopup = ({
         updated.delete(item.item_id);
         return updated;
       });
-    }, 1000); // Reset the "added" state after 1 second
+    }, 1000);
   };
 
   return (

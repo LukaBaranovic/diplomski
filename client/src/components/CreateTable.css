@@ -1,5 +1,3 @@
-/* Custom styles specific to CreateTable */
-
 .create-table-main {
   display: flex;
   flex-direction: column;
@@ -37,55 +35,54 @@
   text-align: center;
 }
 
-/* Responsive Styles */
 @media (max-width: 480px) {
   .create-table-main {
-    gap: 8px; /* Reduced gap for smaller screens */
+    gap: 8px;
   }
 
   .table-number-input {
-    width: 160px; /* Smaller width for small screens */
-    height: 35px; /* Reduced height */
-    font-size: 1rem; /* Smaller font size */
+    width: 160px;
+    height: 35px;
+    font-size: 1rem;
   }
 
   .input-label {
-    font-size: 0.9rem; /* Smaller font size for labels */
+    font-size: 0.9rem;
   }
 }
 
 @media (min-width: 481px) and (max-width: 768px) {
   .create-table-main {
-    gap: 9px; /* Adjust gap for medium screens */
+    gap: 9px;
   }
 
   .table-number-input {
-    width: 180px; /* Adjust width for medium screens */
-    height: 38px; /* Adjust height */
-    font-size: 1.1rem; /* Adjust font size */
+    width: 180px;
+    height: 38px;
+    font-size: 1.1rem;
   }
 
   .input-label {
-    font-size: 1rem; /* Default font size for labels */
+    font-size: 1rem;
   }
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
   .create-table-main {
-    gap: 10px; /* Default gap for medium-large screens */
+    gap: 10px;
   }
 
   .table-number-input {
-    width: 190px; /* Adjust width for medium-large screens */
-    height: 40px; /* Default height */
-    font-size: 1.2rem; /* Default font size */
+    width: 190px;
+    height: 40px;
+    font-size: 1.2rem;
   }
 }
 
 @media (min-width: 1025px) {
   .table-number-input {
-    width: 200px; /* Default width */
-    height: 40px; /* Default height */
-    font-size: 1.2rem; /* Default font size */
+    width: 200px;
+    height: 40px;
+    font-size: 1.2rem;
   }
 }

@@ -1,4 +1,3 @@
-/* Styles for the item list and containers */
 .item-list {
   list-style-type: none;
   padding: 0;
@@ -38,35 +37,34 @@
   color: #007bff;
 }
 
-/* Responsive design for item-container */
 @media (max-width: 480px) {
   .item-container {
-    width: 150px; /* Smaller width for small screens */
-    padding: 10px; /* Reduced padding */
-    font-size: 0.8rem; /* Smaller font size for compact display */
+    width: 150px;
+    padding: 10px;
+    font-size: 0.8rem;
   }
 }
 
 @media (min-width: 481px) and (max-width: 768px) {
   .item-container {
-    width: 180px; /* Adjusted width for medium screens */
-    padding: 15px; /* Slightly reduced padding */
-    font-size: 0.9rem; /* Adjusted font size for medium screens */
+    width: 180px;
+    padding: 15px;
+    font-size: 0.9rem;
   }
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
   .item-container {
-    width: 190px; /* Slightly smaller than default for medium-large screens */
-    padding: 18px; /* Reduced padding */
-    font-size: 1rem; /* Normal font size */
+    width: 190px;
+    padding: 18px;
+    font-size: 1rem;
   }
 }
 
 @media (min-width: 1025px) {
   .item-container {
-    width: 200px; /* Default width for larger screens */
-    padding: 20px; /* Default padding */
-    font-size: 1.1rem; /* Slightly larger font size for high-resolution screens */
+    width: 200px;
+    padding: 20px;
+    font-size: 1.1rem;
   }
 }

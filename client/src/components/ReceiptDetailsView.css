@@ -1,6 +1,3 @@
-/* Custom styles specific to ReceiptDetailsView */
-
-/* Table Styles */
 .details-table {
   width: 100%;
   border-collapse: collapse;
@@ -31,47 +28,46 @@
   text-align: right;
 }
 
-/* Responsive styles */
 @media (max-width: 480px) {
   .details-table {
-    font-size: 0.8rem; /* Smaller font size for table content */
+    font-size: 0.8rem;
   }
 
   .details-table thead th,
   .details-table tbody td {
-    padding: 6px; /* Reduced padding for smaller screens */
+    padding: 6px;
   }
 }
 
 @media (min-width: 481px) and (max-width: 768px) {
   .details-table {
-    font-size: 0.9rem; /* Slightly smaller font size for medium screens */
+    font-size: 0.9rem;
   }
 
   .details-table thead th,
   .details-table tbody td {
-    padding: 8px; /* Adjusted padding for medium screens */
+    padding: 8px;
   }
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
   .details-table {
-    font-size: 1rem; /* Default font size for medium-large screens */
+    font-size: 1rem;
   }
 
   .details-table thead th,
   .details-table tbody td {
-    padding: 10px; /* Default padding */
+    padding: 10px;
   }
 }
 
 @media (min-width: 1025px) {
   .details-table {
-    font-size: 1.1rem; /* Slightly larger font size for high-resolution screens */
+    font-size: 1.1rem;
   }
 
   .details-table thead th,
   .details-table tbody td {
-    padding: 12px; /* Enhanced padding for larger screens */
+    padding: 12px;
   }
 }

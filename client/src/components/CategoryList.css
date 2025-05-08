@@ -44,7 +44,6 @@
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
 }
 
-/* Responsive design for very small screens (width <= 480px) */
 @media (max-width: 480px) {
   .category-list {
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -57,7 +56,6 @@
   }
 }
 
-/* Responsive design for smaller screens (481px to 768px) */
 @media (min-width: 481px) and (max-width: 768px) {
   .category-list {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -70,7 +68,6 @@
   }
 }
 
-/* Responsive design for medium screens (769px to 1024px) */
 @media (min-width: 769px) and (max-width: 1024px) {
   .category-list {
     grid-template-columns: repeat(auto-fit, minmax(216px, 1fr));
@@ -83,7 +80,6 @@
   }
 }
 
-/* Responsive design for desktops (1025px to 1440px) */
 @media (min-width: 1025px) and (max-width: 1440px) {
   .category-list {
     grid-template-columns: repeat(auto-fit, minmax(232px, 1fr));
@@ -96,7 +92,6 @@
   }
 }
 
-/* Responsive design for large screens (1441px and above) */
 @media (min-width: 1441px) {
   .category-list {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));

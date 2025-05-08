@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./PopupStyle.css"; // Shared styles
+import "./PopupStyle.css";
 import "./ReceiptDetailsView.css";
 
 const ReceiptDetailsView = ({ receiptId, onClose }) => {

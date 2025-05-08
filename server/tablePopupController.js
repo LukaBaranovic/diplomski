@@ -1,8 +1,5 @@
-const db = require("./dbConfig"); // Import database configuration
+const db = require("./dbConfig");
 
-/**
- * Controller to fetch table data and associated items by table_number.
- */
 const getTableItemsByNumber = async (req, res) => {
   const { tableNumber } = req.params;
 
@@ -15,7 +12,6 @@ const getTableItemsByNumber = async (req, res) => {
   `;
 
   try {
-    // Execute the query with the provided tableNumber
     const [rows] = await db.execute(query, [tableNumber]);
 
     if (rows.length === 0) {
@@ -24,16 +20,13 @@ const getTableItemsByNumber = async (req, res) => {
         .json({ error: "No items available for this table." });
     }
 
-    res.status(200).json(rows); // Return the rows directly
+    res.status(200).json(rows);
   } catch (err) {
     console.error("Error fetching table items:", err.message);
     res.status(500).json({ error: "Failed to fetch table items." });
   }
 };
 
-/**
- * Controller to delete a row from table_cart_items by table_number and item_name.
- */
 const deleteTableItem = async (req, res) => {
   const { table_number, item_name } = req.body;
 
@@ -59,24 +52,19 @@ const deleteTableItem = async (req, res) => {
   `;
 
   try {
-    // Perform the delete operation
     await db.execute(deleteQuery, [table_number, item_name]);
 
-    // Fetch the updated list of items
     const [updatedItems] = await db.execute(fetchUpdatedItemsQuery, [
       table_number,
     ]);
 
-    res.status(200).json(updatedItems); // Return the updated list
+    res.status(200).json(updatedItems);
   } catch (err) {
     console.error("Error deleting item:", err.message);
     res.status(500).json({ error: "Failed to delete the item." });
   }
 };
 
-/**
- * Controller to update the quantity of an item in table_cart_items.
- */
 const updateItemQuantity = async (req, res) => {
   const { table_number, item_name, quantity } = req.body;
 
@@ -100,24 +88,19 @@ const updateItemQuantity = async (req, res) => {
   `;
 
   try {
-    // Update the quantity in the database
     await db.execute(updateQuery, [quantity, table_number, item_name]);
 
-    // Fetch the updated list of items
     const [updatedItems] = await db.execute(fetchUpdatedItemsQuery, [
       table_number,
     ]);
 
-    res.status(200).json(updatedItems); // Return the updated list
+    res.status(200).json(updatedItems);
   } catch (err) {
     console.error("Error updating quantity:", err.message);
     res.status(500).json({ error: "Failed to update quantity." });
   }
 };
 
-/**
- * Controller to delete the entire table and its items.
- */
 const deleteTable = async (req, res) => {
   const { table_number } = req.body;
 
@@ -135,10 +118,7 @@ const deleteTable = async (req, res) => {
   `;
 
   try {
-    // Start by deleting all table items
     await db.execute(deleteItemsQuery, [table_number]);
-
-    // Then delete the table itself
     await db.execute(deleteTableQuery, [table_number]);
 
     res
@@ -150,10 +130,6 @@ const deleteTable = async (req, res) => {
   }
 };
 
-/**
- * Controller to handle "Cash" functionality.
- * Saves the table's data to receipts and receipt_items, then deletes the table.
- */
 const cashTable = async (req, res) => {
   const { table_number } = req.body;
 
@@ -189,21 +165,18 @@ const cashTable = async (req, res) => {
     const connection = await db.getConnection();
     await connection.beginTransaction();
 
-    // Fetch table items and total price
     const [items] = await connection.query(fetchTableQuery, [table_number]);
     const [totalPriceResult] = await connection.query(fetchTotalPriceQuery, [
       table_number,
     ]);
     const total_price = totalPriceResult[0].total_price;
 
-    // Insert receipt into receipts table
     const [receiptResult] = await connection.query(insertReceiptQuery, [
       table_number,
       total_price,
     ]);
     const receipt_id = receiptResult.insertId;
 
-    // Insert items into receipt_items table
     for (const item of items) {
       await connection.query(insertReceiptItemsQuery, [
         receipt_id,
@@ -213,7 +186,6 @@ const cashTable = async (req, res) => {
       ]);
     }
 
-    // Delete table and its items
     await connection.query(deleteTableItemsQuery, [table_number]);
     await connection.query(deleteTableQuery, [table_number]);
 
@@ -232,5 +204,5 @@ module.exports = {
   deleteTableItem,
   updateItemQuantity,
   deleteTable,
-  cashTable, // Export the cashTable controller
+  cashTable,
 };

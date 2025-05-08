@@ -5,145 +5,139 @@ html {
   height: 100%;
   width: 100%;
   box-sizing: border-box;
-  overflow: auto; /* Allow scrolling for the entire page */
+  overflow: auto;
 }
 
 .page-container {
   display: grid;
-  grid-template-rows: 50% 50%; /* Divide the page into two halves */
-  height: 100vh; /* Full viewport height */
-  width: 100vw; /* Full viewport width */
+  grid-template-rows: 50% 50%;
+  height: 100vh;
+  width: 100vw;
 }
 
 .upper-section {
   display: flex;
   justify-content: center;
-  align-items: flex-start; /* Align items to the top */
-  width: 100%; /* Full width */
-  overflow: hidden; /* Prevent horizontal overflow */
-  max-height: 50vh; /* Constrain height to half the viewport */
-  box-sizing: border-box; /* Include padding in size calculations */
+  align-items: flex-start;
+  width: 100%;
+  overflow: hidden;
+  max-height: 50vh;
+  box-sizing: border-box;
 }
 
 .lower-section {
   display: grid;
-  grid-template-columns: 40% 10% 50%; /* Default division for larger screens */
-  gap: 0; /* No space between sections */
-  width: 100%; /* Full width */
-  height: 100%; /* Ensure the lower section fills its allocated height */
-  border-top: 2px solid #ccc; /* Lighter line to separate upper and lower sections */
-  overflow: hidden; /* Prevent content overflow */
+  grid-template-columns: 40% 10% 50%;
+  gap: 0;
+  width: 100%;
+  height: 100%;
+  border-top: 2px solid #ccc;
+  overflow: hidden;
 }
 
 .left-section,
 .middle-section,
 .right-section {
-  border-left: 2px solid #ccc; /* Lighter lines to separate sections */
-  overflow-y: auto; /* Enable vertical scrolling if content overflows */
+  border-left: 2px solid #ccc;
+  overflow-y: auto;
 }
 
 .left-section {
-  border-left: none; /* Remove the left border from the left section */
-  height: 100%; /* Ensure the left section takes up its full height */
-  width: 100%; /* Ensure the left section takes up its full width */
-  box-sizing: border-box; /* Include padding/border in the dimensions */
+  border-left: none;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-/* Centering buttons in the middle-section */
 .middle-section {
-  display: flex; /* Enable Flexbox */
-  flex-direction: column; /* Stack buttons vertically */
-  justify-content: center; /* Center buttons vertically */
-  align-items: center; /* Center buttons horizontally */
-  border-left: 2px solid #ccc; /* Keep the border for separation */
-  height: 100%; /* Ensure the section takes up its full height */
-  box-sizing: border-box; /* Include padding/border in the dimensions */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-left: 2px solid #ccc;
+  height: 100%;
+  box-sizing: border-box;
 }
 
-/* Styling for functionality buttons */
 .functionality-button {
-  width: 100px; /* Fixed width for consistent size */
-  height: 40px; /* Fixed height for consistent size */
-  margin: 10px; /* Add some space around buttons */
-  padding: 5px; /* Inner padding for comfortable spacing */
-  font-size: 14px; /* Font size for readability */
-  text-align: center; /* Center text inside the button */
-  background-color: #007bff; /* Blue background */
-  color: white; /* White text */
-  border: none; /* Remove border */
-  border-radius: 5px; /* Rounded corners */
-  cursor: pointer; /* Pointer cursor on hover */
+  width: 100px;
+  height: 40px;
+  margin: 10px;
+  padding: 5px;
+  font-size: 14px;
+  text-align: center;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .functionality-button:disabled {
-  background-color: #ccc; /* Grey out disabled buttons */
-  cursor: not-allowed; /* Show not-allowed cursor for disabled buttons */
+  background-color: #ccc;
+  cursor: not-allowed;
 }
 
 .functionality-button:hover:not(:disabled) {
-  background-color: #0056b3; /* Darker blue on hover */
+  background-color: #0056b3;
 }
 
-/* Responsive Design for Screens Smaller than 768px */
 @media (max-width: 768px) {
   .lower-section {
-    grid-template-columns: 20% 20% 60%; /* New division for smaller screens */
+    grid-template-columns: 20% 20% 60%;
   }
 
   .middle-section {
-    justify-content: flex-start; /* Align buttons to the top */
-    padding-top: 10px; /* Add spacing at the top */
+    justify-content: flex-start;
+    padding-top: 10px;
   }
 
   .functionality-button {
-    width: 80px; /* Reduced width for smaller buttons */
-    height: 35px; /* Reduced height for smaller buttons */
-    font-size: 12px; /* Smaller font size */
-    margin: 5px; /* Compact spacing */
+    width: 80px;
+    height: 35px;
+    font-size: 12px;
+    margin: 5px;
   }
 }
 
-/* Responsive Design for Screens Between 769px and 1024px */
 @media (min-width: 769px) and (max-width: 1024px) {
   .lower-section {
-    grid-template-columns: 35% 15% 50%; /* New division for smaller screens */
+    grid-template-columns: 35% 15% 50%;
   }
 
   .page-container {
-    grid-template-rows: 55% 45%; /* Slightly adjust grid layout */
+    grid-template-rows: 55% 45%;
   }
 
   .middle-section {
-    justify-content: flex-start; /* Align buttons to the top */
-    padding-top: 20px; /* Add spacing at the top */
+    justify-content: flex-start;
+    padding-top: 20px;
   }
 
   .functionality-button {
-    width: 90px; /* Adjust button width */
-    height: 38px; /* Adjust button height */
-    font-size: 13px; /* Adjust font size */
+    width: 90px;
+    height: 38px;
+    font-size: 13px;
   }
 
   .upper-section {
-    max-height: 55vh; /* Constrain height to half the viewport */
+    max-height: 55vh;
   }
 }
 
-/* Responsive Design for Screens Between 1025px and 1440px */
 @media (min-width: 1025px) and (max-width: 1440px) {
   .functionality-button {
-    width: 100px; /* Default button size */
-    height: 40px; /* Default button size */
-    font-size: 14px; /* Default font size */
+    width: 100px;
+    height: 40px;
+    font-size: 14px;
   }
 }
 
-/* Responsive Design for Screens Larger than 1441px */
 @media (min-width: 1441px) {
   .functionality-button {
-    width: 120px; /* Larger buttons for ultra-wide screens */
-    height: 50px; /* Larger height */
-    font-size: 16px; /* Larger font size */
-    margin: 12px; /* Slightly increased spacing */
+    width: 120px;
+    height: 50px;
+    font-size: 16px;
+    margin: 12px;
   }
 }

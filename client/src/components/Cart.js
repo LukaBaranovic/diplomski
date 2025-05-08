@@ -1,5 +1,5 @@
 import React from "react";
-import "./Cart.css"; // Import the CSS file for styling
+import "./Cart.css";
 
 const Cart = ({ items, selectedItemId, setSelectedItemId }) => {
   const toggleItem = (itemId) => {

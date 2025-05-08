@@ -73,7 +73,6 @@
   margin-bottom: 20px;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .table-display-container {
     grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
@@ -106,7 +105,7 @@
     font-size: 14px;
     font-weight: bold;
     color: white;
-    position: static; /* Always display the table number */
+    position: static;
     text-align: center;
   }
 }

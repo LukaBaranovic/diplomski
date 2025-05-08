@@ -1,8 +1,5 @@
-const db = require("./dbConfig"); // Import database configuration
+const db = require("./dbConfig");
 
-/**
- * Controller to fetch table data and associated items.
- */
 const getTableData = async (req, res) => {
   const query = `
     SELECT t.table_number, c.item_id, c.item_name, c.quantity
@@ -14,7 +11,6 @@ const getTableData = async (req, res) => {
   try {
     const [rows] = await db.execute(query);
 
-    // Transform the data into the desired format
     const tableData = rows.reduce((acc, row) => {
       const existingTable = acc.find(
         (table) => table.table_number === row.table_number

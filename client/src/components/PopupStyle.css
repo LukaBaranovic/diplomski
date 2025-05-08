@@ -27,10 +27,10 @@
 .popup-large {
   width: 80vw;
   height: 80vh;
-  margin: 0; /* Remove any margin to ensure full coverage */
-  background-color: white; /* Match the background color of .popup-content */
-  border-radius: 10px; /* Default border radius */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Add shadow for consistency */
+  margin: 0;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -75,7 +75,7 @@ h2 {
 }
 
 .popup-button:hover {
-  transform: scale(1.05); /* Add a slight zoom effect on hover */
+  transform: scale(1.05);
 }
 
 .popup-button.green {
@@ -135,7 +135,6 @@ h2 {
   gap: 10px;
 }
 
-/* Responsive Styles */
 @media (max-width: 480px) {
   .popup-content {
     width: 85vw;

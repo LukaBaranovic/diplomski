@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import "./PopupStyle.css"; // Shared styles
-import "./ReceiptsView.css"; // Specific styles for ReceiptsView
-import ReceiptDetailsView from "./ReceiptDetailsView"; // Import the ReceiptDetailsView component
+import "./PopupStyle.css";
+import "./ReceiptsView.css";
+import ReceiptDetailsView from "./ReceiptDetailsView";
 
 const ReceiptsView = ({ onClose }) => {
   const [receipts, setReceipts] = useState([]);

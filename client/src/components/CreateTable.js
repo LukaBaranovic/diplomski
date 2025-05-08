@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./PopupStyle.css"; // Shared styles
+import "./PopupStyle.css";
 import "./CreateTable.css";
 
 const CreateTable = ({ onClose, onSave }) => {

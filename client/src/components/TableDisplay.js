@@ -20,10 +20,10 @@ const TableDisplay = () => {
         .catch(() => setError("Failed to load table data."));
     };
 
-    fetchTableData(); // Initial fetch
-    const interval = setInterval(fetchTableData, 5000); // Poll every 5 seconds
+    fetchTableData();
+    const interval = setInterval(fetchTableData, 5000);
 
-    return () => clearInterval(interval); // Cleanup on unmount
+    return () => clearInterval(interval);
   }, []);
 
   const handleTableClick = (tableNumber) => {
