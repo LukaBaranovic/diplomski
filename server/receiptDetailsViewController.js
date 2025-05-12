@@ -1,8 +1,5 @@
 const db = require("./dbConfig");
 
-/**
- * Controller to fetch receipt details for a specific receipt ID.
- */
 const getReceiptDetails = async (req, res) => {
   const { receiptId } = req.query;
 
@@ -11,7 +8,6 @@ const getReceiptDetails = async (req, res) => {
   }
 
   try {
-    // Fetch table number, timestamp, and total price
     const [receiptRows] = await db.query(
       `SELECT r.table_number, r.timestamp, r.total_price
        FROM receipts r
@@ -25,7 +21,6 @@ const getReceiptDetails = async (req, res) => {
 
     const receipt = receiptRows[0];
 
-    // Fetch receipt items (as before)
     const [itemsRows] = await db.query(
       `SELECT item_name, quantity, total_price
        FROM receipt_items
@@ -36,7 +31,7 @@ const getReceiptDetails = async (req, res) => {
     res.status(200).json({
       table_number: receipt.table_number,
       timestamp: receipt.timestamp,
-      total_price: receipt.total_price, // Include the total price of the receipt
+      total_price: receipt.total_price,
       items: itemsRows,
     });
   } catch (err) {

@@ -9,7 +9,6 @@ import ReceiptsView from "./components/ReceiptsView";
 import "./App.css";
 
 function App() {
-  // State Hooks
   const [categories, setCategories] = useState([]);
   const [cartItems, setCartItems] = useState([]);
   const [selectedItemId, setSelectedItemId] = useState(null);
