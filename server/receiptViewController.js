@@ -1,5 +1,7 @@
 const db = require("./dbConfig");
 
+const companyId = 1; // Hardcoded company_id
+
 const getReceipts = async (req, res) => {
   const { date } = req.query;
 
@@ -16,11 +18,15 @@ const getReceipts = async (req, res) => {
       r.timestamp,
       r.total_price
     FROM receipts r
-    WHERE r.timestamp >= ? AND r.timestamp < DATE_ADD(?, INTERVAL 1 DAY);
+    WHERE r.company_id = ? AND r.timestamp >= ? AND r.timestamp < DATE_ADD(?, INTERVAL 1 DAY);
   `;
 
   try {
-    const [receiptsRows] = await db.query(receiptsQuery, [date, date]);
+    const [receiptsRows] = await db.query(receiptsQuery, [
+      companyId,
+      date,
+      date,
+    ]); // Include companyId in the query
     console.log("Receipts fetched:", receiptsRows);
 
     res.status(200).json({ receipts: receiptsRows });

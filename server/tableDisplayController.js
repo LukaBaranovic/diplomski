@@ -1,15 +1,18 @@
 const db = require("./dbConfig");
 
+const companyId = 1; // Hardcoded company_id
+
 const getTableData = async (req, res) => {
   const query = `
     SELECT t.table_number, c.item_id, c.item_name, c.quantity
     FROM tables t
     LEFT JOIN table_cart_items c ON t.table_id = c.table_id
+    WHERE t.company_id = ? -- Only fetch tables with the specified company_id
     ORDER BY t.table_number, c.item_name;
   `;
 
   try {
-    const [rows] = await db.execute(query);
+    const [rows] = await db.execute(query, [companyId]); // Pass the companyId to the query
 
     const tableData = rows.reduce((acc, row) => {
       const existingTable = acc.find(

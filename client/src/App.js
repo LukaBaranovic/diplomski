@@ -151,6 +151,14 @@ function App() {
           >
             Pregled
           </button>
+          {/* New Button: Račun */}
+          <button
+            className="functionality-button"
+            onClick={() => alert("Račun functionality coming soon!")}
+            disabled={cartItems.length === 0}
+          >
+            Račun
+          </button>
         </div>
 
         <div className="right-section">

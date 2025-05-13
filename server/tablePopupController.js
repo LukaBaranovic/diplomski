@@ -1,5 +1,7 @@
 const db = require("./dbConfig");
 
+const companyId = 1; // Hardcoded company_id
+
 const getTableItemsByNumber = async (req, res) => {
   const { tableNumber } = req.params;
 
@@ -154,7 +156,7 @@ const cashTable = async (req, res) => {
     DELETE FROM tables WHERE table_number = ?;
   `;
   const insertReceiptQuery = `
-    INSERT INTO receipts (table_number, total_price) VALUES (?, ?);
+    INSERT INTO receipts (table_number, total_price, company_id) VALUES (?, ?, ?);
   `;
   const insertReceiptItemsQuery = `
     INSERT INTO receipt_items (receipt_id, item_name, quantity, total_price) 
@@ -174,6 +176,7 @@ const cashTable = async (req, res) => {
     const [receiptResult] = await connection.query(insertReceiptQuery, [
       table_number,
       total_price,
+      companyId, // Use the hardcoded companyId here
     ]);
     const receipt_id = receiptResult.insertId;
 

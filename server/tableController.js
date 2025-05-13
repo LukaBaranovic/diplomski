@@ -1,8 +1,11 @@
 const db = require("./dbConfig");
 
+const companyId = 1; // Hardcoded company_id
+
+// Function to check if the table_number exists for the current company_id
 const checkTableExists = async (tableNumber) => {
-  const checkTableSql = `SELECT table_id FROM tables WHERE table_number = ?`;
-  const [rows] = await db.execute(checkTableSql, [tableNumber]);
+  const checkTableSql = `SELECT table_id FROM tables WHERE table_number = ? AND company_id = ?`;
+  const [rows] = await db.execute(checkTableSql, [tableNumber, companyId]);
   return rows.length > 0 ? rows[0].table_id : null;
 };
 
@@ -16,17 +19,28 @@ const createTable = async (req, res) => {
   }
 
   try {
-    const tableExists = await checkTableExists(tableNumber);
-    if (tableExists) {
-      return res
-        .status(409)
-        .json({ error: `Table number ${tableNumber} is already taken.` });
+    // Query the database to check for existing tables with the same table_number
+    const checkTableSql = `SELECT company_id FROM tables WHERE table_number = ?`;
+    const [rows] = await db.execute(checkTableSql, [tableNumber]);
+
+    // Loop through the results to check for the same company_id
+    for (const row of rows) {
+      if (row.company_id === companyId) {
+        return res.status(409).json({
+          error: `Table number ${tableNumber} already exists for the current company.`,
+        });
+      }
     }
 
-    const insertTableSql = `INSERT INTO tables (table_number) VALUES (?)`;
-    const [tableResult] = await db.execute(insertTableSql, [tableNumber]);
+    // If no duplicate found for the current company_id, insert the new table
+    const insertTableSql = `INSERT INTO tables (table_number, company_id) VALUES (?, ?)`;
+    const [tableResult] = await db.execute(insertTableSql, [
+      tableNumber,
+      companyId,
+    ]);
     const tableId = tableResult.insertId;
 
+    // Insert items if provided
     if (items && items.length > 0) {
       const insertItemSql = `
         INSERT INTO table_cart_items (table_id, item_id, item_name, quantity, item_price)
@@ -56,10 +70,10 @@ const createTable = async (req, res) => {
 };
 
 const getAvailableTables = async (req, res) => {
-  const sql = `SELECT table_id, table_number FROM tables`;
+  const sql = `SELECT table_id, table_number FROM tables WHERE company_id = ?`;
 
   try {
-    const [rows] = await db.execute(sql);
+    const [rows] = await db.execute(sql, [companyId]);
     res.status(200).json(rows);
   } catch (err) {
     console.error(err);
@@ -77,14 +91,15 @@ const addToTable = async (req, res) => {
   }
 
   try {
+    // Check if the table exists for the current company_id
     const tableId = await checkTableExists(tableNumber);
-
     if (!tableId) {
       return res
         .status(404)
         .json({ error: `Table number ${tableNumber} does not exist.` });
     }
 
+    // Insert or update items in the table_cart_items table
     const mergeOrInsertPromises = items.map(async (item) => {
       const checkItemSql = `
         SELECT quantity FROM table_cart_items
