@@ -17,11 +17,13 @@ const {
 const { getTableData } = require("./tableDisplayController");
 const { getReceipts } = require("./receiptViewController");
 const { getReceiptDetails } = require("./receiptDetailsViewController");
+const { saveReceipt } = require("./receiptController"); // Import the new saveReceipt function
 
 const app = express();
 
 app.use(bodyParser.json());
 
+// Test database connection
 db.getConnection((err, connection) => {
   if (err) {
     console.error("Failed to connect to the database:", err);
@@ -31,6 +33,7 @@ db.getConnection((err, connection) => {
   }
 });
 
+// Existing routes
 app.get("/api/categories", getCategories);
 app.get("/api/items/:categoryId", getItemsByCategory);
 app.post("/api/createTable", createTable);
@@ -45,4 +48,8 @@ app.post("/api/cashTable", cashTable);
 app.get("/api/getReceipts", getReceipts);
 app.get("/api/getReceiptDetails", getReceiptDetails);
 
+// New route for saving receipts
+app.post("/api/saveReceipt", saveReceipt);
+
+// Start the server
 app.listen(4500, () => console.log("Server running on port 4500"));

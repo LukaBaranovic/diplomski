@@ -21,7 +21,8 @@ function App() {
   useEffect(() => {
     fetch("/api/categories")
       .then((res) => res.json())
-      .then((data) => setCategories(data));
+      .then((data) => setCategories(data))
+      .catch((err) => console.error("Failed to fetch categories:", err));
   }, []);
 
   // Cart Management
@@ -61,6 +62,25 @@ function App() {
       (item) => item.item_id === selectedItemId
     );
     return selectedItem ? selectedItem.quantity : 1;
+  };
+
+  // Function to handle saving a receipt to the database
+  const handleSaveReceipt = () => {
+    fetch("/api/saveReceipt", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ cartItems }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error) {
+          alert(data.error);
+        } else {
+          alert(`Receipt saved successfully! Receipt ID: ${data.receiptId}`);
+          setCartItems([]); // Clear the cart after saving
+        }
+      })
+      .catch(() => alert("An error occurred while saving the receipt."));
   };
 
   // Popup Handlers
@@ -154,7 +174,7 @@ function App() {
           {/* New Button: Račun */}
           <button
             className="functionality-button"
-            onClick={() => alert("Račun functionality coming soon!")}
+            onClick={handleSaveReceipt}
             disabled={cartItems.length === 0}
           >
             Račun
