@@ -2,6 +2,7 @@ const db = require("./dbConfig");
 
 const companyId = 1; // Hardcoded company_id
 
+// Controller to fetch receipts for a specific date
 const getReceipts = async (req, res) => {
   const { date } = req.query;
 
@@ -36,6 +37,36 @@ const getReceipts = async (req, res) => {
   }
 };
 
+// Controller to fetch the total lump sum of total_price for a specific day
+const getDailyTotalPrice = async (req, res) => {
+  const { date } = req.query;
+
+  if (!date) {
+    return res.status(400).json({ error: "Date is required." });
+  }
+
+  console.log("Date parameter received for total price:", date);
+
+  const totalPriceQuery = `
+    SELECT 
+      SUM(r.total_price) AS daily_total
+    FROM receipts r
+    WHERE r.company_id = ? AND r.timestamp >= ? AND r.timestamp < DATE_ADD(?, INTERVAL 1 DAY);
+  `;
+
+  try {
+    const [[result]] = await db.query(totalPriceQuery, [companyId, date, date]); // Include companyId in the query
+
+    console.log("Total price fetched for the day:", result);
+
+    res.status(200).json({ dailyTotal: result.daily_total || 0 });
+  } catch (err) {
+    console.error("Error fetching daily total price:", err.message);
+    res.status(500).json({ error: "Failed to fetch daily total price." });
+  }
+};
+
 module.exports = {
   getReceipts,
+  getDailyTotalPrice,
 };

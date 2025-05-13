@@ -15,7 +15,7 @@ const {
   cashTable,
 } = require("./tablePopupController");
 const { getTableData } = require("./tableDisplayController");
-const { getReceipts } = require("./receiptViewController");
+const { getReceipts, getDailyTotalPrice } = require("./receiptViewController"); // Import both getReceipts and getDailyTotalPrice
 const { getReceiptDetails } = require("./receiptDetailsViewController");
 const { saveReceipt } = require("./receiptController"); // Import the new saveReceipt function
 
@@ -48,8 +48,9 @@ app.post("/api/cashTable", cashTable);
 app.get("/api/getReceipts", getReceipts);
 app.get("/api/getReceiptDetails", getReceiptDetails);
 
-// New route for saving receipts
-app.post("/api/saveReceipt", saveReceipt);
+// New routes for receipts
+app.post("/api/saveReceipt", saveReceipt); // Save receipts
+app.get("/api/getDailyTotalPrice", getDailyTotalPrice); // Fetch daily total price
 
 // Start the server
 app.listen(4500, () => console.log("Server running on port 4500"));

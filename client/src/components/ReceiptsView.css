@@ -1,14 +1,25 @@
 .receipts-view-date-picker-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center horizontally */
   margin-bottom: 20px;
 }
 
 #receipts-view-date-picker {
-  padding: 10px;
-  font-size: 1rem;
+  padding: 8px;
+  font-size: 0.9rem;
   border: 1px solid #ccc;
   border-radius: 5px;
+  width: 50%; /* Adjust the width */
+  max-width: 300px; /* Prevent it from becoming too wide */
+  text-align: center; /* Center the numbers horizontally */
+}
+
+.daily-total-container {
+  text-align: center; /* Align text horizontally */
+  margin-top: 10px; /* Add spacing between calendar and total price */
+  font-size: 1.2rem; /* Slightly larger font */
+  font-weight: bold; /* Make it stand out */
 }
 
 .receipts-view-table {
@@ -41,6 +52,10 @@
     font-size: 0.9rem;
   }
 
+  .daily-total-container {
+    font-size: 1rem; /* Adjust font size for smaller screens */
+  }
+
   .receipts-view-table {
     font-size: 0.8rem;
   }
@@ -56,6 +71,10 @@
     width: 80%;
     padding: 9px;
     font-size: 0.95rem;
+  }
+
+  .daily-total-container {
+    font-size: 1.1rem; /* Adjust font size for medium screens */
   }
 
   .receipts-view-table {

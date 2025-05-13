@@ -9,7 +9,9 @@ const ReceiptsView = ({ onClose }) => {
     new Date().toISOString().split("T")[0]
   );
   const [selectedReceipt, setSelectedReceipt] = useState(null);
+  const [dailyTotal, setDailyTotal] = useState(0); // State for daily total price
 
+  // Fetch receipts for the selected date
   useEffect(() => {
     fetch(`/api/getReceipts?date=${selectedDate}`)
       .then((res) => {
@@ -27,6 +29,24 @@ const ReceiptsView = ({ onClose }) => {
       });
   }, [selectedDate]);
 
+  // Fetch daily total price for the selected date
+  useEffect(() => {
+    fetch(`/api/getDailyTotalPrice?date=${selectedDate}`)
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Failed to fetch daily total price.");
+        }
+        return res.json();
+      })
+      .then(({ dailyTotal }) => {
+        setDailyTotal(dailyTotal || 0); // Ensure dailyTotal is set to 0 if undefined
+      })
+      .catch((err) => {
+        console.error(err);
+        alert("Failed to fetch daily total price.");
+      });
+  }, [selectedDate]);
+
   const handleRowClick = (receipt) => {
     setSelectedReceipt(receipt);
   };
@@ -41,6 +61,7 @@ const ReceiptsView = ({ onClose }) => {
 
         {/* Main Content */}
         <div className="popup-main">
+          {/* Date Picker */}
           <div className="receipts-view-date-picker-container">
             <input
               type="date"
@@ -50,6 +71,15 @@ const ReceiptsView = ({ onClose }) => {
             />
           </div>
 
+          {/* Daily Total Price */}
+          <div className="daily-total-container">
+            <p>
+              <strong>Ukupni Promet za Dan:</strong> €
+              {Number(dailyTotal).toFixed(2)}
+            </p>
+          </div>
+
+          {/* Receipts Table */}
           <table className="receipts-view-table">
             <thead>
               <tr>
