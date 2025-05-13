@@ -1,5 +1,7 @@
 const db = require("./dbConfig"); // Ensure this path is correct
 
+const companyId = 1;
+
 // Controller to handle saving receipts and receipt items
 const saveReceipt = async (req, res) => {
   try {
@@ -40,7 +42,7 @@ const saveReceipt = async (req, res) => {
     const timestamp = new Date().toISOString().slice(0, 19).replace("T", " ");
     const [receiptResult] = await db.query(
       "INSERT INTO receipts (table_number, total_price, timestamp, company_id) VALUES (?, ?, ?, ?)",
-      [0, totalReceiptPrice, timestamp, 1] // Set table_number to 0 by default
+      [0, totalReceiptPrice, timestamp, companyId] // Use the companyId variable here
     );
 
     const receiptId = receiptResult.insertId;
