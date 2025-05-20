@@ -7,25 +7,27 @@
 
 #receipts-view-date-picker {
   padding: 8px;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   border: 1px solid #ccc;
   border-radius: 5px;
-  width: 50%; /* Adjust the width */
-  max-width: 300px; /* Prevent it from becoming too wide */
+  width: 80%; /* Increased width */
+  min-width: 220px; /* Ensures it's not too narrow */
+  max-width: 350px; /* Prevent it from becoming too wide */
   text-align: center; /* Center the numbers horizontally */
 }
 
 .daily-total-container {
-  text-align: center; /* Align text horizontally */
-  margin-top: 10px; /* Add spacing between calendar and total price */
-  font-size: 1.2rem; /* Slightly larger font */
-  font-weight: bold; /* Make it stand out */
+  text-align: center;
+  margin-top: 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
 }
 
 .receipts-view-table {
   width: 100%;
+  max-width: 700px;
+  margin: 20px auto 0 auto;
   border-collapse: collapse;
-  margin-top: 20px;
 }
 
 .receipts-view-table th,
@@ -47,17 +49,20 @@
 
 @media (max-width: 480px) {
   #receipts-view-date-picker {
-    width: 90%;
+    width: 95%;
+    min-width: 0;
+    max-width: 100%;
     padding: 8px;
     font-size: 0.9rem;
   }
 
   .daily-total-container {
-    font-size: 1rem; /* Adjust font size for smaller screens */
+    font-size: 1rem;
   }
 
   .receipts-view-table {
     font-size: 0.8rem;
+    max-width: 100%;
   }
 
   .receipts-view-table th,
@@ -68,17 +73,20 @@
 
 @media (min-width: 481px) and (max-width: 768px) {
   #receipts-view-date-picker {
-    width: 80%;
+    width: 90%;
+    min-width: 0;
+    max-width: 100%;
     padding: 9px;
     font-size: 0.95rem;
   }
 
   .daily-total-container {
-    font-size: 1.1rem; /* Adjust font size for medium screens */
+    font-size: 1.1rem;
   }
 
   .receipts-view-table {
     font-size: 0.9rem;
+    max-width: 95%;
   }
 
   .receipts-view-table th,
@@ -90,6 +98,7 @@
 @media (min-width: 769px) and (max-width: 1024px) {
   .receipts-view-table {
     font-size: 1rem;
+    max-width: 85%;
   }
 
   .receipts-view-table th,
@@ -98,7 +107,9 @@
   }
 
   #receipts-view-date-picker {
-    width: 70%;
+    width: 80%;
+    min-width: 200px;
+    max-width: 350px;
     padding: 10px;
     font-size: 1rem;
   }
@@ -107,6 +118,7 @@
 @media (min-width: 1025px) {
   .receipts-view-table {
     font-size: 1.1rem;
+    max-width: 700px;
   }
 
   .receipts-view-table th,
@@ -115,7 +127,9 @@
   }
 
   #receipts-view-date-picker {
-    width: 60%;
+    width: 80%;
+    min-width: 220px;
+    max-width: 350px;
     padding: 12px;
     font-size: 1.1rem;
   }

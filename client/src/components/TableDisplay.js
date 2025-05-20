@@ -40,7 +40,7 @@ const TableDisplay = () => {
           data-table-number={table.table_number}
           onClick={() => handleTableClick(table.table_number)}
         >
-          <h3>Table {table.table_number}</h3>
+          <h3>Stol {table.table_number}</h3>
           <ul>
             {table.items.map((item) => (
               <li key={item.item_id}>

@@ -18,7 +18,7 @@ const CreateTable = ({ onClose, onSave }) => {
 
   const handleSave = () => {
     if (tableNumber > 0) {
-      onSave(tableNumber);
+      onSave(tableNumber, setErrorMessage); // <-- Pass setErrorMessage!
     } else {
       setErrorMessage("Unesite ispravan broj stola");
     }

@@ -170,7 +170,7 @@ h2 {
   }
 
   .popup-button {
-    padding: 9px 18px;
+    padding: 7px 14px;
     font-size: 0.95rem;
   }
 }
@@ -189,14 +189,14 @@ h2 {
   }
 
   .popup-button {
-    padding: 10px 20px;
+    padding: 8px 16px;
     font-size: 1rem;
   }
 }
 
 @media (min-width: 1025px) {
   .popup-button {
-    padding: 12px 25px;
+    padding: 9px 18px;
     font-size: 1.1rem;
   }
 }
