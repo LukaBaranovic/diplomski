@@ -45,7 +45,7 @@ const ReceiptDetailsView = ({ receiptId, onClose }) => {
             <strong>Broj Stola:</strong> {details.table_number}
           </p>
           <p>
-            <strong>Vrijeme:</strong>{" "}
+            <strong>Datum i Vrijeme:</strong>{" "}
             {new Date(details.timestamp).toLocaleString()}
           </p>
           <p>

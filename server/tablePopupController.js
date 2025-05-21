@@ -9,12 +9,12 @@ const getTableItemsByNumber = async (req, res) => {
     SELECT c.item_name, c.quantity, c.item_price, (c.quantity * c.item_price) AS total_price
     FROM table_cart_items c
     LEFT JOIN tables t ON t.table_id = c.table_id
-    WHERE t.table_number = ?
+    WHERE t.table_number = ? AND t.company_id = ?
     ORDER BY c.item_name;
   `;
 
   try {
-    const [rows] = await db.execute(query, [tableNumber]);
+    const [rows] = await db.execute(query, [tableNumber, companyId]);
 
     if (rows.length === 0) {
       return res.status(404).json({ error: "Nema artikala na stolu!" });
@@ -40,22 +40,23 @@ const deleteTableItem = async (req, res) => {
     DELETE c
     FROM table_cart_items c
     LEFT JOIN tables t ON t.table_id = c.table_id
-    WHERE t.table_number = ? AND c.item_name = ?;
+    WHERE t.table_number = ? AND c.item_name = ? AND t.company_id = ?;
   `;
 
   const fetchUpdatedItemsQuery = `
     SELECT c.item_name, c.quantity, c.item_price, (c.quantity * c.item_price) AS total_price
     FROM table_cart_items c
     LEFT JOIN tables t ON t.table_id = c.table_id
-    WHERE t.table_number = ?
+    WHERE t.table_number = ? AND t.company_id = ?
     ORDER BY c.item_name;
   `;
 
   try {
-    await db.execute(deleteQuery, [table_number, item_name]);
+    await db.execute(deleteQuery, [table_number, item_name, companyId]);
 
     const [updatedItems] = await db.execute(fetchUpdatedItemsQuery, [
       table_number,
+      companyId,
     ]);
 
     res.status(200).json(updatedItems);
@@ -76,22 +77,28 @@ const updateItemQuantity = async (req, res) => {
     UPDATE table_cart_items c
     LEFT JOIN tables t ON t.table_id = c.table_id
     SET c.quantity = ?
-    WHERE t.table_number = ? AND c.item_name = ?;
+    WHERE t.table_number = ? AND c.item_name = ? AND t.company_id = ?;
   `;
 
   const fetchUpdatedItemsQuery = `
     SELECT c.item_name, c.quantity, c.item_price, (c.quantity * c.item_price) AS total_price
     FROM table_cart_items c
     LEFT JOIN tables t ON t.table_id = c.table_id
-    WHERE t.table_number = ?
+    WHERE t.table_number = ? AND t.company_id = ?
     ORDER BY c.item_name;
   `;
 
   try {
-    await db.execute(updateQuery, [quantity, table_number, item_name]);
+    await db.execute(updateQuery, [
+      quantity,
+      table_number,
+      item_name,
+      companyId,
+    ]);
 
     const [updatedItems] = await db.execute(fetchUpdatedItemsQuery, [
       table_number,
+      companyId,
     ]);
 
     res.status(200).json(updatedItems);
@@ -110,16 +117,16 @@ const deleteTable = async (req, res) => {
 
   const deleteItemsQuery = `
     DELETE FROM table_cart_items
-    WHERE table_id = (SELECT table_id FROM tables WHERE table_number = ?);
+    WHERE table_id = (SELECT table_id FROM tables WHERE table_number = ? AND company_id = ?);
   `;
 
   const deleteTableQuery = `
-    DELETE FROM tables WHERE table_number = ?;
+    DELETE FROM tables WHERE table_number = ? AND company_id = ?;
   `;
 
   try {
-    await db.execute(deleteItemsQuery, [table_number]);
-    await db.execute(deleteTableQuery, [table_number]);
+    await db.execute(deleteItemsQuery, [table_number, companyId]);
+    await db.execute(deleteTableQuery, [table_number, companyId]);
 
     res.status(200).json({ message: "Stol i artikli uspješno obrisani!" });
   } catch (err) {
@@ -137,19 +144,19 @@ const cashTable = async (req, res) => {
 
   const fetchTableQuery = `
     SELECT * FROM table_cart_items 
-    WHERE table_id = (SELECT table_id FROM tables WHERE table_number = ?);
+    WHERE table_id = (SELECT table_id FROM tables WHERE table_number = ? AND company_id = ?);
   `;
   const fetchTotalPriceQuery = `
     SELECT SUM(quantity * item_price) AS total_price 
     FROM table_cart_items 
-    WHERE table_id = (SELECT table_id FROM tables WHERE table_number = ?);
+    WHERE table_id = (SELECT table_id FROM tables WHERE table_number = ? AND company_id = ?);
   `;
   const deleteTableItemsQuery = `
     DELETE FROM table_cart_items 
-    WHERE table_id = (SELECT table_id FROM tables WHERE table_number = ?);
+    WHERE table_id = (SELECT table_id FROM tables WHERE table_number = ? AND company_id = ?);
   `;
   const deleteTableQuery = `
-    DELETE FROM tables WHERE table_number = ?;
+    DELETE FROM tables WHERE table_number = ? AND company_id = ?;
   `;
   const insertReceiptQuery = `
     INSERT INTO receipts (table_number, total_price, company_id) VALUES (?, ?, ?);
@@ -163,9 +170,13 @@ const cashTable = async (req, res) => {
     const connection = await db.getConnection();
     await connection.beginTransaction();
 
-    const [items] = await connection.query(fetchTableQuery, [table_number]);
+    const [items] = await connection.query(fetchTableQuery, [
+      table_number,
+      companyId,
+    ]);
     const [totalPriceResult] = await connection.query(fetchTotalPriceQuery, [
       table_number,
+      companyId,
     ]);
     const total_price = totalPriceResult[0].total_price;
 
@@ -185,8 +196,8 @@ const cashTable = async (req, res) => {
       ]);
     }
 
-    await connection.query(deleteTableItemsQuery, [table_number]);
-    await connection.query(deleteTableQuery, [table_number]);
+    await connection.query(deleteTableItemsQuery, [table_number, companyId]);
+    await connection.query(deleteTableQuery, [table_number, companyId]);
 
     await connection.commit();
     connection.release();
