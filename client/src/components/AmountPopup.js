@@ -12,7 +12,7 @@ const AmountPopup = ({ onClose, onSave, currentAmount }) => {
       setAmount(value);
       setErrorMessage("");
     } else if (value === 0) {
-      setErrorMessage("Količina ne može biti nula");
+      setErrorMessage("Količina ne može biti nula!");
     }
   };
 
@@ -20,7 +20,7 @@ const AmountPopup = ({ onClose, onSave, currentAmount }) => {
     if (amount > 0) {
       onSave(amount);
     } else {
-      setErrorMessage("Količina ne može biti nula");
+      setErrorMessage("Količina ne može biti nula!");
     }
   };
 
@@ -34,7 +34,7 @@ const AmountPopup = ({ onClose, onSave, currentAmount }) => {
       setAmount(amount - 1);
       setErrorMessage("");
     } else {
-      setErrorMessage("Količina ne može biti nula");
+      setErrorMessage("Količina ne može biti nula!");
     }
   };
 

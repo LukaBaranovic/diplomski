@@ -12,7 +12,7 @@ const CreateTable = ({ onClose, onSave }) => {
       setTableNumber(value);
       setErrorMessage("");
     } else if (value === 0) {
-      setErrorMessage("Broj stola ne može biti nula");
+      setErrorMessage("Broj stola ne može biti nula!");
     }
   };
 
@@ -20,7 +20,7 @@ const CreateTable = ({ onClose, onSave }) => {
     if (tableNumber > 0) {
       onSave(tableNumber, setErrorMessage); // <-- Pass setErrorMessage!
     } else {
-      setErrorMessage("Unesite ispravan broj stola");
+      setErrorMessage("Unesite ispravan broj stola!");
     }
   };
 

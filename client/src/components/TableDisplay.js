@@ -12,12 +12,12 @@ const TableDisplay = () => {
       fetch("/api/getTableData")
         .then((res) => {
           if (!res.ok) {
-            throw new Error("Failed to fetch table data.");
+            throw new Error("Greška pri dohvaćanju detalja stola!");
           }
           return res.json();
         })
         .then((data) => setTableData(data))
-        .catch(() => setError("Failed to load table data."));
+        .catch(() => setError("Greška pri dohvaćanju detalja stola!"));
     };
 
     fetchTableData();

@@ -1,20 +1,17 @@
-const db = require("./dbConfig"); // Ensure this path is correct
+const db = require("./dbConfig");
 
-const companyId = 1;
+const companyId = 1; // Hardcoded company ID
 
-// Controller to handle saving receipts and receipt items
 const saveReceipt = async (req, res) => {
   try {
-    const { cartItems } = req.body; // Extract cart items from the request body
+    const { cartItems } = req.body;
 
-    // Validate cartItems
     if (!cartItems || cartItems.length === 0) {
-      return res.status(400).json({ error: "No items in the cart to save." });
+      return res.status(400).json({ error: "Nema artikala u košarici!" });
     }
 
     let totalReceiptPrice = 0;
 
-    // Fetch item details (name and price) using item_id, and calculate total price
     const receiptItemsData = await Promise.all(
       cartItems.map(async (cartItem) => {
         const [[item]] = await db.query(
@@ -23,7 +20,7 @@ const saveReceipt = async (req, res) => {
         );
 
         if (!item) {
-          throw new Error(`Item with ID ${cartItem.item_id} not found.`);
+          throw new Error(`Artikal ID ${cartItem.item_id} nije pronađen!"`);
         }
 
         const totalPrice = item.item_price * cartItem.quantity;
@@ -38,16 +35,14 @@ const saveReceipt = async (req, res) => {
       })
     );
 
-    // Insert the receipt into the receipts table
     const timestamp = new Date().toISOString().slice(0, 19).replace("T", " ");
     const [receiptResult] = await db.query(
       "INSERT INTO receipts (table_number, total_price, timestamp, company_id) VALUES (?, ?, ?, ?)",
-      [0, totalReceiptPrice, timestamp, companyId] // Use the companyId variable here
+      [0, totalReceiptPrice, timestamp, companyId]
     );
 
     const receiptId = receiptResult.insertId;
 
-    // Insert each receipt item into the receipt_items table
     await Promise.all(
       receiptItemsData.map((receiptItem) =>
         db.query(
@@ -64,11 +59,11 @@ const saveReceipt = async (req, res) => {
 
     return res
       .status(201)
-      .json({ message: "Receipt and items saved successfully.", receiptId });
+      .json({ message: "Račun i artikli spremljeni uspješno!", receiptId });
   } catch (error) {
-    console.error("Error saving receipt:", error.message);
+    console.error("Greška pri spremanju računa:", error.message);
     return res.status(500).json({
-      error: "An error occurred while saving the receipt.",
+      error: "Greška pri spremanju računa!",
       details: error.message,
     });
   }

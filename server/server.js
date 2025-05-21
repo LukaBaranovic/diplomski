@@ -15,15 +15,14 @@ const {
   cashTable,
 } = require("./tablePopupController");
 const { getTableData } = require("./tableDisplayController");
-const { getReceipts, getDailyTotalPrice } = require("./receiptViewController"); // Import both getReceipts and getDailyTotalPrice
+const { getReceipts, getDailyTotalPrice } = require("./receiptViewController");
 const { getReceiptDetails } = require("./receiptDetailsViewController");
-const { saveReceipt } = require("./receiptController"); // Import the new saveReceipt function
+const { saveReceipt } = require("./receiptController");
 
 const app = express();
 
 app.use(bodyParser.json());
 
-// Test database connection
 db.getConnection((err, connection) => {
   if (err) {
     console.error("Failed to connect to the database:", err);
@@ -33,7 +32,6 @@ db.getConnection((err, connection) => {
   }
 });
 
-// Existing routes
 app.get("/api/categories", getCategories);
 app.get("/api/items/:categoryId", getItemsByCategory);
 app.post("/api/createTable", createTable);
@@ -48,9 +46,7 @@ app.post("/api/cashTable", cashTable);
 app.get("/api/getReceipts", getReceipts);
 app.get("/api/getReceiptDetails", getReceiptDetails);
 
-// New routes for receipts
-app.post("/api/saveReceipt", saveReceipt); // Save receipts
-app.get("/api/getDailyTotalPrice", getDailyTotalPrice); // Fetch daily total price
+app.post("/api/saveReceipt", saveReceipt);
+app.get("/api/getDailyTotalPrice", getDailyTotalPrice);
 
-// Start the server
 app.listen(4500, () => console.log("Server running on port 4500"));

@@ -12,7 +12,7 @@ const TablePopup = ({ tableNumber, onClose }) => {
     fetch(`/api/getTableItemsByNumber/${tableNumber}`)
       .then((res) => {
         if (!res.ok) {
-          throw new Error("Failed to fetch table items.");
+          throw new Error("Greška pri dohvaćanju artikala na stolu!");
         }
         return res.json();
       })
@@ -29,7 +29,7 @@ const TablePopup = ({ tableNumber, onClose }) => {
         setUpdatedQuantities(initialQuantities);
         setTotalPrice(initialTotalPrice);
       })
-      .catch(() => setError("Failed to load table items."));
+      .catch(() => setError("Greška pri dohvaćanju artikala na stolu!"));
   }, [tableNumber]);
 
   const calculateTotalPrice = (items, quantities) => {
@@ -39,7 +39,7 @@ const TablePopup = ({ tableNumber, onClose }) => {
   };
 
   const handleDelete = (itemName) => {
-    if (!window.confirm(`Are you sure you want to delete "${itemName}"?`))
+    if (!window.confirm(`Jeste li sigurni da želite obrisati: "${itemName}"?`))
       return;
 
     fetch(`/api/deleteTableItem`, {
@@ -49,7 +49,7 @@ const TablePopup = ({ tableNumber, onClose }) => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw new Error("Failed to delete the item.");
+          throw new Error("Greška pri brisanju artikla!");
         }
         return res.json();
       })
@@ -58,7 +58,7 @@ const TablePopup = ({ tableNumber, onClose }) => {
         setTotalPrice(calculateTotalPrice(updatedItems, updatedQuantities));
         setError("");
       })
-      .catch(() => setError(`Failed to delete the item "${itemName}".`));
+      .catch(() => setError(`Greška pri brisanju artikla: "${itemName}".`));
   };
 
   const handleQuantityChange = (itemName, change) => {
@@ -81,7 +81,7 @@ const TablePopup = ({ tableNumber, onClose }) => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw new Error("Failed to update quantity.");
+          throw new Error("Greška pri ažuriranju količine!");
         }
         return res.json();
       })
@@ -90,11 +90,14 @@ const TablePopup = ({ tableNumber, onClose }) => {
         setTotalPrice(calculateTotalPrice(updatedItems, updatedQuantities));
         setError("");
       })
-      .catch(() => setError(`Failed to update quantity for "${itemName}".`));
+      .catch(() =>
+        setError(`Greška pri ažuriranju količine za: "${itemName}".`)
+      );
   };
 
   const handleDeleteTable = () => {
-    if (!window.confirm("Are you sure you want to delete this table?")) return;
+    if (!window.confirm("Jeste li sigurni da žeite obrisati ovaj stol?"))
+      return;
 
     fetch(`/api/deleteTable`, {
       method: "DELETE",
@@ -103,16 +106,16 @@ const TablePopup = ({ tableNumber, onClose }) => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw new Error("Failed to delete the table.");
+          throw new Error("Greška pri brisanju stola!");
         }
         onClose();
         setError("");
       })
-      .catch(() => setError("Failed to delete the table."));
+      .catch(() => setError("Greška pri brisanju stola!"));
   };
 
   const handleCash = () => {
-    if (!window.confirm("Are you sure you want to finalize this table?"))
+    if (!window.confirm("Jeste li sigurni da želite finalizirati stol?"))
       return;
 
     fetch(`/api/cashTable`, {
@@ -122,12 +125,12 @@ const TablePopup = ({ tableNumber, onClose }) => {
     })
       .then((res) => {
         if (!res.ok) {
-          throw new Error("Failed to process the cash operation.");
+          throw new Error("Greška pri finaliziranju stola!");
         }
         onClose();
         setError("");
       })
-      .catch(() => setError("Failed to finalize and save the table."));
+      .catch(() => setError("Greška pri finaliziranju stola!"));
   };
 
   return (
@@ -140,7 +143,7 @@ const TablePopup = ({ tableNumber, onClose }) => {
           {error ? (
             <p className="error-message">{error}</p>
           ) : !tableItems ? (
-            <p>Loading...</p>
+            <p>Učitavanje...</p>
           ) : (
             <>
               <table className="item-table">

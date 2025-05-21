@@ -12,7 +12,7 @@ const getTableData = async (req, res) => {
   `;
 
   try {
-    const [rows] = await db.execute(query, [companyId]); // Pass the companyId to the query
+    const [rows] = await db.execute(query, [companyId]);
 
     const tableData = rows.reduce((acc, row) => {
       const existingTable = acc.find(
@@ -46,7 +46,7 @@ const getTableData = async (req, res) => {
     res.status(200).json(tableData);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Failed to fetch table data." });
+    res.status(500).json({ error: "Greška pri dohvaćanju podataka na stolu!" });
   }
 };
 

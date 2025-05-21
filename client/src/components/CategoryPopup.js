@@ -55,7 +55,7 @@ const CategoryPopup = ({
               ))}
             </ul>
           ) : (
-            <p>Nema artikala u ovoj kategoriji.</p>
+            <p>Nema artikala u ovoj kategoriji!</p>
           )}
         </div>
 

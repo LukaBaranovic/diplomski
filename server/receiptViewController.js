@@ -2,12 +2,11 @@ const db = require("./dbConfig");
 
 const companyId = 1; // Hardcoded company_id
 
-// Controller to fetch receipts for a specific date
 const getReceipts = async (req, res) => {
   const { date } = req.query;
 
   if (!date) {
-    return res.status(400).json({ error: "Date is required." });
+    return res.status(400).json({ error: "Datum je potreban!" });
   }
 
   console.log("Date parameter received:", date);
@@ -28,12 +27,12 @@ const getReceipts = async (req, res) => {
       date,
       date,
     ]); // Include companyId in the query
-    console.log("Receipts fetched:", receiptsRows);
+    console.log("Računi dohvaćeni:", receiptsRows);
 
     res.status(200).json({ receipts: receiptsRows });
   } catch (err) {
-    console.error("Error fetching receipts:", err.message);
-    res.status(500).json({ error: "Failed to fetch receipts." });
+    console.error("Greška pri dohvaćanju računa:", err.message);
+    res.status(500).json({ error: "Greška pri dohvaćanju računa!" });
   }
 };
 
@@ -42,7 +41,7 @@ const getDailyTotalPrice = async (req, res) => {
   const { date } = req.query;
 
   if (!date) {
-    return res.status(400).json({ error: "Date is required." });
+    return res.status(400).json({ error: "Datum je potreban!" });
   }
 
   console.log("Date parameter received for total price:", date);
@@ -61,8 +60,8 @@ const getDailyTotalPrice = async (req, res) => {
 
     res.status(200).json({ dailyTotal: result.daily_total || 0 });
   } catch (err) {
-    console.error("Error fetching daily total price:", err.message);
-    res.status(500).json({ error: "Failed to fetch daily total price." });
+    console.error("Greška pri dohvačanju totala:", err.message);
+    res.status(500).json({ error: "Greška pri dohvaćanju totala!" });
   }
 };
 

@@ -4,7 +4,7 @@ const getReceiptDetails = async (req, res) => {
   const { receiptId } = req.query;
 
   if (!receiptId) {
-    return res.status(400).json({ error: "Receipt ID is required." });
+    return res.status(400).json({ error: "ID računa je potreban!" });
   }
 
   try {
@@ -16,7 +16,7 @@ const getReceiptDetails = async (req, res) => {
     );
 
     if (receiptRows.length === 0) {
-      return res.status(404).json({ error: "Receipt not found." });
+      return res.status(404).json({ error: "Račun nije pronađen!" });
     }
 
     const receipt = receiptRows[0];
@@ -35,7 +35,7 @@ const getReceiptDetails = async (req, res) => {
       items: itemsRows,
     });
   } catch (err) {
-    console.error("Error fetching receipt details:", err.message);
+    console.error("Greška pri dohvaćanju detalja računa:", err.message);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };

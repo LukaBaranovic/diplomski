@@ -11,12 +11,12 @@ const AddToTable = ({ onClose, onSave }) => {
     fetch("/api/getAvailableTables")
       .then((res) => {
         if (!res.ok) {
-          throw new Error("Failed to fetch tables.");
+          throw new Error("Greška pri dohvaćanju stolova!");
         }
         return res.json();
       })
       .then((data) => setAvailableTables(data))
-      .catch(() => setErrorMessage("Nije moguće učitati stolove."));
+      .catch(() => setErrorMessage("Nije moguće učitati stolove!"));
   }, []);
 
   const handleTableClick = (tableNumber) => {
@@ -26,7 +26,7 @@ const AddToTable = ({ onClose, onSave }) => {
 
   const handleSave = () => {
     if (!selectedTableNumber) {
-      setErrorMessage("Molimo odaberite stol.");
+      setErrorMessage("Molimo odaberite stol!");
       return;
     }
     onSave(selectedTableNumber);

@@ -9,7 +9,7 @@ const ReceiptDetailsView = ({ receiptId, onClose }) => {
     fetch(`/api/getReceiptDetails?receiptId=${receiptId}`)
       .then((res) => {
         if (!res.ok) {
-          throw new Error("Failed to fetch receipt details.");
+          throw new Error("Greška pri dohvaćanju detalja računa!");
         }
         return res.json();
       })
@@ -18,7 +18,7 @@ const ReceiptDetailsView = ({ receiptId, onClose }) => {
       })
       .catch((err) => {
         console.error(err);
-        alert("Failed to load receipt details.");
+        alert("Greška pri dohvaćanju detalja računa!");
       });
   }, [receiptId]);
 
@@ -27,7 +27,7 @@ const ReceiptDetailsView = ({ receiptId, onClose }) => {
       <div className="popup-overlay">
         <div className="popup-large">
           <div className="popup-main">
-            <p>Loading...</p>
+            <p>Učitavanje!</p>
           </div>
         </div>
       </div>

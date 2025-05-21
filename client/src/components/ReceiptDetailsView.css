@@ -11,24 +11,18 @@
   font-weight: bold;
   padding: 10px;
   border-bottom: 2px solid #ddd;
-  text-align: center; /* Center table headers */
+  text-align: center;
 }
 
 .details-table tbody td {
   padding: 10px;
   border-bottom: 1px solid #ddd;
-  text-align: center; /* Center table cells */
+  text-align: center;
 }
 
 .details-table tbody tr:hover {
   background-color: #f9f9f9;
 }
-
-/* Remove right-align on the third column, now all are centered */
-/* .details-table th:nth-child(3),
-.details-table td:nth-child(3) {
-  text-align: right;
-} */
 
 .popup-main {
   display: flex;

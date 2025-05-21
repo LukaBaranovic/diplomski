@@ -2,7 +2,6 @@ const db = require("./dbConfig");
 
 const companyId = 1; // Hardcoded company_id
 
-// Function to check if the table_number exists for the current company_id
 const checkTableExists = async (tableNumber) => {
   const checkTableSql = `SELECT table_id FROM tables WHERE table_number = ? AND company_id = ?`;
   const [rows] = await db.execute(checkTableSql, [tableNumber, companyId]);
@@ -13,26 +12,21 @@ const createTable = async (req, res) => {
   const { tableNumber, items } = req.body;
 
   if (!tableNumber) {
-    return res
-      .status(400)
-      .json({ error: "Table number is missing or invalid." });
+    return res.status(400).json({ error: "Broj stola nevažeć!" });
   }
 
   try {
-    // Query the database to check for existing tables with the same table_number
     const checkTableSql = `SELECT company_id FROM tables WHERE table_number = ?`;
     const [rows] = await db.execute(checkTableSql, [tableNumber]);
 
-    // Loop through the results to check for the same company_id
     for (const row of rows) {
       if (row.company_id === companyId) {
         return res.status(409).json({
-          error: `Table number ${tableNumber} already exists for the current company.`,
+          error: `Broj stola ${tableNumber} već postoji.`,
         });
       }
     }
 
-    // If no duplicate found for the current company_id, insert the new table
     const insertTableSql = `INSERT INTO tables (table_number, company_id) VALUES (?, ?)`;
     const [tableResult] = await db.execute(insertTableSql, [
       tableNumber,
@@ -40,7 +34,6 @@ const createTable = async (req, res) => {
     ]);
     const tableId = tableResult.insertId;
 
-    // Insert items if provided
     if (items && items.length > 0) {
       const insertItemSql = `
         INSERT INTO table_cart_items (table_id, item_id, item_name, quantity, item_price)
@@ -62,10 +55,10 @@ const createTable = async (req, res) => {
 
     res
       .status(201)
-      .json({ message: "Table created successfully", tableId, tableNumber });
+      .json({ message: "Stol kreiran uspješno!", tableId, tableNumber });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Failed to create table." });
+    res.status(500).json({ error: "Greška pri kreiranju stola." });
   }
 };
 
@@ -77,7 +70,7 @@ const getAvailableTables = async (req, res) => {
     res.status(200).json(rows);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Unable to fetch available tables." });
+    res.status(500).json({ error: "Greška pri dohvaćanju stolova!" });
   }
 };
 
@@ -87,7 +80,7 @@ const addToTable = async (req, res) => {
   if (!tableNumber || !items || items.length === 0) {
     return res
       .status(400)
-      .json({ error: "Table number or items are missing or invalid." });
+      .json({ error: "Broj stola ili artikli nisu dohvaćeni!" });
   }
 
   try {
@@ -96,7 +89,7 @@ const addToTable = async (req, res) => {
     if (!tableId) {
       return res
         .status(404)
-        .json({ error: `Table number ${tableNumber} does not exist.` });
+        .json({ error: `Broj stola ${tableNumber} ne postoji!` });
     }
 
     // Insert or update items in the table_cart_items table
@@ -134,10 +127,10 @@ const addToTable = async (req, res) => {
     });
 
     await Promise.all(mergeOrInsertPromises);
-    res.status(200).json({ message: "Items added to table successfully." });
+    res.status(200).json({ message: "Artikli dodani na stol uspješno!" });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Failed to add items to the table." });
+    res.status(500).json({ error: "Greška pri dodavanju artikala na stol!" });
   }
 };
 

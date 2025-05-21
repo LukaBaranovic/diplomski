@@ -17,15 +17,13 @@ const getTableItemsByNumber = async (req, res) => {
     const [rows] = await db.execute(query, [tableNumber]);
 
     if (rows.length === 0) {
-      return res
-        .status(404)
-        .json({ error: "No items available for this table." });
+      return res.status(404).json({ error: "Nema artikala na stolu!" });
     }
 
     res.status(200).json(rows);
   } catch (err) {
-    console.error("Error fetching table items:", err.message);
-    res.status(500).json({ error: "Failed to fetch table items." });
+    console.error("Greška pri dohvačanju artikala na stolu:", err.message);
+    res.status(500).json({ error: "Greška pri dohvaćanju artikala na stolu!" });
   }
 };
 
@@ -35,7 +33,7 @@ const deleteTableItem = async (req, res) => {
   if (!table_number || !item_name) {
     return res
       .status(400)
-      .json({ error: "Missing table_number or item_name." });
+      .json({ error: "Broj stola ili artikal ne postoji!" });
   }
 
   const deleteQuery = `
@@ -62,8 +60,8 @@ const deleteTableItem = async (req, res) => {
 
     res.status(200).json(updatedItems);
   } catch (err) {
-    console.error("Error deleting item:", err.message);
-    res.status(500).json({ error: "Failed to delete the item." });
+    console.error("Greška pri brisanju artikla:", err.message);
+    res.status(500).json({ error: "Greška pri brisanju artikla!" });
   }
 };
 
@@ -71,7 +69,7 @@ const updateItemQuantity = async (req, res) => {
   const { table_number, item_name, quantity } = req.body;
 
   if (!table_number || !item_name || quantity < 1) {
-    return res.status(400).json({ error: "Invalid input data." });
+    return res.status(400).json({ error: "Nevažeć unos!" });
   }
 
   const updateQuery = `
@@ -98,8 +96,8 @@ const updateItemQuantity = async (req, res) => {
 
     res.status(200).json(updatedItems);
   } catch (err) {
-    console.error("Error updating quantity:", err.message);
-    res.status(500).json({ error: "Failed to update quantity." });
+    console.error("Greška pri ažuriranju stola:", err.message);
+    res.status(500).json({ error: "Greška pri ažuriranju stola!" });
   }
 };
 
@@ -107,7 +105,7 @@ const deleteTable = async (req, res) => {
   const { table_number } = req.body;
 
   if (!table_number) {
-    return res.status(400).json({ error: "Missing table_number." });
+    return res.status(400).json({ error: "Broj stola ne postoji!" });
   }
 
   const deleteItemsQuery = `
@@ -123,12 +121,10 @@ const deleteTable = async (req, res) => {
     await db.execute(deleteItemsQuery, [table_number]);
     await db.execute(deleteTableQuery, [table_number]);
 
-    res
-      .status(200)
-      .json({ message: "Table and its items deleted successfully." });
+    res.status(200).json({ message: "Stol i artikli uspješno obrisani!" });
   } catch (err) {
-    console.error("Error deleting table:", err.message);
-    res.status(500).json({ error: "Failed to delete the table." });
+    console.error("Greška pri brisanju stola:", err.message);
+    res.status(500).json({ error: "Greška pri brisanju stola!" });
   }
 };
 
@@ -136,7 +132,7 @@ const cashTable = async (req, res) => {
   const { table_number } = req.body;
 
   if (!table_number) {
-    return res.status(400).json({ error: "Table number is required." });
+    return res.status(400).json({ error: "Broj stola je potreban!" });
   }
 
   const fetchTableQuery = `
@@ -176,7 +172,7 @@ const cashTable = async (req, res) => {
     const [receiptResult] = await connection.query(insertReceiptQuery, [
       table_number,
       total_price,
-      companyId, // Use the hardcoded companyId here
+      companyId,
     ]);
     const receipt_id = receiptResult.insertId;
 
@@ -195,10 +191,10 @@ const cashTable = async (req, res) => {
     await connection.commit();
     connection.release();
 
-    res.status(200).json({ message: "Table cashed successfully." });
+    res.status(200).json({ message: "Stol finaliziran uspješno." });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Failed to process cash operation." });
+    res.status(500).json({ error: "Greška pri finaliziranju stola." });
   }
 };
 

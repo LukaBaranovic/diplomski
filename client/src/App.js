@@ -17,15 +17,13 @@ function App() {
   const [showAddToTablePopup, setShowAddToTablePopup] = useState(false);
   const [showReceiptsPopup, setShowReceiptsPopup] = useState(false);
 
-  // Fetch Categories
   useEffect(() => {
     fetch("/api/categories")
       .then((res) => res.json())
       .then((data) => setCategories(data))
-      .catch((err) => console.error("Failed to fetch categories:", err));
+      .catch((err) => console.error("Greška pri dohvaćanju kategorija:", err));
   }, []);
 
-  // Cart Management
   const addItemToCart = (item) => {
     setCartItems((prevItems) => {
       const existingItem = prevItems.find(
@@ -64,7 +62,6 @@ function App() {
     return selectedItem ? selectedItem.quantity : 1;
   };
 
-  // Function to handle saving a receipt to the database
   const handleSaveReceipt = () => {
     fetch("/api/saveReceipt", {
       method: "POST",
@@ -76,14 +73,13 @@ function App() {
         if (data.error) {
           alert(data.error);
         } else {
-          alert(`Receipt saved successfully! Receipt ID: ${data.receiptId}`);
-          setCartItems([]); // Clear the cart after saving
+          alert(`Račun spremljen uspješno! ID: ${data.receiptId}`);
+          setCartItems([]);
         }
       })
-      .catch(() => alert("An error occurred while saving the receipt."));
+      .catch(() => alert("Greška pri spremanju računa!"));
   };
 
-  // Popup Handlers
   const closeAmountPopup = () => setShowAmountPopup(false);
   const handleSaveTable = (tableNumber, setError) => {
     fetch("/api/createTable", {
@@ -101,7 +97,7 @@ function App() {
           setCartItems([]);
         }
       })
-      .catch(() => setError("An error occurred while creating the table."));
+      .catch(() => setError("Greška pri kreiranju stola!"));
   };
 
   const handleAddToTable = (tableNumber) => {
@@ -120,7 +116,7 @@ function App() {
           setCartItems([]);
         }
       })
-      .catch(() => alert("An error occurred while adding items to the table."));
+      .catch(() => alert("Greška pri dodavanju artikla na stol!"));
   };
 
   return (

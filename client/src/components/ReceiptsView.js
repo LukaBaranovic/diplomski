@@ -9,14 +9,13 @@ const ReceiptsView = ({ onClose }) => {
     new Date().toISOString().split("T")[0]
   );
   const [selectedReceipt, setSelectedReceipt] = useState(null);
-  const [dailyTotal, setDailyTotal] = useState(0); // State for daily total price
+  const [dailyTotal, setDailyTotal] = useState(0);
 
-  // Fetch receipts for the selected date
   useEffect(() => {
     fetch(`/api/getReceipts?date=${selectedDate}`)
       .then((res) => {
         if (!res.ok) {
-          throw new Error("Failed to fetch receipts.");
+          throw new Error("Grešja pri dohvaćanju računa!");
         }
         return res.json();
       })
@@ -25,25 +24,24 @@ const ReceiptsView = ({ onClose }) => {
       })
       .catch((err) => {
         console.error(err);
-        alert("Failed to load receipts.");
+        alert("Greška pri dohvaćanju računa!");
       });
   }, [selectedDate]);
 
-  // Fetch daily total price for the selected date
   useEffect(() => {
     fetch(`/api/getDailyTotalPrice?date=${selectedDate}`)
       .then((res) => {
         if (!res.ok) {
-          throw new Error("Failed to fetch daily total price.");
+          throw new Error("Greška pri dohvaćanju totala!");
         }
         return res.json();
       })
       .then(({ dailyTotal }) => {
-        setDailyTotal(dailyTotal || 0); // Ensure dailyTotal is set to 0 if undefined
+        setDailyTotal(dailyTotal || 0);
       })
       .catch((err) => {
         console.error(err);
-        alert("Failed to fetch daily total price.");
+        alert("Greška pri dohvaćanju totala!");
       });
   }, [selectedDate]);
 
