@@ -41,17 +41,20 @@ const AddToTable = ({ onClose, onSave }) => {
         <div className="popup-main add-to-table-main">
           {errorMessage && <p className="error-message">{errorMessage}</p>}
           <div className="table-list">
-            {availableTables.map((table) => (
-              <div
-                key={table.table_id}
-                className={`table-item ${
-                  selectedTableNumber === table.table_number ? "selected" : ""
-                }`}
-                onClick={() => handleTableClick(table.table_number)}
-              >
-                Stol {table.table_number}
-              </div>
-            ))}
+            {availableTables
+              .slice()
+              .sort((a, b) => a.table_number - b.table_number)
+              .map((table) => (
+                <div
+                  key={table.table_id}
+                  className={`table-item ${
+                    selectedTableNumber === table.table_number ? "selected" : ""
+                  }`}
+                  onClick={() => handleTableClick(table.table_number)}
+                >
+                  Stol {table.table_number}
+                </div>
+              ))}
           </div>
         </div>
         <div className="popup-footer">

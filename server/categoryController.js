@@ -4,7 +4,15 @@ async function getCategories(req, res) {
   try {
     const companyId = 1; // Hardcoded company ID
     const [rows] = await db.query(
-      "SELECT category_id, category_name FROM category WHERE company_id = ?",
+      `SELECT category_id, category_name, type_id
+       FROM category
+       WHERE company_id = ?
+       ORDER BY 
+         CASE 
+           WHEN type_id = 1 THEN 0
+           WHEN type_id = 2 THEN 1
+           ELSE 2
+         END, category_id`,
       [companyId]
     );
     res.json(rows);
