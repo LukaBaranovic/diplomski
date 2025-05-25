@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import "./TablePopup.css";
 import "./PopupStyle.css";
+import ChangeTablePopup from "./ChangeTablePopup";
 
 const TablePopup = ({ tableNumber, onClose }) => {
   const [tableItems, setTableItems] = useState(null);
   const [error, setError] = useState("");
   const [updatedQuantities, setUpdatedQuantities] = useState({});
+  const [originalQuantities, setOriginalQuantities] = useState({});
   const [totalPrice, setTotalPrice] = useState(0);
+  const [showChangeTablePopup, setShowChangeTablePopup] = useState(false);
 
   useEffect(() => {
     fetch(`/api/getTableItemsByNumber/${tableNumber}`)
@@ -19,14 +22,17 @@ const TablePopup = ({ tableNumber, onClose }) => {
       .then((data) => {
         setTableItems(data);
         const initialQuantities = {};
+        const origQuantities = {};
         let initialTotalPrice = 0;
 
         data.forEach((item) => {
           initialQuantities[item.item_name] = item.quantity;
+          origQuantities[item.item_name] = item.quantity;
           initialTotalPrice += item.quantity * item.item_price;
         });
 
         setUpdatedQuantities(initialQuantities);
+        setOriginalQuantities(origQuantities);
         setTotalPrice(initialTotalPrice);
       })
       .catch(() => setError("Greška pri dohvaćanju artikala na stolu!"));
@@ -55,6 +61,18 @@ const TablePopup = ({ tableNumber, onClose }) => {
       })
       .then((updatedItems) => {
         setTableItems(updatedItems);
+
+        setUpdatedQuantities((prev) => {
+          const copy = { ...prev };
+          delete copy[itemName];
+          return copy;
+        });
+        setOriginalQuantities((prev) => {
+          const copy = { ...prev };
+          delete copy[itemName];
+          return copy;
+        });
+
         setTotalPrice(calculateTotalPrice(updatedItems, updatedQuantities));
         setError("");
       })
@@ -70,6 +88,9 @@ const TablePopup = ({ tableNumber, onClose }) => {
 
   const handleConfirmQuantity = (itemName) => {
     const newQuantity = updatedQuantities[itemName];
+    if (newQuantity === originalQuantities[itemName]) {
+      return; // No change, do nothing
+    }
     fetch(`/api/updateItemQuantity`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -87,6 +108,10 @@ const TablePopup = ({ tableNumber, onClose }) => {
       })
       .then((updatedItems) => {
         setTableItems(updatedItems);
+        setOriginalQuantities((prev) => ({
+          ...prev,
+          [itemName]: newQuantity,
+        }));
         setTotalPrice(calculateTotalPrice(updatedItems, updatedQuantities));
         setError("");
       })
@@ -133,6 +158,12 @@ const TablePopup = ({ tableNumber, onClose }) => {
       .catch(() => setError("Greška pri finaliziranju stola!"));
   };
 
+  // ChangeTable popup callback
+  const handleChangeTableSuccess = (newTableNumber) => {
+    // Optionally reload data or just close, depending on your UX
+    onClose();
+  };
+
   return (
     <div className="popup-overlay">
       <div className="popup-large">
@@ -156,54 +187,70 @@ const TablePopup = ({ tableNumber, onClose }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {tableItems.map((item, index) => (
-                    <tr key={index}>
-                      <td>{item.item_name}</td>
-                      <td>
-                        <div className="quantity-controller">
+                  {tableItems.map((item, index) => {
+                    const isChanged =
+                      updatedQuantities[item.item_name] !==
+                      originalQuantities[item.item_name];
+                    return (
+                      <tr key={index}>
+                        <td>{item.item_name}</td>
+                        <td>
+                          <div className="quantity-controller">
+                            <button
+                              className="popup-button"
+                              onClick={() =>
+                                handleQuantityChange(item.item_name, -1)
+                              }
+                            >
+                              -
+                            </button>
+                            <span>{updatedQuantities[item.item_name]}</span>
+                            <button
+                              className="popup-button"
+                              onClick={() =>
+                                handleQuantityChange(item.item_name, 1)
+                              }
+                            >
+                              +
+                            </button>
+                            <button
+                              className="popup-button confirm-btn"
+                              style={{
+                                backgroundColor: isChanged ? "#4caf50" : "#ccc",
+                                color: isChanged ? "#fff" : "#333",
+                                cursor: isChanged ? "pointer" : "not-allowed",
+                                border: isChanged
+                                  ? "1px solid #388e3c"
+                                  : "1px solid #ccc",
+                                marginLeft: "8px",
+                              }}
+                              onClick={() =>
+                                isChanged &&
+                                handleConfirmQuantity(item.item_name)
+                              }
+                              disabled={!isChanged}
+                            >
+                              Potvrdi
+                            </button>
+                          </div>
+                        </td>
+                        <td>
+                          €
+                          {(
+                            updatedQuantities[item.item_name] * item.item_price
+                          ).toFixed(2)}
+                        </td>
+                        <td>
                           <button
-                            className="popup-button"
-                            onClick={() =>
-                              handleQuantityChange(item.item_name, -1)
-                            }
+                            className="popup-button red"
+                            onClick={() => handleDelete(item.item_name)}
                           >
-                            -
+                            Izbriši
                           </button>
-                          <span>{updatedQuantities[item.item_name]}</span>
-                          <button
-                            className="popup-button"
-                            onClick={() =>
-                              handleQuantityChange(item.item_name, 1)
-                            }
-                          >
-                            +
-                          </button>
-                          <button
-                            className="popup-button green"
-                            onClick={() =>
-                              handleConfirmQuantity(item.item_name)
-                            }
-                          >
-                            Potvrdi
-                          </button>
-                        </div>
-                      </td>
-                      <td>
-                        €
-                        {(
-                          updatedQuantities[item.item_name] * item.item_price
-                        ).toFixed(2)}
-                      </td>
-                      <td>
-                        <button
-                          className="popup-button red"
-                          onClick={() => handleDelete(item.item_name)}
-                        >
-                          Izbriši
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
               <div className="total-price-container">
@@ -216,6 +263,13 @@ const TablePopup = ({ tableNumber, onClose }) => {
           <button className="popup-button green" onClick={handleCash}>
             Račun
           </button>
+          <button
+            className="popup-button"
+            style={{ backgroundColor: "#007bff", color: "#fff" }}
+            onClick={() => setShowChangeTablePopup(true)}
+          >
+            Prebaci
+          </button>
           <button className="popup-button red" onClick={handleDeleteTable}>
             Izbriši Stol
           </button>
@@ -224,6 +278,13 @@ const TablePopup = ({ tableNumber, onClose }) => {
           </button>
         </div>
       </div>
+      {showChangeTablePopup && (
+        <ChangeTablePopup
+          currentTableNumber={tableNumber}
+          onClose={() => setShowChangeTablePopup(false)}
+          onTransfer={handleChangeTableSuccess}
+        />
+      )}
     </div>
   );
 };
