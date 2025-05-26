@@ -1,18 +1,18 @@
 const db = require("./dbConfig");
 
-// Helper to get table by number and fixed company_id = 1
+const companyId = 1; // Always use 1, as per your instruction
+
+// Helper to get table by number and fixed companyId
 async function getTable(table_number) {
   const [rows] = await db.query(
-    "SELECT * FROM tables WHERE table_number = ? AND company_id = 1",
-    [table_number]
+    "SELECT * FROM tables WHERE table_number = ? AND company_id = ?",
+    [table_number, companyId]
   );
   return rows[0];
 }
 
 const changeTable = async (req, res) => {
-  console.log("Received request:", req.body);
   const { old_table_number, new_table_number } = req.body;
-  const company_id = 1; // Always use 1, as per your instruction
 
   if (
     !old_table_number ||
@@ -26,7 +26,7 @@ const changeTable = async (req, res) => {
   try {
     connection = await db.getConnection();
 
-    // Get old and new table rows (for company_id = 1)
+    // Get old and new table rows (for companyId)
     const oldTable = await getTable(old_table_number);
     const newTable = await getTable(new_table_number);
 
@@ -38,8 +38,8 @@ const changeTable = async (req, res) => {
     if (!newTable) {
       // Target table doesn't exist: just rename
       await connection.query(
-        "UPDATE tables SET table_number = ? WHERE table_id = ? AND company_id = 1",
-        [new_table_number, oldTable.table_id]
+        "UPDATE tables SET table_number = ? WHERE table_id = ? AND company_id = ?",
+        [new_table_number, oldTable.table_id, companyId]
       );
       connection.release();
       return res
@@ -88,8 +88,8 @@ const changeTable = async (req, res) => {
 
     // Delete old table after merge
     await connection.query(
-      "DELETE FROM tables WHERE table_id = ? AND company_id = 1",
-      [oldTable.table_id]
+      "DELETE FROM tables WHERE table_id = ? AND company_id = ?",
+      [oldTable.table_id, companyId]
     );
 
     connection.release();

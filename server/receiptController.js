@@ -1,5 +1,63 @@
 const db = require("./dbConfig");
 
+// Utility to log grouped items by type, for new orders
+function logOrderByType(items, itemTypeMap) {
+  const typeGroups = {};
+  for (const item of items) {
+    const typeInfo = itemTypeMap[item.item_id];
+    if (!typeInfo) continue;
+
+    if (!typeGroups[typeInfo.type_name]) {
+      typeGroups[typeInfo.type_name] = [];
+    }
+    typeGroups[typeInfo.type_name].push({
+      item_name: item.item_name,
+      quantity: item.quantity,
+    });
+  }
+
+  console.log("Nova narudžba");
+  console.log(""); // Blank line
+
+  for (const [typeName, typeItems] of Object.entries(typeGroups)) {
+    console.log(`Type: ${typeName}`);
+    for (const item of typeItems) {
+      console.log(`  - ${item.item_name} (qty: ${item.quantity})`);
+    }
+    console.log("");
+  }
+}
+
+// Helper to fetch type info for all items in a single query
+const getItemsTypeInfo = async (itemIds) => {
+  if (!itemIds || itemIds.length === 0) return {};
+
+  const placeholders = itemIds.map(() => "?").join(", ");
+  const sql = `
+    SELECT 
+      i.item_id, 
+      i.item_name, 
+      c.category_id, 
+      t.type_id, 
+      t.type_name
+    FROM item i
+    INNER JOIN category c ON i.category_id = c.category_id
+    INNER JOIN type t ON c.type_id = t.type_id
+    WHERE i.item_id IN (${placeholders})
+  `;
+
+  const [rows] = await db.query(sql, itemIds);
+  const itemTypeMap = {};
+  for (const row of rows) {
+    itemTypeMap[row.item_id] = {
+      type_id: row.type_id,
+      type_name: row.type_name,
+      item_name: row.item_name,
+    };
+  }
+  return itemTypeMap;
+};
+
 const companyId = 1; // Hardcoded company ID
 
 const saveReceipt = async (req, res) => {
@@ -9,6 +67,11 @@ const saveReceipt = async (req, res) => {
     if (!cartItems || cartItems.length === 0) {
       return res.status(400).json({ error: "Nema artikala u košarici!" });
     }
+
+    // Fetch type info and log the order by type
+    const itemIds = cartItems.map((cartItem) => cartItem.item_id);
+    const itemTypeMap = await getItemsTypeInfo(itemIds);
+    logOrderByType(cartItems, itemTypeMap);
 
     let totalReceiptPrice = 0;
 

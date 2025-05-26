@@ -9,8 +9,6 @@ const getReceipts = async (req, res) => {
     return res.status(400).json({ error: "Datum je potreban!" });
   }
 
-  console.log("Date parameter received:", date);
-
   const receiptsQuery = `
     SELECT 
       r.receipt_id, 
@@ -26,8 +24,7 @@ const getReceipts = async (req, res) => {
       companyId,
       date,
       date,
-    ]); // Include companyId in the query
-    console.log("Računi dohvaćeni:", receiptsRows);
+    ]);
 
     res.status(200).json({ receipts: receiptsRows });
   } catch (err) {
@@ -36,15 +33,12 @@ const getReceipts = async (req, res) => {
   }
 };
 
-// Controller to fetch the total lump sum of total_price for a specific day
 const getDailyTotalPrice = async (req, res) => {
   const { date } = req.query;
 
   if (!date) {
     return res.status(400).json({ error: "Datum je potreban!" });
   }
-
-  console.log("Date parameter received for total price:", date);
 
   const totalPriceQuery = `
     SELECT 
@@ -55,8 +49,6 @@ const getDailyTotalPrice = async (req, res) => {
 
   try {
     const [[result]] = await db.query(totalPriceQuery, [companyId, date, date]); // Include companyId in the query
-
-    console.log("Total price fetched for the day:", result);
 
     res.status(200).json({ dailyTotal: result.daily_total || 0 });
   } catch (err) {

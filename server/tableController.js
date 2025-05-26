@@ -2,10 +2,74 @@ const db = require("./dbConfig");
 
 const companyId = 1; // Hardcoded company_id
 
+// Utility to log grouped items by type, for new orders
+function logOrderByType(items, itemTypeMap) {
+  // Group items by type_name
+  const typeGroups = {};
+  for (const item of items) {
+    const typeInfo = itemTypeMap[item.item_id];
+    if (!typeInfo) continue;
+
+    if (!typeGroups[typeInfo.type_name]) {
+      typeGroups[typeInfo.type_name] = [];
+    }
+    typeGroups[typeInfo.type_name].push({
+      item_name: item.item_name,
+      quantity: item.quantity,
+    });
+  }
+
+  // Log
+  console.log("Nova narudžba");
+  console.log(""); // Blank line
+
+  for (const [typeName, typeItems] of Object.entries(typeGroups)) {
+    console.log(`Type: ${typeName}`);
+    for (const item of typeItems) {
+      console.log(`  - ${item.item_name} (qty: ${item.quantity})`);
+    }
+    console.log("");
+  }
+}
+
 const checkTableExists = async (tableNumber) => {
   const checkTableSql = `SELECT table_id FROM tables WHERE table_number = ? AND company_id = ?`;
   const [rows] = await db.execute(checkTableSql, [tableNumber, companyId]);
   return rows.length > 0 ? rows[0].table_id : null;
+};
+
+// Helper to fetch type info for all items in a single query
+const getItemsTypeInfo = async (itemIds) => {
+  if (!itemIds || itemIds.length === 0) return {};
+
+  // Build placeholders (?, ?, ...)
+  const placeholders = itemIds.map(() => "?").join(", ");
+
+  // Query all item info with joins to get type_name
+  const sql = `
+    SELECT 
+      i.item_id, 
+      i.item_name, 
+      c.category_id, 
+      t.type_id, 
+      t.type_name
+    FROM item i
+    INNER JOIN category c ON i.category_id = c.category_id
+    INNER JOIN type t ON c.type_id = t.type_id
+    WHERE i.item_id IN (${placeholders})
+  `;
+
+  const [rows] = await db.execute(sql, itemIds);
+  // Map item_id to its type info
+  const itemTypeMap = {};
+  for (const row of rows) {
+    itemTypeMap[row.item_id] = {
+      type_id: row.type_id,
+      type_name: row.type_name,
+      item_name: row.item_name,
+    };
+  }
+  return itemTypeMap;
 };
 
 const createTable = async (req, res) => {
@@ -35,6 +99,11 @@ const createTable = async (req, res) => {
     const tableId = tableResult.insertId;
 
     if (items && items.length > 0) {
+      // Fetch type info and log
+      const itemIds = items.map((item) => item.item_id);
+      const itemTypeMap = await getItemsTypeInfo(itemIds);
+      logOrderByType(items, itemTypeMap);
+
       const insertItemSql = `
         INSERT INTO table_cart_items (table_id, item_id, item_name, quantity, item_price)
         VALUES (?, ?, ?, ?, ?)
@@ -91,6 +160,11 @@ const addToTable = async (req, res) => {
         .status(404)
         .json({ error: `Broj stola ${tableNumber} ne postoji!` });
     }
+
+    // Prepare to log types for items being added
+    const itemIds = items.map((item) => item.item_id);
+    const itemTypeMap = await getItemsTypeInfo(itemIds);
+    logOrderByType(items, itemTypeMap);
 
     // Insert or update items in the table_cart_items table
     const mergeOrInsertPromises = items.map(async (item) => {

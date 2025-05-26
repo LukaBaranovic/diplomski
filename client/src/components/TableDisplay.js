@@ -21,7 +21,7 @@ const TableDisplay = () => {
     };
 
     fetchTableData();
-    const interval = setInterval(fetchTableData, 5000);
+    const interval = setInterval(fetchTableData, 2000);
 
     return () => clearInterval(interval);
   }, []);
