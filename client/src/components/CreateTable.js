@@ -3,22 +3,33 @@ import "./PopupStyle.css";
 import "./CreateTable.css";
 
 const CreateTable = ({ onClose, onSave }) => {
+  // Store as string!
   const [tableNumber, setTableNumber] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = (e) => {
-    const value = parseInt(e.target.value, 10);
-    if (!isNaN(value) && value > 0) {
-      setTableNumber(value);
+    const value = e.target.value; // Always string
+    setTableNumber(value);
+
+    // Only validate if not empty
+    if (value === "") {
       setErrorMessage("");
-    } else if (value === 0) {
-      setErrorMessage("Broj stola ne može biti nula!");
+    } else {
+      const number = parseInt(value, 10);
+      if (!isNaN(number) && number > 0) {
+        setErrorMessage("");
+      } else if (number === 0) {
+        setErrorMessage("Broj stola ne može biti nula!");
+      } else {
+        setErrorMessage("Unesite ispravan broj stola!");
+      }
     }
   };
 
   const handleSave = () => {
-    if (tableNumber > 0) {
-      onSave(tableNumber, setErrorMessage); // <-- Pass setErrorMessage!
+    const number = parseInt(tableNumber, 10);
+    if (!isNaN(number) && number > 0) {
+      onSave(number, setErrorMessage);
     } else {
       setErrorMessage("Unesite ispravan broj stola!");
     }
@@ -41,6 +52,7 @@ const CreateTable = ({ onClose, onSave }) => {
             onChange={handleChange}
             placeholder="Broj stola"
             className="table-number-input"
+            min="1"
           />
           {errorMessage && <p className="error-message">{errorMessage}</p>}
         </div>
