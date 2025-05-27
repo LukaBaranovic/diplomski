@@ -1,8 +1,7 @@
 const db = require("./dbConfig");
 
-const companyId = 1; // Always use 1, as per your instruction
+const companyId = 1; // Hardcoded companyId
 
-// Helper to get table by number and fixed companyId
 async function getTable(table_number) {
   const [rows] = await db.query(
     "SELECT * FROM tables WHERE table_number = ? AND company_id = ?",
@@ -26,7 +25,6 @@ const changeTable = async (req, res) => {
   try {
     connection = await db.getConnection();
 
-    // Get old and new table rows (for companyId)
     const oldTable = await getTable(old_table_number);
     const newTable = await getTable(new_table_number);
 
@@ -36,7 +34,6 @@ const changeTable = async (req, res) => {
     }
 
     if (!newTable) {
-      // Target table doesn't exist: just rename
       await connection.query(
         "UPDATE tables SET table_number = ? WHERE table_id = ? AND company_id = ?",
         [new_table_number, oldTable.table_id, companyId]
@@ -47,8 +44,6 @@ const changeTable = async (req, res) => {
         .json({ message: "Stol je preimenovan na novi broj." });
     }
 
-    // Target table exists: merge items and delete old table
-    // Get all items for both tables
     const [oldItems] = await connection.query(
       "SELECT * FROM table_cart_items WHERE table_id = ?",
       [oldTable.table_id]
@@ -58,27 +53,22 @@ const changeTable = async (req, res) => {
       [newTable.table_id]
     );
 
-    // Map new table items for quick lookup
     const newItemMap = {};
     newItems.forEach((item) => {
       newItemMap[item.item_id] = item;
     });
 
-    // Merge/move old items into new table
     for (const oldItem of oldItems) {
       if (newItemMap[oldItem.item_id]) {
-        // If item exists, sum quantities
         await connection.query(
           "UPDATE table_cart_items SET quantity = quantity + ? WHERE table_id = ? AND item_id = ?",
           [oldItem.quantity, newTable.table_id, oldItem.item_id]
         );
-        // Remove from old table
         await connection.query(
           "DELETE FROM table_cart_items WHERE table_cart_id = ?",
           [oldItem.table_cart_id]
         );
       } else {
-        // Move item to new table
         await connection.query(
           "UPDATE table_cart_items SET table_id = ? WHERE table_cart_id = ?",
           [newTable.table_id, oldItem.table_cart_id]
@@ -86,7 +76,6 @@ const changeTable = async (req, res) => {
       }
     }
 
-    // Delete old table after merge
     await connection.query(
       "DELETE FROM tables WHERE table_id = ? AND company_id = ?",
       [oldTable.table_id, companyId]

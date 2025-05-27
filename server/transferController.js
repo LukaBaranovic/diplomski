@@ -15,7 +15,6 @@ const transferTable = async (req, res) => {
     }
 
     try {
-      // 1. Get old table info
       const [oldTables] = await connection
         .promise()
         .query("SELECT * FROM tables WHERE table_number = ?", [
@@ -27,14 +26,12 @@ const transferTable = async (req, res) => {
       }
       const oldTable = oldTables[0];
 
-      // 2. Check if target table exists
       const [newTables] = await connection
         .promise()
         .query("SELECT * FROM tables WHERE table_number = ?", [
           new_table_number,
         ]);
       if (!newTables.length) {
-        // If not exists, just update the number
         await connection
           .promise()
           .query("UPDATE tables SET table_number = ? WHERE table_id = ?", [
@@ -47,7 +44,6 @@ const transferTable = async (req, res) => {
           .json({ message: "Stol je prebačen na novi broj." });
       }
 
-      // 3. Merge items from old table to new table
       const newTable = newTables[0];
       const [oldItems] = await connection
         .promise()
@@ -55,7 +51,6 @@ const transferTable = async (req, res) => {
           oldTable.table_id,
         ]);
       for (const item of oldItems) {
-        // Check if same item exists in target table
         const [existingRows] = await connection
           .promise()
           .query(
@@ -63,14 +58,12 @@ const transferTable = async (req, res) => {
             [newTable.table_id, item.item_id]
           );
         if (existingRows.length) {
-          // Merge quantities
           await connection
             .promise()
             .query(
               "UPDATE table_cart_items SET quantity = quantity + ? WHERE table_id = ? AND item_id = ?",
               [item.quantity, newTable.table_id, item.item_id]
             );
-          // Delete item from old table
           await connection
             .promise()
             .query(
@@ -78,7 +71,6 @@ const transferTable = async (req, res) => {
               [oldTable.table_id, item.item_id]
             );
         } else {
-          // Move item to new table
           await connection
             .promise()
             .query(
@@ -87,7 +79,6 @@ const transferTable = async (req, res) => {
             );
         }
       }
-      // 4. Delete old table row
       await connection
         .promise()
         .query("DELETE FROM tables WHERE table_id = ?", [oldTable.table_id]);
@@ -103,5 +94,4 @@ const transferTable = async (req, res) => {
   });
 };
 
-// EXPORT AS NAMED EXPORT
 module.exports = { transferTable };

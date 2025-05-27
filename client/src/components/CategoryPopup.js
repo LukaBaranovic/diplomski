@@ -32,12 +32,10 @@ const CategoryPopup = ({
   return (
     <div className="popup-overlay">
       <div className="popup-large">
-        {/* Header */}
         <div className="popup-header">
           <h2>{categoryName}</h2>
         </div>
 
-        {/* Main Content */}
         <div className="popup-main">
           {items.length > 0 ? (
             <ul className="item-list">
@@ -59,7 +57,6 @@ const CategoryPopup = ({
           )}
         </div>
 
-        {/* Footer */}
         <div className="popup-footer">
           <button className="popup-button red" onClick={onClose}>
             Otkaži

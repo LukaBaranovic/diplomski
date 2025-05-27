@@ -1,6 +1,7 @@
 const db = require("./dbConfig");
 
-// Utility to log grouped items by type, for new orders
+const companyId = 1; // Hardcoded company ID
+
 function logOrderByType(items, itemTypeMap) {
   const typeGroups = {};
   for (const item of items) {
@@ -17,7 +18,7 @@ function logOrderByType(items, itemTypeMap) {
   }
 
   console.log("Nova narudžba");
-  console.log(""); // Blank line
+  console.log("");
 
   for (const [typeName, typeItems] of Object.entries(typeGroups)) {
     console.log(`Type: ${typeName}`);
@@ -28,7 +29,6 @@ function logOrderByType(items, itemTypeMap) {
   }
 }
 
-// Helper to fetch type info for all items in a single query
 const getItemsTypeInfo = async (itemIds) => {
   if (!itemIds || itemIds.length === 0) return {};
 
@@ -58,8 +58,6 @@ const getItemsTypeInfo = async (itemIds) => {
   return itemTypeMap;
 };
 
-const companyId = 1; // Hardcoded company ID
-
 const saveReceipt = async (req, res) => {
   try {
     const { cartItems } = req.body;
@@ -68,7 +66,6 @@ const saveReceipt = async (req, res) => {
       return res.status(400).json({ error: "Nema artikala u košarici!" });
     }
 
-    // Fetch type info and log the order by type
     const itemIds = cartItems.map((cartItem) => cartItem.item_id);
     const itemTypeMap = await getItemsTypeInfo(itemIds);
     logOrderByType(cartItems, itemTypeMap);

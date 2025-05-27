@@ -52,14 +52,11 @@ const ReceiptsView = ({ onClose }) => {
   return (
     <div className="popup-overlay">
       <div className="popup-large">
-        {/* Header */}
         <div className="popup-header">
           <h2>Pregled Računa</h2>
         </div>
 
-        {/* Main Content */}
         <div className="popup-main">
-          {/* Date Picker */}
           <div className="receipts-view-date-picker-container">
             <input
               type="date"
@@ -69,7 +66,6 @@ const ReceiptsView = ({ onClose }) => {
             />
           </div>
 
-          {/* Daily Total Price */}
           <div className="daily-total-container">
             <p>
               <strong>Ukupni Promet za Dan:</strong> €
@@ -77,7 +73,6 @@ const ReceiptsView = ({ onClose }) => {
             </p>
           </div>
 
-          {/* Receipts Table */}
           <table className="receipts-view-table">
             <thead>
               <tr>
@@ -109,7 +104,6 @@ const ReceiptsView = ({ onClose }) => {
           </table>
         </div>
 
-        {/* Footer */}
         <div className="popup-footer">
           <button className="popup-button red" onClick={onClose}>
             Otkaži
@@ -117,7 +111,6 @@ const ReceiptsView = ({ onClose }) => {
         </div>
       </div>
 
-      {/* Receipt details view */}
       {selectedReceipt && (
         <ReceiptDetailsView
           receiptId={selectedReceipt.receipt_id}

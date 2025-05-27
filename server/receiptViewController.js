@@ -48,7 +48,7 @@ const getDailyTotalPrice = async (req, res) => {
   `;
 
   try {
-    const [[result]] = await db.query(totalPriceQuery, [companyId, date, date]); // Include companyId in the query
+    const [[result]] = await db.query(totalPriceQuery, [companyId, date, date]);
 
     res.status(200).json({ dailyTotal: result.daily_total || 0 });
   } catch (err) {

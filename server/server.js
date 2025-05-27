@@ -18,8 +18,6 @@ const { getTableData } = require("./tableDisplayController");
 const { getReceipts, getDailyTotalPrice } = require("./receiptViewController");
 const { getReceiptDetails } = require("./receiptDetailsViewController");
 const { saveReceipt } = require("./receiptController");
-
-// USE DESTRUCTURING HERE:
 const { changeTable } = require("./changeTableController");
 
 const app = express();
@@ -48,11 +46,8 @@ app.delete("/api/deleteTable", deleteTable);
 app.post("/api/cashTable", cashTable);
 app.get("/api/getReceipts", getReceipts);
 app.get("/api/getReceiptDetails", getReceiptDetails);
-
 app.post("/api/saveReceipt", saveReceipt);
 app.get("/api/getDailyTotalPrice", getDailyTotalPrice);
-
-// USE NAMED FUNCTION
 app.post("/api/changeTable", changeTable);
 
 app.listen(4500, () => console.log("Server running on port 4500"));

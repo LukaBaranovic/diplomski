@@ -89,7 +89,7 @@ const TablePopup = ({ tableNumber, onClose }) => {
   const handleConfirmQuantity = (itemName) => {
     const newQuantity = updatedQuantities[itemName];
     if (newQuantity === originalQuantities[itemName]) {
-      return; // No change, do nothing
+      return;
     }
     fetch(`/api/updateItemQuantity`, {
       method: "POST",
@@ -158,9 +158,7 @@ const TablePopup = ({ tableNumber, onClose }) => {
       .catch(() => setError("Greška pri finaliziranju stola!"));
   };
 
-  // ChangeTable popup callback
   const handleChangeTableSuccess = (newTableNumber) => {
-    // Optionally reload data or just close, depending on your UX
     onClose();
   };
 

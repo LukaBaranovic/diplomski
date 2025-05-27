@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./PopupStyle.css";
-import "./CreateTable.css"; // reuse nice input styles
+import "./CreateTable.css";
 
 const ChangeTablePopup = ({ currentTableNumber, onClose, onTransfer }) => {
   const [targetTableNumber, setTargetTableNumber] = useState("");

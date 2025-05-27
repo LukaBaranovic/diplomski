@@ -3,15 +3,13 @@ import "./PopupStyle.css";
 import "./CreateTable.css";
 
 const CreateTable = ({ onClose, onSave }) => {
-  // Store as string!
   const [tableNumber, setTableNumber] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = (e) => {
-    const value = e.target.value; // Always string
+    const value = e.target.value;
     setTableNumber(value);
 
-    // Only validate if not empty
     if (value === "") {
       setErrorMessage("");
     } else {

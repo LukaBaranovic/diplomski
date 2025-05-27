@@ -2,9 +2,7 @@ const db = require("./dbConfig");
 
 const companyId = 1; // Hardcoded company_id
 
-// Utility to log grouped items by type, for new orders
 function logOrderByType(items, itemTypeMap) {
-  // Group items by type_name
   const typeGroups = {};
   for (const item of items) {
     const typeInfo = itemTypeMap[item.item_id];
@@ -19,9 +17,8 @@ function logOrderByType(items, itemTypeMap) {
     });
   }
 
-  // Log
   console.log("Nova narudžba");
-  console.log(""); // Blank line
+  console.log("");
 
   for (const [typeName, typeItems] of Object.entries(typeGroups)) {
     console.log(`Type: ${typeName}`);
@@ -38,14 +35,11 @@ const checkTableExists = async (tableNumber) => {
   return rows.length > 0 ? rows[0].table_id : null;
 };
 
-// Helper to fetch type info for all items in a single query
 const getItemsTypeInfo = async (itemIds) => {
   if (!itemIds || itemIds.length === 0) return {};
 
-  // Build placeholders (?, ?, ...)
   const placeholders = itemIds.map(() => "?").join(", ");
 
-  // Query all item info with joins to get type_name
   const sql = `
     SELECT 
       i.item_id, 
@@ -60,7 +54,6 @@ const getItemsTypeInfo = async (itemIds) => {
   `;
 
   const [rows] = await db.execute(sql, itemIds);
-  // Map item_id to its type info
   const itemTypeMap = {};
   for (const row of rows) {
     itemTypeMap[row.item_id] = {
@@ -99,7 +92,6 @@ const createTable = async (req, res) => {
     const tableId = tableResult.insertId;
 
     if (items && items.length > 0) {
-      // Fetch type info and log
       const itemIds = items.map((item) => item.item_id);
       const itemTypeMap = await getItemsTypeInfo(itemIds);
       logOrderByType(items, itemTypeMap);
@@ -153,7 +145,6 @@ const addToTable = async (req, res) => {
   }
 
   try {
-    // Check if the table exists for the current company_id
     const tableId = await checkTableExists(tableNumber);
     if (!tableId) {
       return res
@@ -161,12 +152,10 @@ const addToTable = async (req, res) => {
         .json({ error: `Broj stola ${tableNumber} ne postoji!` });
     }
 
-    // Prepare to log types for items being added
     const itemIds = items.map((item) => item.item_id);
     const itemTypeMap = await getItemsTypeInfo(itemIds);
     logOrderByType(items, itemTypeMap);
 
-    // Insert or update items in the table_cart_items table
     const mergeOrInsertPromises = items.map(async (item) => {
       const checkItemSql = `
         SELECT quantity FROM table_cart_items
