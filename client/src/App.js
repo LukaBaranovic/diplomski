@@ -73,7 +73,7 @@ function App() {
         if (data.error) {
           alert(data.error);
         } else {
-          alert(`Račun spremljen uspješno! ID: ${data.receiptId}`);
+          //alert(`Račun spremljen uspješno! ID: ${data.receiptId}`);
           setCartItems([]);
         }
       })
@@ -92,7 +92,7 @@ function App() {
         if (data.error) {
           setError(data.error);
         } else {
-          alert(data.message);
+          //alert(data.message);
           setShowCreateTablePopup(false);
           setCartItems([]);
         }
@@ -111,7 +111,7 @@ function App() {
         if (data.error) {
           alert(data.error);
         } else {
-          alert(data.message);
+          //alert(data.message);
           setShowAddToTablePopup(false);
           setCartItems([]);
         }
