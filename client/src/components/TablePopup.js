@@ -140,8 +140,8 @@ const TablePopup = ({ tableNumber, onClose }) => {
   };
 
   const handleCash = () => {
-    if (!window.confirm("Jeste li sigurni da želite finalizirati stol?"))
-      return;
+    //if (!window.confirm("Jeste li sigurni da želite finalizirati stol?"))
+    //  return;
 
     fetch(`/api/cashTable`, {
       method: "POST",
